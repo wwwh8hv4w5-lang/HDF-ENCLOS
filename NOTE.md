@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.1 — note technique
+# HDF : ENCLOS 1.1.2 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -36,6 +36,54 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.1.2 — menu principal, trois sauvegardes, quitter, habitants qui gardent leurs distances
+### Menu principal (bloc « LOT 13 (phase 2) »)
+- **Continuer :** la partie la plus récente, avec son jour, son heure et son lieu.
+- **Nouvelle partie :** on choisit l'un des trois emplacements ; écraser un emplacement plein demande confirmation. La partie démarre à la boucle 1, sans souvenirs.
+- **Charger une partie.**
+- **Options :** son, voix, effacer les souvenirs des boucles.
+- **Quitter.**
+- **À la manette :** ▲▼ pour choisir, Croix pour valider.
+
+### Trois emplacements de sauvegarde
+- **Où :** dans `localStorage`, clés `hdf-enclos-partie-1` à `3`. Chacun affiche le jour, l'heure, le lieu, la boucle, la date réelle et votre maison.
+- **Taille :** environ 540 Ko par partie.
+- **Sauvegarde automatique,** dans l'emplacement en cours : à l'installation, chaque matin à 7 h, au réveil, en revenant au menu et en quittant.
+- **Quand on ne peut pas sauvegarder** (le jeu dit pourquoi) : pendant l'ouverture et le voyage, avant l'installation, pendant un raid, la capture, une conversation, une activité, en dormant, sous terre, au terminal, caché.
+- **Ce qui est sauvegardé :**
+  - horloge, besoins, corps et sac ;
+  - quêtes et vie du hameau (cultures, bois, frais, feux, eau) ;
+  - couples, pouvoir, violence ;
+  - réserve, archives du terminal, portail, mémoire des boucles ;
+  - la mémoire et les relations de History Sens (`hs.save` / `hs.load`) ;
+  - chaque habitant : maison, place au lit, relations, état, position ;
+  - le joueur : position, maison, étage.
+- **Comment on charge :** la page se recharge à neuf, puis l'état est reposé par-dessus. Les objets du moteur (nœuds, personnages) sont gardés ; les tableaux de bêtes et de ressources sont repris élément par élément. Les habitants reprennent ensuite leur journée là où ils étaient.
+- **Vérifié :** sauvegarde, rechargement de la page, chargement. Jour, heure, maison du joueur, besoins, sac, place au lit d'un habitant, relation History Sens entre deux habitants et position du joueur sont identiques.
+
+### Menu de pause
+Reprendre · Son · Voix · Sauvegarder · Charger une partie · Abandonner la boucle · **Menu principal** (sauvegarde automatique, puis retour au menu) · **Quitter le jeu**.
+
+Quitter sauvegarde, coupe le son et ferme l'onglet quand le navigateur le permet. Sinon, un écran noir dit « Partie sauvegardée. Vous pouvez fermer cet onglet. », avec un bouton pour revenir au menu.
+
+### Les habitants gardent leurs distances
+- **En marchant,** chacun garde 80 cm avec celui qui est devant lui (`espaceDevant`). Il ralentit derrière ; si l'autre ne bouge pas, il le contourne par la droite au bout de 0,8 s.
+- **Dans le couloir du train,** on attend son tour.
+- **À la descente,** les départs sont espacés de 1,3 s (avant : 0,9 s).
+- **Mesuré sur le quai :** 68 cm au plus près, aucun contact.
+
+## HDF : ENCLOS 1.1.1 — textes et voix plus rapides
+- **La synthèse vocale** parle 15 % plus vite : débit ×1,1 selon le personnage, de 0,86 à 1,38. Le haut-parleur passe à 1,0 et l'homme du train à 0,94.
+- **Le texte** s'écrit à 17,5 caractères par seconde avec le bruitage (avant : 15), à 14 avec la voix (avant : 12,5).
+- **Les voix d'hommes et de femmes :**
+  - **la reconnaissance du genre,** d'après le nom de la voix, couvre iOS et macOS (Thomas, Daniel, Jacques, Amélie, Aurélie, Marie, Grandma, Grandpa…), Chrome (Google français), Edge (Microsoft Denise, Henri, Paul, Julie…) et Android (`x-fra` et `x-frc` pour les femmes, `x-frb` et `x-frd` pour les hommes) ;
+  - **les voix fantaisie** d'Apple (Bad News, Whisper, Bells…) sont écartées ;
+  - **chaque personnage** prend une voix de son sexe ; au-delà de 64 ans, la voix de grand-mère ou de grand-père si l'appareil l'a ;
+  - **sans voix de son sexe,** il prend une voix de genre inconnu transposée (×1,18 ou ×0,82). En tout dernier recours, une voix de l'autre sexe fortement transposée (×1,45 ou ×0,6), jamais à hauteur normale ;
+  - **testé** avec une liste de voix iPhone : 19 personnages sur 19 ont une voix de leur sexe.
+- **Défaut corrigé :** l'empreinte de chaque personnage (entier non signé) était décalée avec `>>`, qui la rendait négative. Dix personnages sur dix-neuf n'avaient alors aucune voix, et les hauteurs étaient faussées. Corrigé avec `>>>`. Les voix chargées après la première réplique sont maintenant reprises (`VOIXP.gen`).
+- **Le numéro** passe en 1.1.1 ; la 1.2 reste réservée au lot « la vie réelle ».
 
 ## HDF : ENCLOS 1.1 — activités jouables, voyage en train, rassemblement, musique, voix, dialogues façon Skyrim, sommeil, marqueurs PS4, boussole, temps réel
 
@@ -249,7 +297,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1.2**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1.2` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
@@ -823,6 +871,12 @@ Chaque correction faite dans le code porte un commentaire qui commence par `HDF 
 | Scène, `majAction` | Pictogramme PS4 Carré sur le bouton d'action et les marqueurs. Avant : touche E. | — |
 | Scène, `voyageurEnFace` | En face (±45°), 2,6 m, sans mur ni cloison entre les deux (`vueDegagee`). Avant : 2,8 m, ±57°, à travers les murs. | — |
 | Interface | Boussole façon Skyrim en haut de l'écran, avec objectifs et points d'intérêt. Avant : repère d'objectif seul. | — |
+| Scène, `profil`, `parole` (bloc LOT 9) | Textes et voix ~15 % plus rapides. Avant : débit ×0,96, 15 et 12,5 caractères par seconde. | — |
+| Scène, `profil` (bloc LOT 9) | Voix du bon sexe pour chacun ; décalage non signé `>>>` ; profils recalculés quand les voix de l’appareil arrivent. Avant : `>>` rendait l’index négatif (10 personnages sans voix, hauteurs faussées). | — |
+| Scène, `afficherAccueil` | Menu principal (Continuer, Nouvelle partie, Charger, Options, Quitter). Avant : « Commencer » lançait directement. | — |
+| Scène, menu de pause | Sauvegarder, Charger, Menu principal, Quitter le jeu. | — |
+| Scène, `avancer` | Les habitants gardent 80 cm, ralentissent, contournent (`espaceDevant`). Avant : ils se traversaient et se bloquaient au départ. | — |
+| Scène, `lancerDescente` | Départs espacés de 1,3 s. Avant : 0,9 s. | — |
 
 **Règle pour la suite :** toute nouvelle correction reçoit un commentaire `/* HDF BASE : … (avant : …) */` à l'endroit modifié, et une ligne dans ce tableau.
 

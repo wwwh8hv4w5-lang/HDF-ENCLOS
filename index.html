@@ -1,4 +1,4 @@
-<title>HDF : ENCLOS 1.1</title>
+<title>HDF : ENCLOS 1.1.2</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
@@ -305,6 +305,19 @@ body:not(.tactile-ui).marqueur #act{display:none!important}
 .cine #radar,body.enjeu #radar,body.surv #radar{display:none!important}
 #sommeil.occ{inset:auto;left:50%;transform:translateX(-50%);bottom:calc(var(--sb) + 18px);background:rgba(8,7,6,.78);border:1px solid var(--line);border-radius:10px;padding:12px 16px;animation:none}
 #sommeil.occ>div{grid-auto-flow:column;align-items:center;gap:14px}#sommeil.occ #smTexte{margin:0;font:600 15px/1.3 var(--f-b)}
+
+/* PHASE 2 · 1.1.2 — menu principal, emplacements de sauvegarde, quitter */
+.acPanneau{display:grid;gap:9px;width:min(340px,100%);margin:6px auto 0}.acPanneau .chip{justify-content:center;min-height:48px;font-size:16px;padding:10px 18px;display:grid;gap:3px}
+.acPanneau .chip small,.slot small{display:block;font:500 11.5px/1.25 var(--f-b);color:var(--dim);letter-spacing:.02em;text-transform:none}
+.acPrim{background:var(--amber)!important;color:#1a1206!important;border-color:var(--amber)!important}.acPrim small{color:#3a2a10!important}
+.acPanneau .chip:disabled,.slot:disabled{opacity:.42}
+@media (max-height:620px){.acBoite{gap:9px}.acBoite h1{font-size:clamp(34px,7vh,52px)}.acPitch{display:none}.acPanneau .chip{min-height:42px}}
+#slots{position:fixed;inset:0;z-index:45;background:rgba(4,6,9,.72);display:grid;place-items:center;padding:16px}
+.slBoite{width:min(440px,100%);box-sizing:border-box;padding:18px;display:grid;gap:10px}.slBoite h2{margin:0 0 4px;font:700 20px/1.1 var(--f-d);letter-spacing:.06em;text-transform:uppercase;text-align:center;color:var(--ink)}
+.slot{display:grid!important;gap:3px;justify-items:start;text-align:left;padding:12px 14px!important;min-height:64px;font:500 14px/1.3 var(--f-b)!important;letter-spacing:0!important;text-transform:none!important}
+.slot b{font:700 13px/1 var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}.slot i{color:var(--dim)}.slot.conf{border-color:#e05a4a!important}.slot.conf b{color:#ff7a68}
+#slRetour{justify-content:center;min-height:44px}
+#quitte{position:fixed;inset:0;z-index:60;background:#050607;display:grid;place-items:center;text-align:center;padding:20px}#quitte h2{font:700 clamp(36px,8vw,64px)/1 var(--f-d);letter-spacing:.06em;color:var(--ink);margin:0 0 12px}#quitte h2 span{color:var(--amber)}#quitte p{color:var(--dim);font:500 15px/1.4 var(--f-b)}
 </style>
 
 <canvas id="c" tabindex="0" aria-label="HDF BASE 1.0 KIT : vue 3D de l'enceinte"></canvas>
@@ -346,17 +359,24 @@ body:not(.tactile-ui).marqueur #act{display:none!important}
   <button id="mnReprendre" class="chip">Reprendre</button>
   <button id="mnSon" class="chip">Son : activé</button>
   <button id="mnVoix" class="chip">Voix : parlées</button>
+  <button id="mnSauver" class="chip">Sauvegarder</button>
+  <button id="mnCharger" class="chip">Charger une partie</button>
   <button id="mnAbandon" class="chip">Abandonner la boucle · retour au train</button>
+  <button id="mnMenuPrincipal" class="chip">Menu principal</button>
+  <button id="mnQuitter" class="chip">Quitter le jeu</button>
   <div class="mnAide" id="mnAide"></div>
-  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.1 · réservé aux adultes</p>
+  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.1.2 · réservé aux adultes</p>
 </div></div>
 <div id="accueil" hidden><div class="acBoite">
-  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.1</p>
+  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.1.2</p>
   <p class="acAvert"><b>Réservé aux adultes (18 ans et plus).</b> Ce jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs.</p>
   <p class="acPitch">Un billet aller simple pour le Hameau de Feral. Un domaine clos de murs, au milieu d’une forêt sans chemin. Vingt voyageurs. Un train qui revient, certaines nuits. Et chaque matin, une lettre.</p>
-  <div class="acBoutons"><button id="acJouer" class="chip">Commencer</button><button id="acOublier" class="chip" hidden>Effacer les souvenirs et recommencer</button></div>
+  <div id="acMain" class="acPanneau"><button id="acContinuer" class="chip acPrim" hidden>Continuer</button><button id="acNouvelle" class="chip">Nouvelle partie</button><button id="acCharger" class="chip">Charger une partie</button><button id="acOptions" class="chip">Options</button><button id="acQuitter" class="chip">Quitter</button></div>
+  <div id="acPanOptions" class="acPanneau" hidden><button id="acOptSon" class="chip">Son : activé</button><button id="acOptVoix" class="chip">Voix : parlées</button><button id="acOublier" class="chip" hidden>Effacer les souvenirs des boucles</button><button id="acRetour" class="chip">Retour</button><button id="acJouer" class="chip" hidden>Commencer</button></div>
   <p class="acAide" id="acAide"></p>
 </div></div>
+<div id="slots" hidden role="dialog" aria-label="Sauvegardes"><div class="gl slBoite"><h2 id="slTitre">Charger une partie</h2><button id="sl1" class="chip slot"></button><button id="sl2" class="chip slot"></button><button id="sl3" class="chip slot"></button><button id="slRetour" class="chip">Retour</button></div></div>
+<div id="quitte" hidden><div><h2>HDF <span>:</span> ENCLOS</h2><p>Partie sauvegardée. Vous pouvez fermer cet onglet.</p><button id="quRetour" class="chip">Revenir au menu principal</button></div></div>
 <div id="lettre" hidden role="dialog" aria-label="Lettre"><article><h2 id="leTitre"></h2><div id="leTexte"></div><button id="leFermer" class="chip">Replier la lettre</button></article></div>
 <div id="capture" hidden><div id="capLignes"></div></div>
 <div id="cachette" hidden><div><p id="caTexte">Caché</p><button id="caSortir" class="chip">Sortir de la cachette</button></div></div>
@@ -9699,7 +9719,7 @@ const SAC = { niveau: 0, objets: {}, eau: 0 };   // PHASE 2 · LOT 2 : le sac du
 const JEU = { actif: false, def: null, ph: null, ip: -1, scores: [], res: {}, in: {}, prev: {}, clic: null, msg: '', msgT: 0, msgBon: 0, avatar: null, clip: null, eye: null, look: null, face: null, fin: null };   // PHASE 2 · LOT 5 : le mini-jeu en cours
 const RASS = { etat: null, t: 0, i: 0, tl: 0, org: null, parle: null, dernier: null, bastien: null, libres: [], M: null };   // PHASE 2 · LOT 6 : le rassemblement au grand mât
 const VOYAGE = { actif: false, fait: false, t: 0, D: 60, v0: 15, o: 0, annonce: false, reaction: false, son: null, clac: 0, avert: 0 };   // PHASE 2 · 1.1
-const VOIXP = { mode: 'synthese', liste: [], file: [], u: null, prio: 0, limite: 0, pause: 0, coupures: 0, debloque: false, bus: null, osc: null, f: null, g: null, qui: null, avert: 0 };   // PHASE 2 · 1.1
+const VOIXP = { gen: 0, mode: 'synthese', liste: [], file: [], u: null, prio: 0, limite: 0, pause: 0, coupures: 0, debloque: false, bus: null, osc: null, f: null, g: null, qui: null, avert: 0 };   // PHASE 2 · 1.1
 const COUCH = { pool: [], matelas: [], prets: false };   // PHASE 2 · 1.1
 const MUS = { bus: null, voix: {}, cur: null, prochain: 0, pas: 0, accord: 0, stinger: 0, drones: {}, motifs: [], actives: 0 };   // PHASE 2 · 1.1
 const RESERVE = { dedans: false, ouv: 0, anim: 0, saisie: '', stock: 20, bandages: 4, archives: [], preuves: {}, page: 0, coll: [], noeuds: {}, porteColl: null, boite: null };   // PHASE 2 · LOT 3 : la réserve sous le mur
@@ -10426,7 +10446,8 @@ A.onUpdate(dt => { try { majAmbiances(); majPas(dt); majRadio(dt); majFiles(); }
 // Stick gauche : marcher · stick droit : regarder · L3 ou R2 : courir · Croix : agir / valider · Rond : fermer, retour · Carré : État · Triangle : Carnet
 // Options : Menu · croix directionnelle haut/bas : choisir dans un dialogue ou un menu. Chaque bouton relance aussi le son (sonReveil).
 const zm = v => Math.abs(v) < .18 ? 0 : (v - Math.sign(v) * .18) / .82;
-function choixVisibles() { if (!$('menu').hidden) return [...document.querySelectorAll('#menu .mnBoite > button')]; if (!$('choix').hidden) return [...document.querySelectorAll('#chBtns button')]; if (!$('clavier').hidden) return [...document.querySelectorAll('#clavier button')]; if (SURV.actif) return [...document.querySelectorAll('.svBtns button')]; if (!$('sac').hidden) return [...document.querySelectorAll('#sac #sacGrille button, #sac #sacDetail button')]; if (!$('accueil').hidden) return [...document.querySelectorAll('#accueil .acBoutons button:not([hidden])')];
+function choixVisibles() { if (!$('slots').hidden) return [...document.querySelectorAll('#slots .slBoite > button:not(:disabled)')]; if (!$('quitte').hidden) return [$('quRetour')]; if (!$('accueil').hidden) return [...document.querySelectorAll('#accueil .acPanneau:not([hidden]) > button:not([hidden]):not(:disabled)')];   /* 1.1.2 : menu principal et sauvegardes à la manette */
+  if (!$('menu').hidden) return [...document.querySelectorAll('#menu .mnBoite > button')]; if (!$('choix').hidden) return [...document.querySelectorAll('#chBtns button')]; if (!$('clavier').hidden) return [...document.querySelectorAll('#clavier button')]; if (SURV.actif) return [...document.querySelectorAll('.svBtns button')]; if (!$('sac').hidden) return [...document.querySelectorAll('#sac #sacGrille button, #sac #sacDetail button')]; if (!$('accueil').hidden) return [...document.querySelectorAll('#accueil .acBoutons button:not([hidden])')];
   if (DIALOGUE.ouvert) return [...document.querySelectorAll('#dlChoix button')]; if (!$('capture').hidden) return [...document.querySelectorAll('#capture button')]; if (!$('lettre').hidden) return [...document.querySelectorAll('#lettre button')]; return []; }
 function surligner() { const L = choixVisibles(); L.forEach((b, i) => b.classList.toggle('gpSel', GP.actif && i === GP.sel % Math.max(1, L.length))); }
 function boutonManette(i) {   // PHASE 2 : Croix sauter / valider · Carré agir · Rond s'accroupir / retour · Triangle carnet · R1 état · L1 roue (maintenir) · Options menu
@@ -10442,7 +10463,7 @@ function boutonManette(i) {   // PHASE 2 : Croix sauter / valider · Carré agir
   if (i === 1) { if (ROUE.ouverte) { fermerRoue(false); return; } if (!$('sac').hidden) { basculerSac(false); return; } if (!$('lettre').hidden) { $('lettre').hidden = true; return; } if (!$('carnet').hidden) { basculerCarnet(false); return; } if (!$('menu').hidden) { basculerMenu(false); return; } if (DIALOGUE.ouvert) { fermerDialogue(); return; } if (CACHE.lieu) { sortirCachette(); return; } if (!CINE.actif) accroupir(); return; }
   if (i === 5 && $('accueil').hidden && !CINE.actif) { $('bEtat').click(); return; }
   if (i === 3 && $('accueil').hidden && !CINE.actif) { basculerCarnet(); return; }
-  if (i === 9) { if (CINE.attente) { quitterAccueil(); return; } if (CINE.actif) return; basculerMenu(); return; }
+  if (i === 9) { if (CINE.attente) return; if (CINE.actif) return; basculerMenu(); return; }
 }
 function majManette(dt) {
   const P = navigator.getGamepads ? navigator.getGamepads() : []; let g = null; for (const q of P) if (q && q.connected) { g = q; break; }
@@ -12654,6 +12675,7 @@ function majCouvertures() {
 A.onUpdate(() => { try { majCouvertures(); } catch (e) { console.error('couvertures', e); } });
 
 // ---------------------------------------------------------------- LOT 9 (phase 2) — LES VOIXP ET LES DIALOGUES EN GRAND
+// 1.1.1 : texte et voix ~15 % plus rapides (débit synthèse ×1,1 · texte 17,5 car./s · 14 car./s avec la voix).
 // Chaque personnage a sa voix : hauteur, débit, timbre tirés de son sexe, de son âge et de son nom (toujours la même).
 //  · Bruitage : une petite voix synthétique (un seul oscillateur permanent, dont on module la hauteur et le volume) qui « parle » au rythme du texte.
 //  · Synthèse vocale (si l'appareil a une voix française) : la réplique est réellement prononcée, avec la voix de son sexe, son âge, son débit.
@@ -12667,24 +12689,35 @@ A.onUpdate(() => { try { majCouvertures(); } catch (e) { console.error('couvertu
 //  · pendant qu'on parle, la musique baisse en douceur (pas de coupure) et le bruitage se tait (pas de chevauchement).
 try { const m = localStorage.getItem('hdf-enclos-voix'); if (m) VOIXP.mode = m; } catch (e) {}
 const SS = self.speechSynthesis || null;
-const VF = /am[ée]lie|audrey|aur[ée]lie|marie|julie|hortense|denise|c[ée]line|virginie|sandy|shelley|grandma|flo|chantal|sylvie|eloise|vivienne|brigitte|female|femme|google fran/i;
-const VM = /thomas|daniel|nicolas|paul|henri|claude|jacques|eddy|grandpa|reed|rocko|r[ée]mi|antoine|male|homme|mathieu|guillaume|alain|jean|fabrice|olivier/i;
-function chargerVoix() { if (!SS) return; let L = []; try { L = SS.getVoices() || []; } catch (e) {} VOIXP.liste = L.filter(v => /^fr/i.test(v.lang)).sort((a, b) => (/fr[-_]FR/i.test(b.lang) - /fr[-_]FR/i.test(a.lang)) || (b.localService - a.localService)); }
+// Genre des voix de l'appareil, par leur nom (iOS, macOS, Chrome, Edge, Android) ; les voix fantaisie d'Apple sont écartées.
+const VF = /(am[ée]lie|audrey|aur[ée]lie|marie|julie|hortense|denise|c[ée]line|virginie|sandy|shelley|grandma|\bflo\b|chantal|sylvie|[ée]lo[iï]se|vivienne|brigitte|coralie|jos[ée]phine|yvette|ariane|charline|jacqueline|c[ée]leste|\bl[ée]a\b|manon|oc[ée]ane|pauline|agn[èe]s|claire|female|femme|google fran|x-fr[ac]-)/i;
+const VM = /(thomas|daniel|nicolas|\bpaul\b|henri|claude|jacques|eddy|grandpa|\breed\b|rocko|r[ée]m[iy]|antoine|mathieu|guillaume|alain|\bjean\b|fabrice|olivier|maxime|j[ée]r[ôo]me|\byves\b|louis|vincent|arnaud|s[ée]bastien|thierry|g[ée]rard|\bmale\b|homme|x-fr[bd]-)/i;
+const FANTAISIE = /bad news|bells|bubbles|jester|organ|whisper|zarvox|trinoids|albert|bahh|boing|cellos|superstar|wobble|good news|junior|ralph|kathy|fred/i;
+const genreVoix = v => !v ? '?' : VF.test(v.name) ? 'F' : VM.test(v.name) ? 'M' : '?';
+function chargerVoix() { if (!SS) return; let L = []; try { L = SS.getVoices() || []; } catch (e) {} const n0 = VOIXP.liste.length;
+  VOIXP.liste = L.filter(v => /^fr/i.test(v.lang) && !FANTAISIE.test(v.name)).sort((a, b) => (/fr[-_]FR/i.test(b.lang) - /fr[-_]FR/i.test(a.lang)) || (/premium|enhanced|amélior|natural|neural/i.test(b.name) - /premium|enhanced|amélior|natural|neural/i.test(a.name)) || (b.localService - a.localService));
+  if (VOIXP.liste.length !== n0) VOIXP.gen = (VOIXP.gen || 0) + 1; }   // les voix arrivent parfois après la première réplique : chacun recalcule la sienne
+function choisirVoix(sexe, age, h) {   // une voix du bon sexe ; sinon une voix de genre inconnu, sinon (dernier recours) l'autre, fortement transposée
+  const L = VOIXP.liste, ok = L.filter(v => genreVoix(v) === sexe), inconnues = L.filter(v => genreVoix(v) === '?');
+  if (ok.length) { const vieux = age > 64 && ok.filter(v => /grandma|grandpa/i.test(v.name)), jeunes = ok.filter(v => !/grandma|grandpa/i.test(v.name)), P = vieux && vieux.length ? vieux : jeunes.length ? jeunes : ok; return { v: P[(h >>> 7) % P.length], g: 'ok' }; }
+  if (inconnues.length) return { v: inconnues[(h >>> 7) % inconnues.length], g: '?' };
+  return { v: L.length ? L[(h >>> 7) % L.length] : null, g: 'autre' };
+}
 if (SS) { chargerVoix(); try { if (SS.addEventListener) SS.addEventListener('voiceschanged', chargerVoix); else SS.onvoiceschanged = chargerVoix; } catch (e) {} }
 const voixDispo = () => !!SS && VOIXP.liste.length > 0;
 const voixOccupee = () => !!VOIXP.u || VOIXP.file.length > 0 || performance.now() < VOIXP.pause;
 const hashV = s => { let h = 2166136261; for (const ch of String(s)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
 function profil(a) {
-  if (!a || !a.p) return null; if (a._voix) return a._voix; const p = a.p, h = hashV(p.id), F = p.sexe === 'F', vieux = Math.max(0, p.age - 50);
-  const base = F ? 215 + h % 55 - vieux * 1.2 : 112 + h % 38 - vieux * .6, vit = (p.age > 62 ? .86 : p.age < 30 ? 1.07 : 1) * (1 + ((h >> 4) % 9 - 4) * .015);
-  const ok = VOIXP.liste.filter(v => F ? VF.test(v.name) : VM.test(v.name)), neutres = VOIXP.liste.filter(v => !VF.test(v.name) && !VM.test(v.name));
-  const L = ok.length ? ok : neutres.length ? neutres : VOIXP.liste, v = L.length ? L[(h >> 7) % L.length] : null, genre = v ? (VF.test(v.name) ? 'F' : VM.test(v.name) ? 'M' : '?') : '?';
-  let pitch = 1 + ((h >> 11) % 13 - 6) * .018; if (genre !== p.sexe) pitch *= F ? 1.32 : .72; if (p.age > 60) pitch *= .93; if (p.age < 25) pitch *= 1.05;
-  return a._voix = { base, vit, formant: F ? 1500 + h % 400 : 1050 + h % 300, onde: (h >> 5) % 3 ? 'triangle' : 'square', voix: v, pitch: Math.max(.5, Math.min(1.9, pitch)), rate: Math.max(.75, Math.min(1.2, .96 * vit)) };
+  if (!a || !a.p) return null; if (a._voix && a._voixGen === VOIXP.gen) return a._voix; const p = a.p, h = hashV(p.id), F = p.sexe === 'F', vieux = Math.max(0, p.age - 50);
+  const base = F ? 215 + h % 55 - vieux * 1.2 : 112 + h % 38 - vieux * .6, vit = (p.age > 62 ? .86 : p.age < 30 ? 1.07 : 1) * (1 + ((h >>> 4) % 9 - 4) * .015);
+  const c = choisirVoix(p.sexe, p.age, h); let pitch = 1 + ((h >>> 11) % 13 - 6) * .018;
+  if (c.g === '?') pitch *= F ? 1.18 : .82; else if (c.g === 'autre') pitch *= F ? 1.45 : .6;   // jamais une voix de l'autre sexe à hauteur normale
+  if (p.age > 60) pitch *= .93; if (p.age < 25) pitch *= 1.05;
+  a._voixGen = VOIXP.gen; return a._voix = { base, vit, formant: F ? 1500 + h % 400 : 1050 + h % 300, onde: (h >>> 5) % 3 ? 'triangle' : 'square', voix: c.v, pitch: Math.max(.5, Math.min(1.9, pitch)), rate: Math.max(.86, Math.min(1.38, 1.1 * vit)) };
 }
-function profSpecial(qui) {   // l'homme du train, le haut-parleur de la gare
-  if (qui !== 'L’homme' && qui !== 'Haut-parleur') return null; const L = VOIXP.liste, F = qui === 'Haut-parleur', v = (L.filter(v => F ? VF.test(v.name) : VM.test(v.name))[0]) || L[0] || null, bon = v && (F ? VF.test(v.name) : VM.test(v.name));
-  return F ? { base: 235, vit: .88, formant: 1750, onde: 'triangle', voix: v, pitch: bon ? 1.02 : 1.3, rate: .88 } : { base: 88, vit: .82, formant: 900, onde: 'triangle', voix: v, pitch: bon ? .78 : .6, rate: .82 };
+function profSpecial(qui) {   // l'homme du train (voix d'homme grave), le haut-parleur de la gare (voix de femme)
+  if (qui !== 'L’homme' && qui !== 'Haut-parleur') return null; const F = qui === 'Haut-parleur', c = choisirVoix(F ? 'F' : 'M', 45, F ? 3 : 11), k = c.g === 'ok' ? 1 : c.g === '?' ? (F ? 1.18 : .8) : (F ? 1.45 : .6);
+  return F ? { base: 235, vit: .88, formant: 1750, onde: 'triangle', voix: c.v, pitch: 1.02 * k, rate: 1 } : { base: 88, vit: .82, formant: 900, onde: 'triangle', voix: c.v, pitch: .82 * k, rate: .94 };
 }
 function agentNomme(n) { if (!n) return null; return PASSAGERS.liste.find(a => a.p.prenom === n) || PASSAGERS.liste.find(a => nomAffiche(a) === n) || null; }
 function nettoyer(t) { return String(t || '').replace(/\([^)]*\)/g, ' ').replace(/[«»“”"]/g, '').replace(/…/g, ', ').replace(/\s*—\s*/g, ', ').replace(/\bZzz\b/gi, '').replace(/\s+/g, ' ').replace(/^[\s,.;:!?]+/, '').trim(); }
@@ -12750,9 +12783,9 @@ setInterval(() => { if (VOIXP.u || document.hidden || !SON.ctx || !VOIXP.debloqu
 // ---- une réplique : texte écrit au rythme de la voix, bruitage ou synthèse ; renvoie la durée de lecture (s)
 function parole(qui, txt, el, prefixe, dlg) {
   const a = qui && typeof qui === 'object' ? qui : (VOIXP.qui && (!qui || nomAffiche(VOIXP.qui) === qui || VOIXP.qui.p.prenom === qui) ? VOIXP.qui : agentNomme(qui)); VOIXP.qui = null;
-  const prof = a ? profil(a) : profSpecial(qui), dit = nettoyer(txt), cps = 15 * (prof ? prof.vit : 1.15);
+  const prof = a ? profil(a) : profSpecial(qui), dit = nettoyer(txt), cps = 17.5 * (prof ? prof.vit : 1.15);
   const tts = !!(dit && prof && VOIXP.mode === 'synthese' && voixDispo() && !SON.coupe), bruit = !!(dit && prof && !tts && VOIXP.mode !== 'muet');
-  const vitesse = tts ? 12.5 * prof.rate : cps; ecrireTexte(el, prefixe || '', txt, bruit ? prof : null, vitesse);
+  const vitesse = tts ? 14 * prof.rate : cps; ecrireTexte(el, prefixe || '', txt, bruit ? prof : null, vitesse);
   if (tts) dire(dit, prof, dlg ? 2 : 1); return txt.length / vitesse + .9;
 }
 function majBoutonVoix() { const b = $('mnVoix'); if (b) b.textContent = 'Voix : ' + ({ synthese: voixDispo() ? 'parlées' : 'parlées (aucune voix française : bruitage)', bruitage: 'bruitage', muet: 'muettes' }[VOIXP.mode]); }
@@ -12925,10 +12958,131 @@ function majRadar() {
 }
 A.onBeforeRender(() => { try { majRadar(); } catch (e) {} });
 
+// ---------------------------------------------------------------- LOT 13 (phase 2) — MENU PRINCIPAL, TROIS SAUVEGARDES, QUITTER
+// Menu principal : Continuer (la partie la plus récente) · Nouvelle partie (choisir l'emplacement) · Charger · Options (son, voix, effacer les souvenirs) · Quitter.
+// Trois emplacements (localStorage « hdf-enclos-partie-1..3 ») : jour, heure, lieu, boucle, date réelle. Sauvegarde automatique dans l'emplacement en cours
+// à l'installation, chaque matin à 7 h, au réveil, en revenant au menu et en quittant. On ne sauvegarde pas pendant un voyage, un raid, une capture, un dialogue, un mini-jeu,
+// sous terre ou en dormant (le bouton dit pourquoi).
+// Charger : la page repart de zéro (rechargement), puis l'état est reposé par-dessus — aucun reste de la partie précédente.
+// État sauvegardé : horloge, besoins, corps, sac, quêtes et vie du hameau, couples et pouvoir, violence, réserve, archives du terminal, mémoire des boucles,
+// la mémoire et les relations de History Sens (hs.save), chaque habitant (maison, place au lit, relations, état, position), le joueur (position, maison, étage).
+const PARTIE = { slot: 0, cle: n => 'hdf-enclos-partie-' + n, mode: 'charger', confirme: 0, autoJ: -1, charge: false };
+try { const s = +sessionStorage.getItem('hdf-slot'); if (s >= 1 && s <= 3) PARTIE.slot = s; } catch (e) {}
+const ETATS_SAUVES = () => ({ ARR, FOYERS, BESOINS, GARDE_MANGER, EAU, FEU, JOUEUR, SAC, RASS, AMOUR, POUVOIR, VIE, EVASION, BOITE, VIOL, ORGA, CULTURE, BOIS, FRAIS, AUTARCIE, RAPIDE, MALADIE, HORLOGE, MEMOIRE, SECRET, RAID, RESERVE, SURV, PORTAIL });
+const SAUF = { RAID: ['sci'], RESERVE: ['noeuds', 'coll', 'dedans'], SURV: ['actif', 'rapide', 'save'], SECRET: ['noeud', 'dedans'], PORTAIL: ['vantaux', 'barriere', 'noeud'], BOITE: ['noeud'], VIE: ['noeuds'] };
+const aDesRefs = x => x && typeof x === 'object' && Object.values(x).some(y => y && typeof y === 'object' && !Array.isArray(y) && !(y instanceof Set) && !(y instanceof Map) && !ArrayBuffer.isView(y) && Object.getPrototypeOf(y) !== Object.prototype && Object.getPrototypeOf(y) !== null);
+const estPlat = v => v && typeof v === 'object' && (Object.getPrototypeOf(v) === Object.prototype || Object.getPrototypeOf(v) === null);
+function ser(v, vus, sauf) {   // en données JSON : habitants → { $a: id }, Set, Map ; les objets du moteur (nœuds, personnages, contexte audio…) sont laissés de côté
+  if (v == null || typeof v === 'string' || typeof v === 'boolean') return v; if (typeof v === 'number') return Number.isFinite(v) ? v : null; if (typeof v === 'function') return undefined;
+  if (PASSAGERS.liste.includes(v)) return { $a: v.p.id }; if (typeof v !== 'object' || vus.has(v)) return undefined; vus.add(v);
+  if (v instanceof Set) return { $set: [...v].map(x => ser(x, vus)) }; if (v instanceof Map) return { $map: [...v].map(([k, x]) => [ser(k, vus), ser(x, vus)]) };
+  if (ArrayBuffer.isView(v)) return { $ta: Array.from(v) }; if (Array.isArray(v)) return v.map(x => { const r = ser(x, vus); return r === undefined ? null : r; });
+  if (!estPlat(v)) return undefined; const o = {}; for (const k of Object.keys(v)) { if (sauf && sauf.includes(k)) continue; const r = ser(v[k], vus); if (r !== undefined) o[k] = r; } return o;
+}
+function deser(v) {
+  if (v == null || typeof v !== 'object') return v; if (Array.isArray(v)) return v.map(deser);
+  if ('$a' in v) return PASSAGERS.liste.find(a => a.p.id === v.$a) || null; if ('$set' in v) return new Set(v.$set.map(deser)); if ('$map' in v) return new Map(v.$map.map(([k, x]) => [deser(k), deser(x)])); if ('$ta' in v) return v.$ta.slice();
+  const o = {}; for (const k in v) o[k] = deser(v[k]); return o;
+}
+function fusionner(vivant, sauve) {   // on repose les données sur les objets vivants, sans écraser ce qui appartient au moteur
+  for (const k of Object.keys(sauve)) { const s = sauve[k], l = vivant[k];
+    if (l instanceof Set && s && s.$set) { l.clear(); for (const x of s.$set) l.add(deser(x)); continue; }
+    if (l instanceof Map && s && s.$map) { l.clear(); for (const [a, b] of s.$map) l.set(deser(a), deser(b)); continue; }
+    if (l && typeof l === 'object' && !estPlat(l) && !Array.isArray(l) && !ArrayBuffer.isView(l)) continue;   // nœud, personnage… : on garde le vivant
+    if (Array.isArray(l) && Array.isArray(s) && l.length === s.length && l.some(aDesRefs)) { s.forEach((x, i) => { if (estPlat(l[i]) && x && typeof x === 'object' && !Array.isArray(x)) fusionner(l[i], x); else l[i] = deser(x); }); continue; }   // tableau d'objets liés au moteur (bêtes, ressources) : élément par élément
+    if (estPlat(l) && s && typeof s === 'object' && !Array.isArray(s) && !('$a' in s) && !('$set' in s) && !('$map' in s)) { fusionner(l, s); continue; }
+    vivant[k] = deser(s); }
+}
+function pourquoiPasSauver() {
+  if (CINE.actif || CINE.attente) return 'pendant l’ouverture'; if (VOYAGE.actif || !ARR.install || (RASS.etat && RASS.etat !== 'fini')) return 'avant d’être installé au village';
+  if (RAID.etat !== 'aucun') return 'pendant un raid'; if (!$('capture').hidden) return 'pendant la capture'; if (DIALOGUE.ouvert) return 'pendant une conversation'; if (JEU.actif || TEMPS.occupe) return 'pendant une activité';
+  if (TEMPS.dort) return 'en dormant'; if (RESERVE.dedans || SECRET.dedans) return 'sous terre'; if (SURV.actif) return 'au terminal'; if (CACHE.lieu) return 'caché'; return null;
+}
+function etatPartie() {
+  const g = {}; for (const [n, o] of Object.entries(ETATS_SAUVES())) g[n] = ser(o, new Set(), SAUF[n]);
+  const pnj = PASSAGERS.liste.map(a => { const d = {}; for (const k of Object.keys(a)) { if (k === 'c' || k === '_voix' || k === '_voixGen') continue; const r = ser(a[k], new Set([a])); if (r !== undefined) d[k] = r; } return { id: a.p.id, d, pos: Array.from(a.c.pos), yaw: a.c.yaw }; });
+  let hist = null; try { hist = HIST.pret ? HIST.hs.save() : null; } catch (e) {}
+  return { format: 1, version: HDF_VERSION, date: Date.now(), g, METEO_J: ser(METEO_J, new Set()), connus: [...DIALOGUE.connus], joueur: { w: { x: Cm.w.x, z: Cm.w.z, a: Cm.w.a, p: Cm.w.p }, dans: Cm.dans ? { ...Cm.dans } : null, sol: Cm.sol }, pnj, hist,
+    resume: { jour: HORLOGE.jour, min: Math.floor(HORLOGE.min), lieu: (Cm.dans ? (Cm.dans.id === FOYERS.joueur ? 'Votre maison' : (maisonDe(Cm.dans.id) || {}).nom || 'Une maison') : 'Dans le domaine'), boucle: MEMOIRE.boucle, maison: (maisonDe(FOYERS.joueur) || {}).nom || '' } };
+}
+function sauver(n, auto) {
+  n = n || PARTIE.slot; if (!n) return false; const non = pourquoiPasSauver(); if (non) { if (!auto) notifier('Impossible de sauvegarder ' + non + '.'); return false; }
+  try { localStorage.setItem(PARTIE.cle(n), JSON.stringify(etatPartie())); PARTIE.slot = n; try { sessionStorage.setItem('hdf-slot', n); } catch (e) {} if (!auto) notifier('Partie sauvegardée · emplacement ' + n + '.'); else notifier('Sauvegarde automatique.'); return true; }
+  catch (e) { notifier('Sauvegarde impossible : la mémoire du navigateur est pleine ou bloquée.'); return false; }
+}
+function lireSlot(n) { try { return JSON.parse(localStorage.getItem(PARTIE.cle(n)) || 'null'); } catch (e) { return null; } }
+function resumeSlot(n) { const s = lireSlot(n); if (!s || !s.resume) return null; const r = s.resume, h = Math.floor(r.min / 60), m = r.min % 60, d = new Date(s.date);
+  return 'Jour ' + r.jour + ' · ' + h + ' h ' + String(m).padStart(2, '0') + ' · ' + r.lieu + (r.boucle > 1 ? ' · boucle ' + r.boucle : '') + '<small>' + d.toLocaleDateString('fr-FR') + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + (r.maison ? ' · ' + r.maison : '') + '</small>'; }
+function plusRecent() { let b = 0, t = 0; for (let n = 1; n <= 3; n++) { const s = lireSlot(n); if (s && s.date > t) { t = s.date; b = n; } } return b; }
+function chargerSlot(n) { if (!lireSlot(n)) return; try { sessionStorage.setItem('hdf-charger', n); sessionStorage.setItem('hdf-slot', n); location.reload(); return; } catch (e) {} PARTIE.slot = n; appliquerPartie(lireSlot(n)); }
+function appliquerPartie(s) {
+  if (!s || s.format !== 1) { notifier('Sauvegarde illisible.'); return; } PARTIE.charge = true;
+  $('accueil').hidden = true; CINE.attente = false; VOYAGE.fait = true; if (CINE.actif) finCinematique(); VOYAGE.actif = false; sonVoyage(false);
+  const E = ETATS_SAUVES(); for (const n in s.g) if (E[n]) fusionner(E[n], s.g[n]);
+  if (s.METEO_J) METEO_J = deser(s.METEO_J); meteoAppliquee = ''; HORLOGE.dernier = -1; DIALOGUE.connus.clear(); for (const k of s.connus || []) DIALOGUE.connus.add(k);
+  TEMPS.dort = false; TEMPS.occupe = null; TEMPS.k = 1; RAID.etat = 'aucun'; SURV.actif = false; RESERVE.dedans = false; SECRET.dedans = false; CACHE.lieu = null; ARR.etape = 'parti'; RASS.etat = 'fini'; ARR.install = true;
+  TRAIN.noeud.pos[0] = TRAIN.x; TRAIN.noeud.visible = false; const H = PASSAGERS.homme; if (H) { H.cache = true; H.c.visible = false; }
+  if (PORTAIL.etat === 'ferme' || PORTAIL.ouv < .5) fermerPortailArrivee(); try { posePortail(); } catch (e) {}
+  for (const l of HAMEAU.lieux) if (FOYERS.maisons[l.id]) l.occupants = FOYERS.maisons[l.id].concat(l.id === FOYERS.joueur ? ['joueur'] : []);
+  for (const e of s.pnj) { const a = PASSAGERS.liste.find(q => q.p.id === e.id); if (!a) continue; fusionner(a, e.d); a.c.pos = e.pos.slice(); a.c.yaw = e.yaw; a._voix = null;
+    a.chemin = []; a.act = null; a.vaChez = false; a.regard = null; a.peur = 0;
+    if (a.mort || a.etat === 'mort') { a.etat = 'mort'; a.c.play('Lie_Back', { fade: 0 }); continue; } if (a.parti) { a.c.visible = false; continue; }
+    if (a.dedans && INTERIEURS.plan(a.dedans)) { INTERIEURS.ensure(a.dedans); const id = a.dedans; a.dedans = null; entrer(a, a.couche ? 'lit' : null, id); } else { a.dedans = null; a.etat = 'attend'; a.c.pos[1] = hauteurSol(a.c.pos[0], a.c.pos[2]); a.c.play('Idle', { fade: 0, offset: Math.random() * 2 }); } }
+  if (s.hist) { try { assurerHistory(); if (HIST.pret) HIST.hs.load(s.hist); } catch (e) { console.error('history', e); } }
+  const J = s.joueur; Cm.assis = false; Object.assign(Cm.w, J.w); Cm.sol = J.sol || 0; if (J.dans && INTERIEURS.plan(J.dans.id)) { Cm.dans = { ...J.dans }; INTERIEURS.ensure(J.dans.id); INTERIEURS.setInside(J.dans.id); } else { Cm.dans = null; INTERIEURS.setInside(null); }
+  PARTIE.autoJ = HORLOGE.jour; try { majObjetsQuete(); } catch (e) {} try { majAffichageBesoins(true); } catch (e) {} majAction();
+  notifier('Partie chargée · emplacement ' + PARTIE.slot + ' · jour ' + HORLOGE.jour + '.');
+}
+// au démarrage : une partie à charger ?
+(function () { let n = 0; try { n = +sessionStorage.getItem('hdf-charger'); sessionStorage.removeItem('hdf-charger'); } catch (e) {} if (!(n >= 1 && n <= 3)) return; const s = lireSlot(n); if (!s) return; PARTIE.slot = n;
+  const t = setInterval(() => { if (!PASSAGERS.pret || typeof HAMEAU === 'undefined' || !HAMEAU.lieux.length) return; clearInterval(t); try { appliquerPartie(s); } catch (e) { console.error('chargement', e); notifier('Le chargement a échoué : la partie reprend du début.'); } }, 120); })();
+// sauvegardes automatiques
+setInterval(() => { if (!PARTIE.slot || A.skipUpdate) return; const h = HORLOGE.min / 60;
+  if (ARR.install && !PARTIE.premiere && !pourquoiPasSauver()) { PARTIE.premiere = true; if (!PARTIE.charge) sauver(PARTIE.slot, true); }   /* juste installé */
+  if (PARTIE.dormait && !TEMPS.dort && !pourquoiPasSauver()) sauver(PARTIE.slot, true); PARTIE.dormait = TEMPS.dort;   /* au réveil */ if (h >= 7 && h < 8 && PARTIE.autoJ !== HORLOGE.jour && !pourquoiPasSauver()) { PARTIE.autoJ = HORLOGE.jour; sauver(PARTIE.slot, true); } }, 4000);
+// ---- les écrans : menu principal (dans #accueil), emplacements (#slots), quitter (#quitte)
+function panneauAccueil(p) { for (const id of ['acMain', 'acOptions']) $(id).hidden = id !== p; GP.sel = 0; setTimeout(surligner, 30); }
+function majAccueil() {
+  const r = plusRecent(); $('acContinuer').hidden = !r; $('acNouvelle').classList.toggle('acPrim', !r); if (r) $('acContinuer').innerHTML = 'Continuer<small>' + (resumeSlot(r) || '').replace(/<small>.*$/, '') + '</small>';
+  $('acCharger').disabled = !r; $('acOptSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); const v = $('acOptVoix'); if (v) v.textContent = $('mnVoix').textContent; panneauAccueil('acMain');
+}
+function ouvrirSlots(mode) {
+  PARTIE.mode = mode; PARTIE.confirme = 0; const el = $('slots'); el.hidden = false; $('slTitre').textContent = mode === 'nouvelle' ? 'Nouvelle partie · choisir un emplacement' : mode === 'sauver' ? 'Sauvegarder' : 'Charger une partie';
+  for (let n = 1; n <= 3; n++) { const b = $('sl' + n), r = resumeSlot(n); b.innerHTML = '<b>Emplacement ' + n + (n === PARTIE.slot ? ' · en cours' : '') + '</b>' + (r || '<i>Vide</i>'); b.disabled = mode === 'charger' && !r; b.classList.remove('conf'); }
+  GP.sel = 0; setTimeout(surligner, 30);
+}
+function choisirSlot(n) {
+  const plein = !!lireSlot(n);
+  if (PARTIE.mode === 'charger') { chargerSlot(n); return; }
+  if (plein && PARTIE.confirme !== n) { PARTIE.confirme = n; const b = $('sl' + n); b.classList.add('conf'); b.innerHTML = '<b>Écraser l’emplacement ' + n + ' ?</b>Appuyez encore pour confirmer.'; return; }
+  if (PARTIE.mode === 'sauver') { if (sauver(n)) { $('slots').hidden = true; } return; }
+  PARTIE.slot = n; try { localStorage.removeItem(PARTIE.cle(n)); sessionStorage.setItem('hdf-slot', n); } catch (e) {} $('slots').hidden = true;   // nouvelle partie : boucle 1, aucun souvenir
+  Object.assign(MEMOIRE, { boucle: 1, captures: 0, souvenirs: [], personnes: {}, raids: [], lettres: [], echappe: 0 }); sauverMemoire(); $('cineTitre').querySelector('p').textContent = 'Billet aller simple · Le Hameau de Feral'; quitterAccueil();
+}
+function allerMenuPrincipal() { if (PARTIE.slot && !pourquoiPasSauver()) sauver(PARTIE.slot, true); try { sessionStorage.setItem('hdf-menu', '1'); location.reload(); } catch (e) { location.reload(); } }
+function quitterJeu() { if (PARTIE.slot && !pourquoiPasSauver()) sauver(PARTIE.slot, true); basculerMenu(false); $('accueil').hidden = true; $('quitte').hidden = false; arreterVoix(); try { SON.ctx && SON.ctx.suspend(); } catch (e) {} try { window.close(); } catch (e) {} }
+// ---- câblage des boutons
+$('acContinuer').onclick = () => { sonReveil(); chargerSlot(plusRecent()); };
+$('acNouvelle').onclick = () => { sonReveil(); ouvrirSlots('nouvelle'); };
+$('acCharger').onclick = () => { sonReveil(); ouvrirSlots('charger'); };
+$('acOptions').onclick = () => { sonReveil(); panneauAccueil('acPanOptions'); };
+$('acQuitter').onclick = () => quitterJeu();
+$('acOptSon').onclick = () => { sonReveil(); sonCoupe(!SON.coupe); $('acOptSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); };
+$('acOptVoix').onclick = () => { sonReveil(); basculerVoix(); $('acOptVoix').textContent = $('mnVoix').textContent; };
+$('acRetour').onclick = () => panneauAccueil('acMain');
+for (let n = 1; n <= 3; n++) $('sl' + n).onclick = () => choisirSlot(n);
+$('slRetour').onclick = () => { $('slots').hidden = true; GP.sel = 0; };
+$('mnSauver').onclick = () => { const non = pourquoiPasSauver(); if (non) { notifier('Impossible de sauvegarder ' + non + '.'); return; } ouvrirSlots('sauver'); };
+$('mnCharger').onclick = () => ouvrirSlots('charger');
+$('mnMenuPrincipal').onclick = () => allerMenuPrincipal();
+$('mnQuitter').onclick = () => quitterJeu();
+$('quRetour').onclick = () => location.reload();
+addEventListener('keydown', e => { if (e.code === 'Escape' && !$('slots').hidden) { e.preventDefault(); e.stopImmediatePropagation(); $('slots').hidden = true; } }, true);
+
 // ---------------------------------------------------------------- HUD DE JEU — MENU DE PAUSE
 // Échap ou le bouton « Menu » : le jeu se fige (A.skipUpdate), on peut reprendre ou abandonner la boucle (retour au train, la mémoire est gardée, comme une capture sans la séquence).
 function basculerMenu(ouvrir) {
-  const m = $('menu'), o = ouvrir ?? m.hidden; if (o && (CINE.actif || !$('accueil').hidden || !$('capture').hidden)) return;
+  const m = $('menu'), o = ouvrir ?? m.hidden; if (o && (CINE.actif || !$('accueil').hidden || !$('capture').hidden || !$('slots').hidden || !$('quitte').hidden)) return;
   m.hidden = !o; A.skipUpdate = !!o; $('bMenu').setAttribute('aria-pressed', !!o); $('mnSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); majBoutonVoix(); GP.sel = 0;
   if (o) $('mnAide').innerHTML = touch ? '<b>Pouce gauche</b> marcher · <b>glisser</b> regarder<br><b>Bouton</b> agir · <b>État</b> et <b>Carnet</b> en haut à droite' : '<b>ZQSD</b> marcher · <b>Maj</b> courir · <b>glisser</b> regarder<br><b>E</b> agir · <b>B</b> état · <b>J</b> carnet · <b>I</b> sac · <b>Échap</b> menu<br><b>Tab</b> roue · <b>Espace</b> sauter · <b>C</b> s’accroupir<br><b>Manette</b> : Carré agir, L1 roue, Croix sauter, Rond s’accroupir, L3 courir (appuyer une fois), Triangle carnet, L2 sac, R1 état, Options menu';
   else cv.focus({ preventScroll: true });
@@ -12946,6 +13100,7 @@ addEventListener('keydown', e => { if (e.code !== 'Escape' || CINE.actif || CINE
 function afficherAccueil() {
   const n = MEMOIRE.boucle, el = $('accueil'); el.hidden = false; CINE.attente = true;
   $('acJouer').textContent = n > 1 ? 'Continuer · boucle ' + n + (MEMOIRE.echappe ? ' · évadé ' + MEMOIRE.echappe + ' fois' : '') : 'Commencer'; $('acOublier').hidden = n <= 1 && !(MEMOIRE.lettres || []).length;
+  setTimeout(majAccueil, 0);   /* HDF BASE : phase 2 · 1.1.2 — menu principal (avant : « Commencer » lançait directement) */
   $('acAide').innerHTML = touch ? '<b>Pouce gauche</b> marcher · <b>glisser</b> regarder · <b>bouton</b> agir · <b>État</b> et <b>Carnet</b> dans le panneau' : '<b>ZQSD</b> marcher · <b>Maj</b> courir · <b>E</b> agir · <b>B</b> état · <b>J</b> carnet · <b>Tab</b> roue · <b>Espace</b> sauter · <b>C</b> s’accroupir · <b>Échap</b> menu';
 }
 function quitterAccueil() { $('accueil').hidden = true; CINE.attente = false; CINE.t = 0; cv.focus({ preventScroll: true }); sonReveil(); }
@@ -14079,9 +14234,17 @@ function majInstallation(dt) {
 // Accueil (groupe réuni, joueur sur le quai) : salut, deux répliques sous-titrées, il montre le portail. Puis il remonte à bord ; le train repart dès que le joueur
 // n'est plus dans le wagon (sinon : « Terminus, il faut descendre »). Les voyageurs passent le portail et attendent le long de l'allée (installation : lot 8).
 function vers(o, pts, clip) { o.chemin = pts.map(q => q.slice()); o.etat = 'marche'; o.court = clip === 'Run'; o.furtif = clip === 'Crouch_Walk'; o.c.play(clip || 'Walk', { fade: .35 }); }   /* HDF BASE : phase 2 · lot 5 — on court ou on se faufile (vitesse) */
+function espaceDevant(o, dx, dz, d, dt) {   // PHASE 2 · 1.1.2 : garder ses distances (80 cm) ; ralentir derrière quelqu'un, puis le contourner par la droite
+  if (!o.p || o.etat !== 'marche' || d < .01) return 1; const ux = dx / d, uz = dz / d, x = o.c.pos[0], z = o.c.pos[2], ici = o.dedans || null; let g = null, gd = .8;
+  for (const b of PASSAGERS.liste) { if (b === o || b.parti || b.mort || (b.dedans || null) !== ici || b.etat === 'assis') continue; const rx = b.c.pos[0] - x, rz = b.c.pos[2] - z, r = Math.hypot(rx, rz); if (r < gd && r > .01 && (rx * ux + rz * uz) / r > .35) { g = b; gd = r; } }
+  if (!g) { o.gene = 0; return 1; } o.gene = (o.gene || 0) + dt; if (o.gene < .8) return .12;
+  const aBordT = Math.abs(z - GARE.zr) < TRAIN.larg / 2 && o.c.pos[1] > TRAIN.plancher - .5; if (aBordT) return o.gene > 3 ? 1 : .12;   // dans le couloir du train : on attend son tour
+  o.c.pos[0] += uz * .6 * dt; o.c.pos[2] -= ux * .6 * dt; if (o.gene > 4) o.gene = 0; return .55;
+}
 function avancer(o, dt) {                                      // déplacement le long d'o.chemin ; true à l'arrivée
   const P = o.chemin; if (!P || !P.length) return true; const c = o.c, [tx, tz] = P[0], dx = tx - c.pos[0], dz = tz - c.pos[2], d = Math.hypot(dx, dz), st = o.v * (o.c && o.chemin && o.p ? vitesseCorps(o) : 1) * dt;
-  if (d <= st) { c.pos[0] = tx; c.pos[2] = tz; P.shift(); } else { c.pos[0] += dx / d * st; c.pos[2] += dz / d * st; }
+  const sp = st * espaceDevant(o, dx, dz, d, dt);   /* HDF BASE : phase 2 · 1.1.2 — on ralentit derrière quelqu'un, on le contourne s'il ne bouge pas (avant : les habitants se traversaient et se bloquaient au départ) */
+  if (d <= sp) { c.pos[0] = tx; c.pos[2] = tz; P.shift(); } else { c.pos[0] += dx / d * sp; c.pos[2] += dz / d * sp; }
   if (d > .05) { const df = Math.atan2(Math.sin(Math.atan2(dx, dz) - c.yaw), Math.cos(Math.atan2(dx, dz) - c.yaw)); c.yaw += df * Math.min(1, dt * 8); }
   c.pos[1] += (hauteurSol(c.pos[0], c.pos[2]) - c.pos[1]) * Math.min(1, dt * 6);
   return !P.length;
@@ -14122,7 +14285,7 @@ function lancerDescente() {
   ARR.etape = 'descente'; ARR.tEtape = 0; const spots = spotsQuai();
   for (const a of PASSAGERS.liste) a.c.pos = [a.bx, a.by, a.bz];   /* HDF BASE : places recalées sur le train à l'arrêt (avant : cinématique passée puis lever dans la même image → départ à 230 m, dans la forêt) */
   const ordre = PASSAGERS.liste.slice().sort((a, b) => Math.abs(a.place.x - porteDe(a)) - Math.abs(b.place.x - porteDe(b)));
-  ordre.forEach((a, i) => { a.etat = 'attente'; a.delai = .9 * i + Math.random() * .4; a.prochain = cheminDescente(a, spots[i]); a.regard = [HOMME.x, HOMME.z]; });
+  ordre.forEach((a, i) => { a.etat = 'attente'; a.delai = 1.3 * i + Math.random() * .3;   /* 1.1.2 : départs espacés (avant : 0,9 s) */ a.prochain = cheminDescente(a, spots[i]); a.regard = [HOMME.x, HOMME.z]; });
 }
 function scenarioAccueil(dt) {
   ARR.t += dt; const t = ARR.t, H = PASSAGERS.homme;
@@ -14435,7 +14598,7 @@ function finCinematique() {
 }
 $('cinePasser').hidden = true;   /* HDF BASE : phase 2 — plus de bouton « Passer » */
 /* HDF BASE : « Revoir l'ouverture » retiré (outil de développement) */
-addEventListener('keydown', e => { if (CINE.attente) { if (e.code === 'Enter' || e.code === 'Space') { e.preventDefault(); quitterAccueil(); } return; } if (CINE.actif && ['Escape', 'Space', 'Enter', 'Tab'].includes(e.code)) e.preventDefault(); }, true);   /* HDF BASE : phase 2 — l'ouverture ne se passe plus */
+addEventListener('keydown', e => { if (CINE.attente) return;   /* 1.1.2 : au menu principal, Entrée active le bouton choisi */ if (CINE.actif && ['Escape', 'Space', 'Enter', 'Tab'].includes(e.code)) e.preventDefault(); }, true);   /* HDF BASE : phase 2 — l'ouverture ne se passe plus */
 cv.addEventListener('pointerdown', e => { if (CINE.attente) return; if (CINE.actif) e.stopImmediatePropagation(); }, true);
 
 // ---------------------------------------------------------------- entrer, sortir, monter, descendre (comme JOUEURS.trouverAction dans le jeu : téléportation par la porte et l'escalier)
@@ -14497,8 +14660,8 @@ function carte() {
   if ((carteT = (carteT + 1) % 10)) return; const E = ENCEINTE, pied = Cm.mode === 'pied';
   if (pied) { const W = Cm.w, d = W.x > E.x0 + .5 && W.x < E.x1 - .5 && W.z > E.z0 + .5 && W.z < E.z1 - .5; const ou = ouSuisJe(W.x, W.z); etat.textContent = Cm.dans ? 'Maison · ' + (Cm.dans.lv ? 'étage' : 'rez-de-chaussée') : Cm.assis ? 'À bord · assis' : ou === 'voiture 1' ? 'À bord · voiture 1' : ou === 'quai' || ou === 'rampe' ? 'Gare · ' + ou : ou === 'portail et allée' ? 'Devant le portail' : d ? 'Dans le domaine' : 'À pied'; void d; }
 }
-const HDF_VERSION = 'HDF : ENCLOS 1.1';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
-self.HDF = { vueDegagee: a => vueDegagee(a), RADAR, VOYAGE, VOIXP, MUS, COUCH, majVoyage: dt => majVoyage(dt), lancerVoyage: () => lancerVoyage(), parole: (a, b, c, d, e) => parole(a, b, c, d, e), profil: a => profil(a), couchages: id => couchages(id), coucher: (a, id) => coucher(a, id), entrer: (a, r, c) => entrer(a, r, c), maisonDe: id => maisonDe(id), INTERIEURS, quelleMusique: () => quelleMusique(), ancreAction: t => ancreAction(t), JEU, RASS, JEUX, majJeu: dt => majJeu(dt), majRassemblement: dt => majRassemblement(dt), lancerJeu: (d, t, f) => lancerJeu(d, t, f), terminerJeu: a => terminerJeu(a), jeuPour: t => jeuPour(t), occuperDirect: (a, b, c, d) => occuperDirect(a, b, c, d), clipTrajet: (a, b, c) => clipTrajet(a, b, c), sursaut: (x, z, r) => sursaut(x, z, r), sautPNJ: (a, j) => sautPNJ(a, j), lancerRassemblement: () => lancerRassemblement(), repartitionMaisons: () => repartitionMaisons(), installerJoueur: (i, d) => installerJoueur(i, d), RESERVE, SURV, AMOUR, POUVOIR, RS, RSP, descendreReserve: () => descendreReserve(), remonterReserve: () => remonterReserve(), validerCode: () => validerCode(), toucheClavier: k => toucheClavier(k), entrerSurveillance: i => entrerSurveillance(i), quitterSurveillance: () => quitterSurveillance(), aparte: id => aparte(id), lireChronique: i => lireChronique(i), lireLettreCode: () => lireLettreCode(), tirerScientifique: s => tirerScientifique(s), mortParJoueur: (a, w) => mortParJoueur(a, w), convoitise: v => convoitise(v), conseil: () => conseil(), soirAmour: L => soirAmour(L || vivants()), complotDuSoir: () => complotDuSoir(), renversement: () => renversement(), effetsChef: () => effetsChef(), attirance: (a, b) => attirance(a, b), reponseSocial: (a, k) => reponseSocial(a, k), sujetsSocial: a => sujetsSocial(a), reponseArme: (a, k) => reponseArme(a, k), revelerLiaison: (l, c) => revelerLiaison(l, c), actionsReserve: () => actionsReserve(), vivants: () => vivants(), VIE, SAC, OBJETS, QUETES, RECETTES, FRAGMENTS, ST, ajouter: (i, n, s) => ajouter(i, n, s), nb: i => nb(i), actionsVie: () => actionsVie(), actionsStations: () => actionsStations(), lancerQuete: i => lancerQuete(i), avancerQuete: i => avancerQuete(i), basculerSac: (o, g) => basculerSac(o, g), fabriquer: r => fabriquer(r), utiliser: i => utiliser(i), sujetsQuetes: a => sujetsQuetes(a), sujetsVie: a => sujetsVie(a), reponseVie: (a, k) => reponseVie(a, k), reponseQuete: (a, k) => reponseQuete(a, k), objectifs: () => objectifs(), majVieHameau: d => majVieHameau(d), LQ: (k, q) => LQ(k, q), fouiller: (a, b, c) => fouiller(a, b, c), trouverFragment: i => trouverFragment(i), majQuetesLieux: () => majQuetesLieux(), A, Cm, SECRET, JOUEUR, ROUE, entrerSecret: () => entrerSecret(), tenterDescendre: () => tenterDescendre(), sauter: () => sauter(), accroupir: v => accroupir(v), ouvrirRoue: () => ouvrirRoue(), fermerRoue: v => fermerRoue(v), choixRoue: () => choixRoue(), SON, GP, OBJ, sonReveil: () => sonReveil(), sonEvt: t => sonEvt(t), gresillement: g => gresillement(g), lireRecit: i => lireRecit(i), boutonManette: i => boutonManette(i), basculerMenu: o => basculerMenu(o), quitterAccueil: () => quitterAccueil(), EVASION, monterDansLeTrain: () => monterDansLeTrain(), ramasserCarte: () => ramasserCarte(), finEvasion: () => finEvasion(), LETTRES, BOITE, ouvrirBoite: () => ouvrirBoite(), lireLettre: i => lireLettre(i), prochaineLettre: () => prochaineLettre(), VIOL, bagarre: (a, b, m) => bagarre(a, b, m), volDeNuit: () => volDeNuit(), meurtreDeNuit: () => meurtreDeNuit(), decouvrirCorps: () => decouvrirCorps(), enterrer: () => enterrer(), repondreNuit: a => repondreNuit(a), accuser: a => accuser(a), nouvelleBoucle: t => nouvelleBoucle(t), capturerJoueur: t => capturerJoueur(t), reconnaitre: a => reconnaitre(a), RAID, CACHE, MEMOIRE, annoncerRaid: () => annoncerRaid(), lancerFouille: () => lancerFouille(), seCacher: (a, b, c, d, e) => seCacher(a, b, c, d, e), sortirCachette: () => sortirCachette(), actionCachette: (x, z) => actionCachette(x, z), majRaid: dt => majRaid(dt), ORGA, organiserJournee: () => organiserJournee(), partageDuSoir: () => partageDuSoir(), majSommeil: dt => majSommeil(dt), actionTravail: (x, z) => actionTravail(x, z), occuper: (a, b, c, d) => occuper(a, b, c, d), finirOccupation: i => finirOccupation(i), CULTURE, BOIS, FRAIS, AUTARCIE, culture, bois, rations, recolter: (i, q) => recolter(i, q), majCultures: dm => majCultures(dm), HIST, majSaluts: () => majSaluts(), basculerCarnet: o => basculerCarnet(o), donnerRation: a => donnerRation(a), angleVeillee: (a, k) => angleVeillee(a, k), assurerHistory: () => assurerHistory(), rencontre: (a, b) => rencontre(a, b), avisSurLesAutres: a => avisSurLesAutres(a), itineraire: (a, b, c, d) => itineraire(a, b, c, d), PORTAIL_ : PORTAIL, fermerPortail, ouvrirPortail, majPortail: dt => majPortail(dt), FEU, majMeteo, meteo: () => METEO_J, tirerMeteo, evanouir, allumerFeu, BESOINS, majBesoins, TEMPS, MALADIE, GARDE_MANGER, EAU, seaux, phraseBesoin, etatMaison, majJournee: dt => majJournee(dt), sujets: a => sujets(a), reponse: (a, k) => reponse(a, k), rations, actionDispo, agir: () => agir(), dormir, reveiller, pasSimulation, FOYERS_J: FOYERS, DIALOGUE, ouvrirDialogue, choisir, fermerDialogue, voyageurEnFace, HORLOGE, activite, LIBELLE_ACT, FOYERS, RESEAU, itineraire, VOYAGEURS, PASSAGERS, ARR, HOMME, lancerDescente, resetArrivee, majPassagers, CINE, lancerCinematique, finCinematique, COLL, deplacer, ouSuisJe, GARE, TRAIN, hauteurSol, ZONES_MARCHE, zoneMarche, SIEGE0, CHEMINS, OCCUPE, PUITS, PORTAIL, ENCEINTE, MAISONS, LOGIS, INTERIEURS, TABLEAUX, LIBRES, VEG, profondeurForet };
+const HDF_VERSION = 'HDF : ENCLOS 1.1.2';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
+self.HDF = { PARTIE, sauver: (n, a) => sauver(n, a), lireSlot: n => lireSlot(n), etatPartie: () => etatPartie(), appliquerPartie: s => appliquerPartie(s), chargerSlot: n => chargerSlot(n), ouvrirSlots: m => ouvrirSlots(m), choisirSlot: n => choisirSlot(n), espaceDevant: (o, a, b, c, d) => espaceDevant(o, a, b, c, d), vueDegagee: a => vueDegagee(a), RADAR, VOYAGE, VOIXP, MUS, COUCH, majVoyage: dt => majVoyage(dt), lancerVoyage: () => lancerVoyage(), parole: (a, b, c, d, e) => parole(a, b, c, d, e), profil: a => profil(a), couchages: id => couchages(id), coucher: (a, id) => coucher(a, id), entrer: (a, r, c) => entrer(a, r, c), maisonDe: id => maisonDe(id), INTERIEURS, quelleMusique: () => quelleMusique(), ancreAction: t => ancreAction(t), JEU, RASS, JEUX, majJeu: dt => majJeu(dt), majRassemblement: dt => majRassemblement(dt), lancerJeu: (d, t, f) => lancerJeu(d, t, f), terminerJeu: a => terminerJeu(a), jeuPour: t => jeuPour(t), occuperDirect: (a, b, c, d) => occuperDirect(a, b, c, d), clipTrajet: (a, b, c) => clipTrajet(a, b, c), sursaut: (x, z, r) => sursaut(x, z, r), sautPNJ: (a, j) => sautPNJ(a, j), lancerRassemblement: () => lancerRassemblement(), repartitionMaisons: () => repartitionMaisons(), installerJoueur: (i, d) => installerJoueur(i, d), RESERVE, SURV, AMOUR, POUVOIR, RS, RSP, descendreReserve: () => descendreReserve(), remonterReserve: () => remonterReserve(), validerCode: () => validerCode(), toucheClavier: k => toucheClavier(k), entrerSurveillance: i => entrerSurveillance(i), quitterSurveillance: () => quitterSurveillance(), aparte: id => aparte(id), lireChronique: i => lireChronique(i), lireLettreCode: () => lireLettreCode(), tirerScientifique: s => tirerScientifique(s), mortParJoueur: (a, w) => mortParJoueur(a, w), convoitise: v => convoitise(v), conseil: () => conseil(), soirAmour: L => soirAmour(L || vivants()), complotDuSoir: () => complotDuSoir(), renversement: () => renversement(), effetsChef: () => effetsChef(), attirance: (a, b) => attirance(a, b), reponseSocial: (a, k) => reponseSocial(a, k), sujetsSocial: a => sujetsSocial(a), reponseArme: (a, k) => reponseArme(a, k), revelerLiaison: (l, c) => revelerLiaison(l, c), actionsReserve: () => actionsReserve(), vivants: () => vivants(), VIE, SAC, OBJETS, QUETES, RECETTES, FRAGMENTS, ST, ajouter: (i, n, s) => ajouter(i, n, s), nb: i => nb(i), actionsVie: () => actionsVie(), actionsStations: () => actionsStations(), lancerQuete: i => lancerQuete(i), avancerQuete: i => avancerQuete(i), basculerSac: (o, g) => basculerSac(o, g), fabriquer: r => fabriquer(r), utiliser: i => utiliser(i), sujetsQuetes: a => sujetsQuetes(a), sujetsVie: a => sujetsVie(a), reponseVie: (a, k) => reponseVie(a, k), reponseQuete: (a, k) => reponseQuete(a, k), objectifs: () => objectifs(), majVieHameau: d => majVieHameau(d), LQ: (k, q) => LQ(k, q), fouiller: (a, b, c) => fouiller(a, b, c), trouverFragment: i => trouverFragment(i), majQuetesLieux: () => majQuetesLieux(), A, Cm, SECRET, JOUEUR, ROUE, entrerSecret: () => entrerSecret(), tenterDescendre: () => tenterDescendre(), sauter: () => sauter(), accroupir: v => accroupir(v), ouvrirRoue: () => ouvrirRoue(), fermerRoue: v => fermerRoue(v), choixRoue: () => choixRoue(), SON, GP, OBJ, sonReveil: () => sonReveil(), sonEvt: t => sonEvt(t), gresillement: g => gresillement(g), lireRecit: i => lireRecit(i), boutonManette: i => boutonManette(i), basculerMenu: o => basculerMenu(o), quitterAccueil: () => quitterAccueil(), EVASION, monterDansLeTrain: () => monterDansLeTrain(), ramasserCarte: () => ramasserCarte(), finEvasion: () => finEvasion(), LETTRES, BOITE, ouvrirBoite: () => ouvrirBoite(), lireLettre: i => lireLettre(i), prochaineLettre: () => prochaineLettre(), VIOL, bagarre: (a, b, m) => bagarre(a, b, m), volDeNuit: () => volDeNuit(), meurtreDeNuit: () => meurtreDeNuit(), decouvrirCorps: () => decouvrirCorps(), enterrer: () => enterrer(), repondreNuit: a => repondreNuit(a), accuser: a => accuser(a), nouvelleBoucle: t => nouvelleBoucle(t), capturerJoueur: t => capturerJoueur(t), reconnaitre: a => reconnaitre(a), RAID, CACHE, MEMOIRE, annoncerRaid: () => annoncerRaid(), lancerFouille: () => lancerFouille(), seCacher: (a, b, c, d, e) => seCacher(a, b, c, d, e), sortirCachette: () => sortirCachette(), actionCachette: (x, z) => actionCachette(x, z), majRaid: dt => majRaid(dt), ORGA, organiserJournee: () => organiserJournee(), partageDuSoir: () => partageDuSoir(), majSommeil: dt => majSommeil(dt), actionTravail: (x, z) => actionTravail(x, z), occuper: (a, b, c, d) => occuper(a, b, c, d), finirOccupation: i => finirOccupation(i), CULTURE, BOIS, FRAIS, AUTARCIE, culture, bois, rations, recolter: (i, q) => recolter(i, q), majCultures: dm => majCultures(dm), HIST, majSaluts: () => majSaluts(), basculerCarnet: o => basculerCarnet(o), donnerRation: a => donnerRation(a), angleVeillee: (a, k) => angleVeillee(a, k), assurerHistory: () => assurerHistory(), rencontre: (a, b) => rencontre(a, b), avisSurLesAutres: a => avisSurLesAutres(a), itineraire: (a, b, c, d) => itineraire(a, b, c, d), PORTAIL_ : PORTAIL, fermerPortail, ouvrirPortail, majPortail: dt => majPortail(dt), FEU, majMeteo, meteo: () => METEO_J, tirerMeteo, evanouir, allumerFeu, BESOINS, majBesoins, TEMPS, MALADIE, GARDE_MANGER, EAU, seaux, phraseBesoin, etatMaison, majJournee: dt => majJournee(dt), sujets: a => sujets(a), reponse: (a, k) => reponse(a, k), rations, actionDispo, agir: () => agir(), dormir, reveiller, pasSimulation, FOYERS_J: FOYERS, DIALOGUE, ouvrirDialogue, choisir, fermerDialogue, voyageurEnFace, HORLOGE, activite, LIBELLE_ACT, FOYERS, RESEAU, itineraire, VOYAGEURS, PASSAGERS, ARR, HOMME, lancerDescente, resetArrivee, majPassagers, CINE, lancerCinematique, finCinematique, COLL, deplacer, ouSuisJe, GARE, TRAIN, hauteurSol, ZONES_MARCHE, zoneMarche, SIEGE0, CHEMINS, OCCUPE, PUITS, PORTAIL, ENCEINTE, MAISONS, LOGIS, INTERIEURS, TABLEAUX, LIBRES, VEG, profondeurForet };
 })();
 </script>
 <!-- NOTE-INTERNE — HDF BASE 1.0 KIT (issu de HDF WALL v1.0) · 2026-10-28
