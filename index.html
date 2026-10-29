@@ -1,4 +1,4 @@
-<title>HDF : ENCLOS 1.1.2</title>
+<title>HDF : ENCLOS 1.1.3</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
@@ -306,6 +306,9 @@ body:not(.tactile-ui).marqueur #act{display:none!important}
 #sommeil.occ{inset:auto;left:50%;transform:translateX(-50%);bottom:calc(var(--sb) + 18px);background:rgba(8,7,6,.78);border:1px solid var(--line);border-radius:10px;padding:12px 16px;animation:none}
 #sommeil.occ>div{grid-auto-flow:column;align-items:center;gap:14px}#sommeil.occ #smTexte{margin:0;font:600 15px/1.3 var(--f-b)}
 
+/* 1.1.3 — reprise après chargement : un geste avant de lancer la partie (sinon le navigateur refuse les voix) */
+#reprise{position:fixed;inset:0;z-index:46;background:radial-gradient(ellipse at 50% 30%,#1b1f26,#050607 75%);display:grid;place-items:center;padding:20px;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+#reprise>div{display:grid;gap:14px;text-align:center;max-width:520px}#reprise h2{margin:0;font:700 clamp(30px,6vw,54px)/1 var(--f-d);letter-spacing:.06em;color:var(--ink)}#reprise h2 span{color:var(--amber)}#reprise p{margin:0;font:500 15px/1.45 var(--f-b);color:var(--dim)}#reprise .chip{justify-self:center;min-height:52px;padding:12px 26px;font-size:17px;background:var(--amber);color:#1a1206;border-color:var(--amber)}#reprise .chip:disabled{opacity:.5}
 /* PHASE 2 · 1.1.2 — menu principal, emplacements de sauvegarde, quitter */
 .acPanneau{display:grid;gap:9px;width:min(340px,100%);margin:6px auto 0}.acPanneau .chip{justify-content:center;min-height:48px;font-size:16px;padding:10px 18px;display:grid;gap:3px}
 .acPanneau .chip small,.slot small{display:block;font:500 11.5px/1.25 var(--f-b);color:var(--dim);letter-spacing:.02em;text-transform:none}
@@ -365,16 +368,17 @@ body:not(.tactile-ui).marqueur #act{display:none!important}
   <button id="mnMenuPrincipal" class="chip">Menu principal</button>
   <button id="mnQuitter" class="chip">Quitter le jeu</button>
   <div class="mnAide" id="mnAide"></div>
-  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.1.2 · réservé aux adultes</p>
+  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.1.3 · réservé aux adultes</p>
 </div></div>
 <div id="accueil" hidden><div class="acBoite">
-  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.1.2</p>
+  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.1.3</p>
   <p class="acAvert"><b>Réservé aux adultes (18 ans et plus).</b> Ce jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs.</p>
   <p class="acPitch">Un billet aller simple pour le Hameau de Feral. Un domaine clos de murs, au milieu d’une forêt sans chemin. Vingt voyageurs. Un train qui revient, certaines nuits. Et chaque matin, une lettre.</p>
   <div id="acMain" class="acPanneau"><button id="acContinuer" class="chip acPrim" hidden>Continuer</button><button id="acNouvelle" class="chip">Nouvelle partie</button><button id="acCharger" class="chip">Charger une partie</button><button id="acOptions" class="chip">Options</button><button id="acQuitter" class="chip">Quitter</button></div>
   <div id="acPanOptions" class="acPanneau" hidden><button id="acOptSon" class="chip">Son : activé</button><button id="acOptVoix" class="chip">Voix : parlées</button><button id="acOublier" class="chip" hidden>Effacer les souvenirs des boucles</button><button id="acRetour" class="chip">Retour</button><button id="acJouer" class="chip" hidden>Commencer</button></div>
   <p class="acAide" id="acAide"></p>
 </div></div>
+<div id="reprise" hidden role="dialog" aria-label="Reprendre la partie"><div><h2>HDF <span>:</span> ENCLOS</h2><p id="rpInfo">Chargement de la partie…</p><button id="rpBouton" class="chip">Reprendre la partie</button><p>Touchez l’écran, cliquez ou appuyez sur une touche pour reprendre (les voix ont besoin d’un geste).</p></div></div>
 <div id="slots" hidden role="dialog" aria-label="Sauvegardes"><div class="gl slBoite"><h2 id="slTitre">Charger une partie</h2><button id="sl1" class="chip slot"></button><button id="sl2" class="chip slot"></button><button id="sl3" class="chip slot"></button><button id="slRetour" class="chip">Retour</button></div></div>
 <div id="quitte" hidden><div><h2>HDF <span>:</span> ENCLOS</h2><p>Partie sauvegardée. Vous pouvez fermer cet onglet.</p><button id="quRetour" class="chip">Revenir au menu principal</button></div></div>
 <div id="lettre" hidden role="dialog" aria-label="Lettre"><article><h2 id="leTitre"></h2><div id="leTexte"></div><button id="leFermer" class="chip">Replier la lettre</button></article></div>
@@ -9719,7 +9723,7 @@ const SAC = { niveau: 0, objets: {}, eau: 0 };   // PHASE 2 · LOT 2 : le sac du
 const JEU = { actif: false, def: null, ph: null, ip: -1, scores: [], res: {}, in: {}, prev: {}, clic: null, msg: '', msgT: 0, msgBon: 0, avatar: null, clip: null, eye: null, look: null, face: null, fin: null };   // PHASE 2 · LOT 5 : le mini-jeu en cours
 const RASS = { etat: null, t: 0, i: 0, tl: 0, org: null, parle: null, dernier: null, bastien: null, libres: [], M: null };   // PHASE 2 · LOT 6 : le rassemblement au grand mât
 const VOYAGE = { actif: false, fait: false, t: 0, D: 60, v0: 15, o: 0, annonce: false, reaction: false, son: null, clac: 0, avert: 0 };   // PHASE 2 · 1.1
-const VOIXP = { gen: 0, mode: 'synthese', liste: [], file: [], u: null, prio: 0, limite: 0, pause: 0, coupures: 0, debloque: false, bus: null, osc: null, f: null, g: null, qui: null, avert: 0 };   // PHASE 2 · 1.1
+const VOIXP = { gen: 0, mode: 'synthese', liste: [], file: [], u: null, prio: 0, limite: 0, pause: 0, coupures: 0, debloque: false, bloque: false, refus: 0, essai: 0, bus: null, osc: null, f: null, g: null, qui: null, avert: 0 };   // PHASE 2 · 1.1
 const COUCH = { pool: [], matelas: [], prets: false };   // PHASE 2 · 1.1
 const MUS = { bus: null, voix: {}, cur: null, prochain: 0, pas: 0, accord: 0, stinger: 0, drones: {}, motifs: [], actives: 0 };   // PHASE 2 · 1.1
 const RESERVE = { dedans: false, ouv: 0, anim: 0, saisie: '', stock: 20, bandages: 4, archives: [], preuves: {}, page: 0, coll: [], noeuds: {}, porteColl: null, boite: null };   // PHASE 2 · LOT 3 : la réserve sous le mur
@@ -10451,7 +10455,8 @@ function choixVisibles() { if (!$('slots').hidden) return [...document.querySele
   if (DIALOGUE.ouvert) return [...document.querySelectorAll('#dlChoix button')]; if (!$('capture').hidden) return [...document.querySelectorAll('#capture button')]; if (!$('lettre').hidden) return [...document.querySelectorAll('#lettre button')]; return []; }
 function surligner() { const L = choixVisibles(); L.forEach((b, i) => b.classList.toggle('gpSel', GP.actif && i === GP.sel % Math.max(1, L.length))); }
 function boutonManette(i) {   // PHASE 2 : Croix sauter / valider · Carré agir · Rond s'accroupir / retour · Triangle carnet · R1 état · L1 roue (maintenir) · Options menu
-  sonReveil(); if (JEU.actif) return; const L = choixVisibles();
+  sonReveil(); if (REPRISE && REPRISE.actif) { if (i === 0 || i === 9) reprendrePartie(); return; }   /* 1.1.3 : écran de reprise (Croix / Options) — la manette ne compte pas comme geste pour les voix : elles partiront au premier toucher */
+  if (JEU.actif) return; const L = choixVisibles();
   if (SURV.actif && (i === 14 || i === 15)) { entrerSurveillance(SURV.i + (i === 15 ? 1 : -1)); return; } if (SURV.actif && i === 1) { quitterSurveillance(); return; } if (!$('clavier').hidden && i === 1) { fermerClavier(); return; }   /* PHASE 2 · LOT 3 */
   if (i === 4) { ouvrirRoue(); return; }
   if (i === 6 && $('accueil').hidden && !CINE.actif) { basculerSac(); return; }   /* PHASE 2 · LOT 2 : L2 sac */
@@ -12754,15 +12759,22 @@ function dire(texte, prof, prio) {
   else if (VOIXP.prio >= 2 && DIALOGUE.ouvert) return;                                    // pendant un dialogue, les conversations voisines ne sont pas prononcées
   if (VOIXP.file.length > 2) VOIXP.file.splice(0, VOIXP.file.length - 2); VOIXP.file.push({ texte, prof, prio, t: now });
 }
-function parlerSuivant() {
-  const now = performance.now(); if (!SS) return;
-  if (VOIXP.u) { if (now > VOIXP.limite) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = now + 250; } return; }
-  if (now < VOIXP.pause) return; const e = VOIXP.file.shift(); if (!e) return; if (e.prio < 2 && now - e.t > 8000) return;
-  if (VOIXP.mode !== 'synthese' || SON.coupe || !voixDispo()) return;
+function parlerSuivant(geste) {   // 1.1.3 : « geste » = appelé dans un toucher / clic / touche (la réplique est alors prononcée dans le geste même : déblocage sûr sur iOS)
+  const now = performance.now(); if (!SS) return false;
+  if (VOIXP.u) { if (now > VOIXP.limite) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = now + 250; } return false; }
+  if (now < VOIXP.pause) return false; if (VOIXP.bloque && !geste && now < VOIXP.essai) return false;   // refusé faute de geste : on attend le geste (nouvel essai toutes les 2 s)
+  const e = VOIXP.file.shift(); if (!e) return false; if (e.prio < 2 && now - e.t > 8000) return false;
+  if (VOIXP.mode !== 'synthese' || SON.coupe || !voixDispo()) return false;
   const u = new SpeechSynthesisUtterance(e.texte); u.lang = (e.prof.voix && e.prof.voix.lang) || 'fr-FR'; if (e.prof.voix) u.voice = e.prof.voix; u.pitch = e.prof.pitch; u.rate = e.prof.rate; u.volume = Math.max(.1, Math.min(1, SON.volume ?? 1));
-  const fin = () => { if (VOIXP.u !== u) return; VOIXP.u = null; VOIXP.pause = performance.now() + 140; setTimeout(verifierSon, 60); };
+  const fin = ev => { if (VOIXP.u !== u) return; VOIXP.u = null; const err = ev && ev.type === 'error' ? ev.error || 'inconnue' : '';   // nos propres annulations ont déjà retiré VOIXP.u : elles n'arrivent jamais ici
+    if (err === 'not-allowed') {   // 1.1.3 : le navigateur refuse de parler sans geste (après un rechargement surtout) : la réplique est remise en tête de file, pas perdue
+      VOIXP.bloque = true; VOIXP.debloque = false; VOIXP.essai = performance.now() + 2000; VOIXP.refus++; if (!e.essais || e.essais < 6) { e.essais = (e.essais || 0) + 1; VOIXP.file.unshift(e); }
+      if (VOIXP.refus >= 3 && performance.now() > VOIXP.avert) { VOIXP.avert = performance.now() + 30000; notifier('Touchez l’écran pour activer les voix.'); } return; }   // pas compté comme coupure du son
+    if ((err === 'interrupted' || err === 'canceled') && !e.rejoue) { e.rejoue = true; e.t = performance.now(); VOIXP.file.unshift(e); VOIXP.pause = performance.now() + 220; return; }   // interrompue par l'appareil (pas par nous) : rejouée une fois
+    if (!err) { VOIXP.refus = 0; VOIXP.bloque = false; } VOIXP.pause = performance.now() + 140; setTimeout(verifierSon, 60); };
+  u.onstart = () => { VOIXP.refus = 0; VOIXP.bloque = false; VOIXP.debloque = true; };
   u.onend = fin; u.onerror = fin; VOIXP.u = u; VOIXP.prio = e.prio; VOIXP.limite = now + (e.texte.length / (13 * u.rate)) * 2200 + 4000;
-  try { SS.speak(u); } catch (err) { VOIXP.u = null; }
+  try { SS.speak(u); } catch (err) { VOIXP.u = null; return false; } return true;
 }
 setInterval(() => { try { parlerSuivant(); } catch (e) { VOIXP.u = null; } }, 90);
 function arreterVoix() { VOIXP.file.length = 0; if (VOIXP.u) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = performance.now() + 180; } }
@@ -12773,8 +12785,10 @@ function verifierSon() {   // Safari : après la synthèse vocale, le contexte a
     else if (performance.now() > VOIXP.avert) { VOIXP.avert = performance.now() + 30000; notifier('Son en pause · touchez l’écran ou cliquez pour le réactiver.'); } }, 700);
 }
 // ---- le geste qui débloque (Safari) : une réplique muette, puis le contexte audio relancé dans le même geste
-function gesteSon() {
-  if (SS && !VOIXP.debloque && VOIXP.mode === 'synthese') { VOIXP.debloque = true; try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; u.lang = 'fr-FR'; SS.speak(u); } catch (e) {} }
+function gesteSon() {   // 1.1.3 : s'il y a une réplique en attente (refusée ou pas encore dite), elle est prononcée tout de suite, dans le geste ; sinon un « . » muet débloque
+  if (SS && VOIXP.mode === 'synthese' && (!VOIXP.debloque || VOIXP.bloque)) { VOIXP.debloque = true; VOIXP.bloque = false; VOIXP.essai = 0; let ok = false;
+    if (VOIXP.file.length && !VOIXP.u && !SON.coupe && voixDispo() && performance.now() >= VOIXP.pause) { try { ok = parlerSuivant(true); } catch (e) { ok = false; } }
+    if (!ok) { try { const u = new SpeechSynthesisUtterance('.'); u.volume = 0; u.rate = 2; u.lang = 'fr-FR'; SS.speak(u); } catch (e) {} VOIXP.pause = Math.max(VOIXP.pause, performance.now() + 120); } }   // « . » plutôt qu'une espace : certains moteurs ignorent un énoncé vide (pas de déblocage)
   try { const C = SON.ctx; if (C && C.state !== 'running') { const p = C.resume(); if (p && p.catch) p.catch(() => {}); } } catch (e) {}
 }
 for (const ev of ['touchend', 'click', 'keydown', 'mouseup']) addEventListener(ev, gesteSon, { passive: true, capture: true });
@@ -13034,8 +13048,17 @@ function appliquerPartie(s) {
   notifier('Partie chargée · emplacement ' + PARTIE.slot + ' · jour ' + HORLOGE.jour + '.');
 }
 // au démarrage : une partie à charger ?
+// 1.1.3 : après le rechargement de « Continuer » / « Charger », le geste du joueur est perdu ; sans geste, le navigateur refuse les voix de synthèse.
+// On garde le rechargement (état propre, éprouvé en 1.1.2) mais la partie chargée ne démarre qu'après un toucher, un clic ou une touche (écran #reprise).
+var REPRISE = { actif: false, pret: false, voulu: false, s: null };
+function reprendrePartie() { if (!REPRISE.actif) return; REPRISE.voulu = true; if (!REPRISE.pret) { $('rpInfo').textContent = 'Chargement de la partie… elle reprendra toute seule.'; return; }
+  REPRISE.actif = false; $('reprise').hidden = true; sonReveil(); try { appliquerPartie(REPRISE.s); } catch (e) { console.error('chargement', e); notifier('Le chargement a échoué : la partie reprend du début.'); } }
+$('reprise').addEventListener('click', reprendrePartie);
+addEventListener('keydown', e => { if (!REPRISE.actif || e.repeat) return; e.preventDefault(); e.stopImmediatePropagation(); reprendrePartie(); }, true);
 (function () { let n = 0; try { n = +sessionStorage.getItem('hdf-charger'); sessionStorage.removeItem('hdf-charger'); } catch (e) {} if (!(n >= 1 && n <= 3)) return; const s = lireSlot(n); if (!s) return; PARTIE.slot = n;
-  const t = setInterval(() => { if (!PASSAGERS.pret || typeof HAMEAU === 'undefined' || !HAMEAU.lieux.length) return; clearInterval(t); try { appliquerPartie(s); } catch (e) { console.error('chargement', e); notifier('Le chargement a échoué : la partie reprend du début.'); } }, 120); })();
+  REPRISE.actif = true; REPRISE.s = s; $('reprise').hidden = false; $('rpBouton').disabled = true;
+  const t = setInterval(() => { if (!PASSAGERS.pret || typeof HAMEAU === 'undefined' || !HAMEAU.lieux.length) return; clearInterval(t); REPRISE.pret = true; $('rpBouton').disabled = false;
+    let r = ''; try { r = (resumeSlot(n) || '').replace(/<small>.*$/, ''); } catch (e) {} $('rpInfo').textContent = 'Partie prête · emplacement ' + n + (r ? ' · ' + r : '') + '.'; if (REPRISE.voulu) reprendrePartie(); }, 120); })();
 // sauvegardes automatiques
 setInterval(() => { if (!PARTIE.slot || A.skipUpdate) return; const h = HORLOGE.min / 60;
   if (ARR.install && !PARTIE.premiere && !pourquoiPasSauver()) { PARTIE.premiere = true; if (!PARTIE.charge) sauver(PARTIE.slot, true); }   /* juste installé */
@@ -14660,7 +14683,7 @@ function carte() {
   if ((carteT = (carteT + 1) % 10)) return; const E = ENCEINTE, pied = Cm.mode === 'pied';
   if (pied) { const W = Cm.w, d = W.x > E.x0 + .5 && W.x < E.x1 - .5 && W.z > E.z0 + .5 && W.z < E.z1 - .5; const ou = ouSuisJe(W.x, W.z); etat.textContent = Cm.dans ? 'Maison · ' + (Cm.dans.lv ? 'étage' : 'rez-de-chaussée') : Cm.assis ? 'À bord · assis' : ou === 'voiture 1' ? 'À bord · voiture 1' : ou === 'quai' || ou === 'rampe' ? 'Gare · ' + ou : ou === 'portail et allée' ? 'Devant le portail' : d ? 'Dans le domaine' : 'À pied'; void d; }
 }
-const HDF_VERSION = 'HDF : ENCLOS 1.1.2';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
+const HDF_VERSION = 'HDF : ENCLOS 1.1.3';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
 self.HDF = { PARTIE, sauver: (n, a) => sauver(n, a), lireSlot: n => lireSlot(n), etatPartie: () => etatPartie(), appliquerPartie: s => appliquerPartie(s), chargerSlot: n => chargerSlot(n), ouvrirSlots: m => ouvrirSlots(m), choisirSlot: n => choisirSlot(n), espaceDevant: (o, a, b, c, d) => espaceDevant(o, a, b, c, d), vueDegagee: a => vueDegagee(a), RADAR, VOYAGE, VOIXP, MUS, COUCH, majVoyage: dt => majVoyage(dt), lancerVoyage: () => lancerVoyage(), parole: (a, b, c, d, e) => parole(a, b, c, d, e), profil: a => profil(a), couchages: id => couchages(id), coucher: (a, id) => coucher(a, id), entrer: (a, r, c) => entrer(a, r, c), maisonDe: id => maisonDe(id), INTERIEURS, quelleMusique: () => quelleMusique(), ancreAction: t => ancreAction(t), JEU, RASS, JEUX, majJeu: dt => majJeu(dt), majRassemblement: dt => majRassemblement(dt), lancerJeu: (d, t, f) => lancerJeu(d, t, f), terminerJeu: a => terminerJeu(a), jeuPour: t => jeuPour(t), occuperDirect: (a, b, c, d) => occuperDirect(a, b, c, d), clipTrajet: (a, b, c) => clipTrajet(a, b, c), sursaut: (x, z, r) => sursaut(x, z, r), sautPNJ: (a, j) => sautPNJ(a, j), lancerRassemblement: () => lancerRassemblement(), repartitionMaisons: () => repartitionMaisons(), installerJoueur: (i, d) => installerJoueur(i, d), RESERVE, SURV, AMOUR, POUVOIR, RS, RSP, descendreReserve: () => descendreReserve(), remonterReserve: () => remonterReserve(), validerCode: () => validerCode(), toucheClavier: k => toucheClavier(k), entrerSurveillance: i => entrerSurveillance(i), quitterSurveillance: () => quitterSurveillance(), aparte: id => aparte(id), lireChronique: i => lireChronique(i), lireLettreCode: () => lireLettreCode(), tirerScientifique: s => tirerScientifique(s), mortParJoueur: (a, w) => mortParJoueur(a, w), convoitise: v => convoitise(v), conseil: () => conseil(), soirAmour: L => soirAmour(L || vivants()), complotDuSoir: () => complotDuSoir(), renversement: () => renversement(), effetsChef: () => effetsChef(), attirance: (a, b) => attirance(a, b), reponseSocial: (a, k) => reponseSocial(a, k), sujetsSocial: a => sujetsSocial(a), reponseArme: (a, k) => reponseArme(a, k), revelerLiaison: (l, c) => revelerLiaison(l, c), actionsReserve: () => actionsReserve(), vivants: () => vivants(), VIE, SAC, OBJETS, QUETES, RECETTES, FRAGMENTS, ST, ajouter: (i, n, s) => ajouter(i, n, s), nb: i => nb(i), actionsVie: () => actionsVie(), actionsStations: () => actionsStations(), lancerQuete: i => lancerQuete(i), avancerQuete: i => avancerQuete(i), basculerSac: (o, g) => basculerSac(o, g), fabriquer: r => fabriquer(r), utiliser: i => utiliser(i), sujetsQuetes: a => sujetsQuetes(a), sujetsVie: a => sujetsVie(a), reponseVie: (a, k) => reponseVie(a, k), reponseQuete: (a, k) => reponseQuete(a, k), objectifs: () => objectifs(), majVieHameau: d => majVieHameau(d), LQ: (k, q) => LQ(k, q), fouiller: (a, b, c) => fouiller(a, b, c), trouverFragment: i => trouverFragment(i), majQuetesLieux: () => majQuetesLieux(), A, Cm, SECRET, JOUEUR, ROUE, entrerSecret: () => entrerSecret(), tenterDescendre: () => tenterDescendre(), sauter: () => sauter(), accroupir: v => accroupir(v), ouvrirRoue: () => ouvrirRoue(), fermerRoue: v => fermerRoue(v), choixRoue: () => choixRoue(), SON, GP, OBJ, sonReveil: () => sonReveil(), sonEvt: t => sonEvt(t), gresillement: g => gresillement(g), lireRecit: i => lireRecit(i), boutonManette: i => boutonManette(i), basculerMenu: o => basculerMenu(o), quitterAccueil: () => quitterAccueil(), EVASION, monterDansLeTrain: () => monterDansLeTrain(), ramasserCarte: () => ramasserCarte(), finEvasion: () => finEvasion(), LETTRES, BOITE, ouvrirBoite: () => ouvrirBoite(), lireLettre: i => lireLettre(i), prochaineLettre: () => prochaineLettre(), VIOL, bagarre: (a, b, m) => bagarre(a, b, m), volDeNuit: () => volDeNuit(), meurtreDeNuit: () => meurtreDeNuit(), decouvrirCorps: () => decouvrirCorps(), enterrer: () => enterrer(), repondreNuit: a => repondreNuit(a), accuser: a => accuser(a), nouvelleBoucle: t => nouvelleBoucle(t), capturerJoueur: t => capturerJoueur(t), reconnaitre: a => reconnaitre(a), RAID, CACHE, MEMOIRE, annoncerRaid: () => annoncerRaid(), lancerFouille: () => lancerFouille(), seCacher: (a, b, c, d, e) => seCacher(a, b, c, d, e), sortirCachette: () => sortirCachette(), actionCachette: (x, z) => actionCachette(x, z), majRaid: dt => majRaid(dt), ORGA, organiserJournee: () => organiserJournee(), partageDuSoir: () => partageDuSoir(), majSommeil: dt => majSommeil(dt), actionTravail: (x, z) => actionTravail(x, z), occuper: (a, b, c, d) => occuper(a, b, c, d), finirOccupation: i => finirOccupation(i), CULTURE, BOIS, FRAIS, AUTARCIE, culture, bois, rations, recolter: (i, q) => recolter(i, q), majCultures: dm => majCultures(dm), HIST, majSaluts: () => majSaluts(), basculerCarnet: o => basculerCarnet(o), donnerRation: a => donnerRation(a), angleVeillee: (a, k) => angleVeillee(a, k), assurerHistory: () => assurerHistory(), rencontre: (a, b) => rencontre(a, b), avisSurLesAutres: a => avisSurLesAutres(a), itineraire: (a, b, c, d) => itineraire(a, b, c, d), PORTAIL_ : PORTAIL, fermerPortail, ouvrirPortail, majPortail: dt => majPortail(dt), FEU, majMeteo, meteo: () => METEO_J, tirerMeteo, evanouir, allumerFeu, BESOINS, majBesoins, TEMPS, MALADIE, GARDE_MANGER, EAU, seaux, phraseBesoin, etatMaison, majJournee: dt => majJournee(dt), sujets: a => sujets(a), reponse: (a, k) => reponse(a, k), rations, actionDispo, agir: () => agir(), dormir, reveiller, pasSimulation, FOYERS_J: FOYERS, DIALOGUE, ouvrirDialogue, choisir, fermerDialogue, voyageurEnFace, HORLOGE, activite, LIBELLE_ACT, FOYERS, RESEAU, itineraire, VOYAGEURS, PASSAGERS, ARR, HOMME, lancerDescente, resetArrivee, majPassagers, CINE, lancerCinematique, finCinematique, COLL, deplacer, ouSuisJe, GARE, TRAIN, hauteurSol, ZONES_MARCHE, zoneMarche, SIEGE0, CHEMINS, OCCUPE, PUITS, PORTAIL, ENCEINTE, MAISONS, LOGIS, INTERIEURS, TABLEAUX, LIBRES, VEG, profondeurForet };
 })();
 </script>

@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.1.2 — note technique
+# HDF : ENCLOS 1.1.3 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -36,6 +36,29 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.1.3 — voix
+
+**Le problème.** Les voix de synthèse se taisaient parfois, surtout après « Continuer » ou « Charger ». Ces deux boutons rechargent la page. Après un rechargement, le navigateur n'a encore reçu aucun geste, et Chrome comme Safari refusent alors de parler (erreur `not-allowed`).
+
+**Cause trouvée dans le code 1.1.2.** Une réplique refusée était jetée. Le déblocage au geste suivant ne prononçait qu'une espace muette, donc la réplique en cours n'était jamais dite.
+
+**Ce qui a changé (bloc « VOIX DE SYNTHÈSE »).**
+- Une réplique refusée (`not-allowed`) est remise en tête de file. Le jeu note que les voix sont bloquées, puis retente toutes les 2 s, et au plus tard au premier geste. Un refus ne compte pas comme une coupure du son.
+- Une réplique interrompue par l'appareil (`interrupted` ou `canceled` qui ne vient pas du jeu) est redite une fois. Une réplique que le jeu annule lui-même, par exemple quand une nouvelle réplique de dialogue la remplace, n'est pas redite.
+- Au premier toucher, clic ou touche, la réplique en attente est dite tout de suite, dans le geste même, ce qui est le plus sûr sur iOS. S'il n'y a rien en attente, le jeu dit un « . » à volume 0 : une espace seule est ignorée par certains moteurs.
+- Après trois refus de suite, le jeu affiche « Touchez l'écran pour activer les voix », au plus une fois toutes les 30 s.
+- **Écran « Reprendre la partie » (`#reprise`) après un rechargement venant de Continuer ou Charger.** La partie se prépare derrière l'écran, puis attend un toucher, un clic ou une touche pour démarrer. Ce geste débloque les voix et le son avant la première réplique. Nous avons gardé le rechargement de page, déjà éprouvé en 1.1.2, plutôt que de charger la partie sans recharger. C'est le changement le moins risqué. La manette ne compte pas comme un geste pour le navigateur : Croix ou Options ferment l'écran, mais les voix attendront alors un toucher, un clic ou une touche.
+
+**Ce qui a été vérifié (Chromium sans écran, synthèse vocale simulée).**
+- En 1.1.2, une réplique dite avant tout geste est perdue. En 1.1.3, elle est redite au premier clic.
+- Le déroulé normal fonctionne : une voix de femme ou d'homme selon le personnage, une réplique à la fois.
+- Une annulation volontaire n'est pas redite. Une interruption par l'appareil est redite une fois.
+- Après des refus répétés, la notification s'affiche.
+- Après un rechargement « Charger », l'écran de reprise s'affiche, la réplique refusée est dite au clic et la partie reprend sur le bon emplacement.
+- Aucune erreur JavaScript.
+
+**Ce qui n'a pas été vérifié.** Les vraies voix, l'iPad et Safari, et la manette. Que cette cause soit bien celle des silences observés sur l'appareil reste une hypothèse : elle est confirmée par la simulation, pas sur un vrai appareil.
 
 ## HDF : ENCLOS 1.1.2 — menu principal, trois sauvegardes, quitter, habitants qui gardent leurs distances
 ### Menu principal (bloc « LOT 13 (phase 2) »)
@@ -297,7 +320,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1.2**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1.2` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1.3**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
