@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.0 — note technique
+# HDF : ENCLOS 1.1 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -13,8 +13,8 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le dit avant de jouer.
 
 **La boucle de jeu.**
-1. **Écran d'accueil**, puis la cinématique d'ouverture.
-2. **L'arrivée :** on se réveille dans le train parmi 19 voyageurs, on descend, l'homme du portail accueille le groupe, puis le portail se referme derrière vous. Chacun s'installe dans les sept maisons.
+1. **Écran d'accueil**, carton titre, puis **une minute de voyage dans le train** (1.1) : « Le Hameau de Feral, tout le monde descend. »
+2. **L'arrivée :** le train s'arrête à quai parmi 19 voyageurs, on descend, l'homme accueille le groupe, puis le portail se referme derrière vous. Tout le monde se retrouve au grand mât, discute, puis se répartit les sept maisons ; on vous en propose une (1.1).
 3. **Survivre** (lots 11 à 14) : faim, soif, fatigue, hygiène, froid, maladie ; boire, manger, dormir, se laver, faire du feu.
 4. **Le village vit seul** (lots 6 à 19) : emplois du temps, repas, veillée au mât, potagers qui poussent, bois, puits qui s'use. Le travail se répartit chaque matin, et l'on partage le soir. History Sens gère les relations, les présentations, les discussions, les ragots, les amitiés et les brouilles.
 5. **La violence** (lot 22) : bagarres, vols de nuit, meurtres, soupçons, tombes. On peut enquêter et accuser.
@@ -37,9 +37,219 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 
 La cible était d'environ 500 000 triangles.
 
-## HDF : ENCLOS 1.0 — le nom et le numéro de version
+## HDF : ENCLOS 1.1 — activités jouables, voyage en train, rassemblement, musique, voix, dialogues façon Skyrim, sommeil, marqueurs PS4, boussole, temps réel
 
-Le jeu s'appelle désormais **HDF : ENCLOS 1.0**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.0` (le deux-points est interdit dans les noms de fichiers).
+### Les activités se jouent (bloc « LOT 5 (phase 2) — ACTIVITÉS JOUABLES »)
+Toute occupation passe d'abord par un mini-jeu propre à l'activité (`occuper` → `lancerJeu` → `occuperDirect`).
+
+Pendant le mini-jeu :
+- **Le personnage :** celui du joueur apparaît, filmé de trois quarts, et fait le geste (animations Joe). Il regarde ce qu'il travaille : la bûche, la mare, le four, la vache…
+- **Le score (0 à 100 %) :** il règle ce que l'activité rapporte. Selon l'activité :
+  - il multiplie l'effet ;
+  - il le déclenche au-delà d'un seuil, sinon c'est raté : rien n'est perdu, on recommence ;
+  - ou c'est le jeu lui-même qui décide de ce qu'on obtient (les perches pêchées, les œufs trouvés).
+- **Après le mini-jeu,** le temps file comme avant (×60).
+- **Abandonner :** Échap, Rond ou « Arrêter ».
+
+**Treize mécaniques, réglées et combinées pour chacune (`JEUX`, une ligne par activité) :**
+- **timing** : frapper dans la zone (zone mobile, vitesse croissante) ;
+- **mash** : appuyer vite contre la retombée ;
+- **alterne** : gauche, droite, en rythme régulier ; peut se jouer contre le froid ;
+- **tenir** : garder l'aiguille dans une zone qui bouge, en maintenant ou relâchant ;
+- **remplir** : maintenir puis relâcher dans le vert, sans déborder, casser ou effondrer ;
+- **sequence** : flèches dans l'ordre, en temps limité ;
+- **rythme** : notes ou pas en mesure ;
+- **attente** : réagir au signal, pas avant ;
+- **guet** : agir sur une silhouette, pas sur une ombre ;
+- **peche** : attendre la touche, ferrer, puis ramener en gérant la tension de la ligne ;
+- **boules** : viser, puis doser, contre un adversaire ;
+- **souffle** : maintenir en inspirant, relâcher en expirant ;
+- **cherche** : la paille frémit là où il y a quelque chose ;
+- **choix** : ce qu'on écrit, et ses effets ;
+- **lecture**.
+
+| Activité | Mécanique | Ce que le score change |
+|---|---|---|
+| Couper du bois | timing (5 coups) | nombre de bûches |
+| Travailler au potager | alterne (bêcher), puis séquence (désherber) | soin et humidité du sol |
+| Arroser | remplir (4 rangs) | humidité |
+| Récolter | remplir « tirer sans casser » | à partir de 80 % : 2 rations de plus |
+| Réparer le treuil | séquence, puis timing | état du treuil |
+| Nourrir les poules | timing, zone mobile | réussi ou raté |
+| Chercher les œufs | cherche (9 pondoirs) | œufs trouvés |
+| Traire | alterne régulier | à partir de 85 % : un pot de plus |
+| Tondre | tenir, zone mobile | à partir de 85 % : une toison de plus |
+| Pêcher | pêche (3 touches) | perches prises |
+| Faire le pain | mash (pétrir), puis timing (doré) | pain de plus, ou croûte brûlée |
+| Laver le linge | alterne contre le froid | propreté |
+| Balayer | séquence | réussi ou raté |
+| Tourner un bol | tenir (centrer), puis remplir (monter les parois) | réussi ou raté |
+| Guitare | rythme | moral, calme |
+| Danser | rythme à flèches | moral |
+| Boules | viser et doser, 3 mènes | partie gagnée ou perdue |
+| Se recueillir, se reposer | souffle | calme |
+| Monter la garde | guet (5) | pas de vol cette nuit, ou si |
+| Écrire | choix (souvenirs, lettre à Ilona, horaires du train) | effet choisi |
+| Lire | lecture (le roman sans couverture) | calme, moral |
+| Fouiller | cherche (6 recoins) | trouvé, ou rien |
+| Établi, cuisine, fabrication, filage | timing et séquence, tenir le feu, tresser, rouet | réussi ou raté |
+
+Les étapes de quête ont aussi leur geste : creuser, assembler, flamme, coudre en mesure, descendre la corde, frotter, tenir la clé du double fond, forcer la caisse, démonter et viser.
+
+**Commandes :**
+- **action (appui ou maintien) :** Espace, E, Entrée, Croix, Carré, ou le bouton ● ;
+- **directions :** les flèches, ZQSD, la croix directionnelle, L1 et R1, ou les boutons ◀ ▲ ▼ ▶ à l'écran ;
+- on peut aussi toucher directement les cases (fouille) et les choix (écrire).
+
+### La course (manette)
+L3 bascule la course jusqu'à ce qu'on lâche le stick ; avant, il fallait garder le stick enfoncé. R2 et Maj restent possibles.
+
+### Le corps des habitants
+- **Ils courent** (`clipTrajet`, vitesse ×2,3) :
+  - à l'annonce d'un raid ;
+  - sous la pluie (sur plus de 12 m) ;
+  - quand un besoin est pressant ;
+  - pour un rendez-vous ;
+  - parfois quand ils sont en retard au repas ;
+  - les impatients de moins de 45 ans, certains jours ;
+  - en fuyant (agression, tenus en joue, coup de feu).
+- **Ils se faufilent accroupis** (Crouch_Walk, ×0,55) pour une visite secrète de nuit (liaisons du lot 4) : les caméras les voient.
+- **Ils sautent :**
+  - par-dessus les flaques et les racines en courant, plus souvent sous la pluie ;
+  - de joie aux boules ;
+  - en sursaut au coup de feu, puis ils se baissent (Crouch_Idle) et certains s'enfuient chez eux.
+
+### Le rassemblement au grand mât (bloc « LOT 6 (phase 2) »)
+1. **Le portail refermé,** tout le monde marche vers le grand mât et se met en cercle. Objectif : « Rejoindre les autres au grand mât ».
+2. **La discussion :** quand le joueur arrive (ou au bout de 2 min 30), elle commence. Dix-sept répliques (`DISC`) :
+   - « Ce n'est pas le Hameau de Feral », la mairie, l'église de la sœur d'Odile, les cartes de Clara ;
+   - Bastien qui court secouer le portail (« Fermé à clé. De l'autre côté. ») ;
+   - le téléphone mort, la forêt sans oiseaux, le fils de Gérard, la photo d'Élodie ;
+   - l'organisateur qui s'impose, Margaux qui le conteste, Léa qui propose de se dire les prénoms.
+3. **Les premières relations :** les accords rapprochent, les heurts braquent (History).
+4. **La répartition** (`repartitionMaisons`) : l'organisateur (le plus ambitieux, souvent Victor) propose : « Sept maisons. On se répartit. » Chacun va là où il s'entend le mieux avec ceux qui y sont : brouillés séparés, plus âgés de plain-pied, lits comptés.
+5. **Votre maison :** on vous propose une maison, celle où l'on vous apprécie le plus. Vous pouvez accepter, ou en demander une autre où il reste un lit, même vide. Vos colocataires en découlent.
+6. **La nuit :** chacun rentre chez soi.
+
+### Le voyage d'ouverture (bloc « LOT 11 (phase 2) — LE VOYAGE »)
+- Le jeu commence **dans le train qui roule**, juste après le carton titre (3,4 s). On est assis dans la voiture 1 : on regarde partout, mais on ne se lève pas tant que le train roule (« Le train roule encore. »).
+- Le voyage dure **60 s** : croisière à 15 m/s pendant 30 s, puis freinage régulier jusqu'à l'arrêt à quai (675 m de voie, dans la forêt). Fonctions `resteVoyage(t)` et `vitesseVoyage(t)`.
+- **À 30 s :** carillon de gare (trois notes), puis le haut-parleur : « Le Hameau de Feral, tout le monde descend. »
+- **À 40 s,** une voyageuse réagit. Les 9 dernières secondes, les freins crissent.
+- **Le son :**
+  - le roulement (une seule source de bruit filtrée, qui suit la vitesse) ;
+  - les claquements doubles des joints de rail, tous les 18 m.
+- La caméra suit le train dans la même image (`majVoyage` décale aussi l'œil déjà calculé). Les plafonniers suivent la voiture. Les zones (`ouSuisJe`) se lisent dans le repère du train.
+- Les tests et la simulation font avancer le voyage (appel dans `majPassagers`).
+
+### La musique (bloc « LOT 7 (phase 2) — LA MUSIQUE »)
+- **Le train et le quai :** le vent seul. Au rassemblement du grand mât, le vent retombe (×0,35 dès que l'on est au village) et la musique commence.
+- **Neuf ambiances,** composées en direct (accords, arpèges, cloches, piano, nappes, bourdons) :
+
+  | Ambiance | Quand |
+  |---|---|
+  | arrivée | rassemblement au mât |
+  | jour | 6 h – 17 h 30 |
+  | soir et veillée | 17 h 30 – 21 h 30 (guitare) |
+  | nuit | le reste de la nuit |
+  | raid | pouls, bourdon grave |
+  | réserve | froid, aigu |
+  | terminal | bourdonnement |
+  | lettre | piano |
+  | capture | dissonance |
+
+- **Les motifs d'événement :**
+  - violence : coup de feu, meurtre découvert ;
+  - quête accomplie ;
+  - découverte d'un fragment ;
+  - conseil ;
+  - nuit d'amour.
+- **Rigueur du son :**
+  - **deux files :** les notes sont ordonnancées sur l'horloge audio 0,45 s à l'avance ; les motifs attendent leur tour (jamais deux l'un sur l'autre) ;
+  - **après une coupure** (onglet caché, Safari qui suspend), on repart de maintenant : aucune rafale de notes rattrapées ;
+  - **pas de saturation :** 48 voix au plus, limiteur en sortie, enveloppes douces (rien ne démarre ni ne s'arrête sèchement), fondus de 3 s ;
+  - **le volume suit le jeu :** feutrée dans les maisons, plus basse pendant une activité ou un dialogue, et elle s'efface quand quelqu'un parle ;
+  - « Son : coupé » arrête tout calcul.
+
+### Les voix et les dialogues en grand (bloc « LOT 9 (phase 2) »)
+- **Chaque personnage a sa voix,** toujours la même : hauteur, débit et timbre tirés de son sexe, de son âge et de son identifiant.
+- **Trois modes,** au menu « Voix » :
+  - **parlées** (par défaut) : la réplique est prononcée par la synthèse vocale de l'appareil, avec une voix française de son sexe ;
+  - **bruitage :** une petite voix synthétique qui « parle » syllabe par syllabe. Un seul oscillateur permanent, modulé : aucun nœud audio n'est créé par syllabe ;
+  - **muettes.**
+  Sans voix française sur l'appareil, le mode « parlées » passe au bruitage.
+- **Le texte s'écrit au rythme de la parole.** Toucher ou cliquer le texte l'affiche en entier. Les conversations entendues et les répliques du mât attendent que la précédente soit dite.
+- **Protection Safari :**
+  - une seule réplique prononcée à la fois, dans une file ;
+  - priorité au dialogue avec le joueur ; les répliques entendues de plus de 8 s sont abandonnées ;
+  - 180 ms entre `cancel` et `speak` (sinon Safari perd la réplique) ;
+  - la réplique en cours reste référencée (sinon Safari oublie d'en signaler la fin) ;
+  - un garde-fou arrête une réplique qui ne finit pas ;
+  - le premier geste débloque la synthèse (réplique muette) et relance le contexte audio, dans le même geste ;
+  - Safari iOS ne débloque le son qu'au relâcher du doigt ou au clic : écoute ajoutée sur `touchend`, `click` et `mouseup` ;
+  - après chaque réplique, au retour sur l'onglet et toutes les 1,5 s, si le contexte est « interrupted », on le relance ; s'il reste coupé, un message demande de toucher l'écran ;
+  - si la synthèse coupe le son trois fois, elle se désactive d'elle-même (bruitage) et le joueur est prévenu.
+- **Le dialogue, façon Skyrim :**
+  - **le cadrage :** l'interlocuteur est automatiquement centré et cadré en buste. La caméra vise le haut de sa poitrine (la tête dans le tiers haut) et le champ se resserre selon la distance (de 26° à 50°, environ 1,4 m de hauteur visible) ;
+  - **l'écran :** le reste de l'interface disparaît ;
+  - **le nom** s'affiche à droite de la tête, son métier en dessous ;
+  - **la réplique** est sous la personne, en grand (18 à 27 px), sans fond, avec une ombre portée ;
+  - **les sujets** sont dans un encadré centré (bord clair, fond sombre translucide) : cinq lignes visibles, puis défilement. Le sujet choisi est entouré ; les sujets déjà abordés sont grisés ;
+  - **en bas à droite :** « ✕ Choisir · ○ Partir » en pictogrammes PS4. Au clavier, Entrée et Échap en petit à côté ; « Partir » se touche aussi ;
+  - **commandes :** ▲▼ et Croix à la manette ; ↑↓ et Entrée au clavier ; 1–9 et Échap restent possibles.
+- **Les sous-titres** sont en grand aussi, avec le nom au-dessus.
+
+### Dormir dans son lit (bloc « LOT 8 (phase 2) »)
+- **Les places :** chaque lit offre une ou deux places (un lit double a deux côtés). Ensuite viennent les canapés, puis un matelas par terre, posé du côté du lit où il y a la place.
+- **Qui dort où :**
+  - chaque habitant a **sa** place, gardée nuit après nuit ;
+  - les couples partagent un lit double ;
+  - celui qui dort chez quelqu'un d'autre prend la place libre à côté de lui, sinon le canapé, sinon le matelas ;
+  - un côté du lit du joueur lui reste ;
+  - jamais deux corps au même endroit.
+- **Le corps :** allongé sur le dos (Lie_Back), la tête sur l'oreiller, à hauteur du matelas, sous une couverture. Les couvertures sont 16 nœuds réutilisés, placés seulement sur les dormeurs visibles.
+- **Le joueur** se couche du côté libre de son lit ; si le lit est plein : « Quelqu'un dort déjà dans ce lit. »
+
+### Marqueurs d'interaction (bloc « LOT 10 (phase 2) »)
+- **Le marqueur :** au-dessus de ce qu'on peut utiliser (porte, personne, meuble, escalier, puits, boîte aux lettres, station, bête), un marqueur flottant montre l'action et sa touche :
+  - toujours le pictogramme PS4 **Carré**, avec « L1 plus » pour la roue (E en petit au clavier) ;
+  - sur écran tactile, on touche le marqueur lui-même (le bouton du bas reste).
+- **La taille** suit la distance.
+- **Le bouton d'action** montre aussi le Carré.
+
+### La boussole (bloc « LOT 12 (phase 2) »)
+- **Le bandeau :** en haut au centre, façon Skyrim : noir, à double filet clair, terminé par deux losanges. Les points cardinaux (N, NE, E, SE, S, SO, O, NO) défilent avec le regard (±90° visibles). Le nord est −z.
+- **Les icônes, en clair :**
+  - les objectifs : losange ambre plein pour le principal, contour pour les trois suivants. Un objectif dans une maison vise sa porte ;
+  - votre maison (pleine, dorée) et les autres maisons ;
+  - le grand mât, le puits, le portail, la gare ;
+  - les stations du hameau et le cimetière (une croix).
+- **Les distances :** les maisons, le puits et les stations apparaissent à moins de 90 m ; le mât, le portail et la gare se voient de loin. Les icônes s'estompent vers les bords.
+- **Quand elle s'efface :** pendant l'ouverture, un mini-jeu, le terminal et la capture. Elle reste pendant un dialogue, comme dans Skyrim.
+- **Sur un téléphone,** elle prend toute la largeur et les panneaux descendent de 38 px.
+
+### Parler en face
+On ne parle qu'à quelqu'un qui est **en face** :
+- à ±45° au plus ;
+- à moins de 2,6 m ;
+- sans rien entre vous, testé par `vueDegagee` :
+  - **dans une maison :** pas de cloison, sauf par l'embrasure d'une porte ;
+  - **dehors :** aucune boîte de collision (maisons, murs, cabanes) ;
+  - **le train :** pas sa paroi, quand l'un est à bord et l'autre non.
+
+Avant : 2,8 m, ±57°, et l'on parlait à travers les murs.
+
+### Le temps réel
+- **Les activités ne font plus défiler le temps.** Le mini-jeu dure le temps qu'on le joue : l'effet tombe à la fin du geste, et la fatigue compte pendant le jeu (`JEU.effort`).
+- **Une occupation sans mini-jeu** (attendre) se déroule en temps réel, dans un petit bandeau (« … · encore 37 min ») qu'on peut arrêter.
+- **Seul le sommeil accélère encore la nuit** (×60). Le défilement rapide du terminal de surveillance reste aussi.
+
+### La porte du train
+Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,10 m), le retrait de la charnière (0,17 m) et recouvre le montant. Avant, il faisait 1 m sur 1,82 m : il restait un jour de 33 cm par lequel on voyait l'homme disparaître.
+
+## HDF : ENCLOS — le nom et le numéro de version
+
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
@@ -597,6 +807,22 @@ Chaque correction faite dans le code porte un commentaire qui commence par `HDF 
 | Scène, `capturerJoueur` | Après « Encore en vie ?! », on n'est plus capturé pendant ce raid (`RAID.epargne`). | — |
 | Scène, `inspecterMaison` | Regarder une maison par la caméra ne fait pas trouver le joueur dans cette maison. | — |
 | Nom, version | Le jeu s'appelle HDF : ENCLOS 1.0. Le numéro monte à chaque livraison (fichiers, titre, menu, accueil, `HDF_VERSION`). Avant : HDF BASE 1.0 KIT · ENCLOS v1.0. | — |
+| Scène, `occuper` | Toute activité passe d'abord par son mini-jeu (1.1). Avant : la barre de temps seule. | — |
+| Scène, `occuper` (bloc LOT 5) | Temps réel : l'effet tombe à la fin du mini-jeu, sans accélération ; une occupation sans mini-jeu se déroule à vitesse normale (`TEMPS.k = 1`). Avant : le temps défilait ×60. | — |
+| Scène, `vers`, `avancer` | Les habitants courent (×2,3) ou se faufilent accroupis (×0,55). Avant : toujours au pas. | — |
+| Scène, `majManette` | L3 bascule la course jusqu'à l'arrêt. Avant : il fallait garder le stick enfoncé. | — |
+| Scène, `majInstallation` | Rassemblement au grand mât, discussion, puis répartition des maisons. Avant : chacun chez soi au bout de 4 s (`repartirFoyers`). | — |
+| Scène, `entrer` (lit) | Chacun sa place dans un lit, sur le dos, sous une couverture, jamais à deux au même endroit. Avant : Sleep_Lie de travers, 30 cm au-dessus du matelas, places partagées. | — |
+| Scène, `sousTitre`, `ecrireDialogue` | Voix du personnage (synthèse ou bruitage), texte écrit au rythme de la parole, affiché en grand. Avant : texte posé d'un coup, petit, muet. | — |
+| Scène, `sonReveil` | Écoute aussi `touchend`, `click`, `mouseup` (Safari iOS ne débloque le son qu'à ces gestes). Avant : `pointerdown`, `keydown`, `touchstart`. | — |
+| Scène, `majAmbiances` | Le vent retombe (×0,35) une fois au village. Avant : même vent partout. | — |
+| Scène, `CINE`, `finCinematique` | Le jeu commence dans le train qui roule (voyage de 60 s). Avant : 19 s de cinématique extérieure, puis réveil train arrêté. | — |
+| Scène, `portesTrain` | Vantail de 1,36 × 1,93 m : fermé, il couvre toute l'ouverture. Avant : 1 × 1,82 m, un jour de 33 cm. | — |
+| Scène, `scenarioAccueil` | L'homme ne disparaît qu'une fois la porte close. Avant : au bout de 0,5 s, même porte encore ouverte. | — |
+| Scène, `majPassagers` (dialogue) | À bord, l'interlocuteur suit le train qui roule. Avant : il restait en arrière et le dialogue se fermait. | — |
+| Scène, `majAction` | Pictogramme PS4 Carré sur le bouton d'action et les marqueurs. Avant : touche E. | — |
+| Scène, `voyageurEnFace` | En face (±45°), 2,6 m, sans mur ni cloison entre les deux (`vueDegagee`). Avant : 2,8 m, ±57°, à travers les murs. | — |
+| Interface | Boussole façon Skyrim en haut de l'écran, avec objectifs et points d'intérêt. Avant : repère d'objectif seul. | — |
 
 **Règle pour la suite :** toute nouvelle correction reçoit un commentaire `/* HDF BASE : … (avant : …) */` à l'endroit modifié, et une ligne dans ce tableau.
 

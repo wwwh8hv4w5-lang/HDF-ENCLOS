@@ -1,4 +1,4 @@
-<title>HDF : ENCLOS 1.0</title>
+<title>HDF : ENCLOS 1.1</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
@@ -246,6 +246,65 @@ body.surv #top,body.surv #side,body.surv #act,body.surv #aide,body.surv #cible,b
 #encoreVie.on{animation:ev 4.2s ease forwards}@keyframes ev{0%{opacity:0;transform:translate(-50%,-46%)}15%{opacity:1;transform:translate(-50%,-50%)}80%{opacity:1}100%{opacity:0}}
 #voile{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .8s;z-index:20}#voile.on{opacity:1}
 #lettre p.reg{font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.5;color:#3a3226}
+
+/* PHASE 2 · LOT 5 — mini-jeux des activités */
+#jeu{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sb) + 16px);width:min(560px,calc(100vw - 24px));box-sizing:border-box;padding:10px 12px;z-index:13;display:grid;gap:6px}
+.jTete{display:flex;align-items:center;gap:10px}.jTete b{font:700 15px/1.1 var(--f-d);letter-spacing:.06em;text-transform:uppercase;color:var(--amber)}
+#jPhase{flex:1;font:500 13px/1.25 var(--f-b);color:var(--ink)}#jTete .chip,#jStop{border:1px solid var(--line);font-size:12px;padding:6px 9px}
+#jCv{width:100%;height:auto;aspect-ratio:520/120;background:rgba(0,0,0,.35);border-radius:6px}
+#jBas{display:flex;align-items:center;gap:10px;justify-content:space-between}#jAide{margin:0;font:500 11.5px/1.3 var(--f-b);color:var(--dim)}
+#jTouches{display:flex;gap:6px}#jTouches button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.4);color:var(--ink);font:700 18px/1 var(--f-d);touch-action:none;user-select:none;-webkit-user-select:none}
+#jTouches button[data-j="a"]{width:58px;height:58px;background:rgba(232,170,80,.25);border-color:var(--amber)}
+body.enjeu #act,body.enjeu #cible,body.enjeu #tactile,body.enjeu #souffle,body.enjeu #aide{display:none!important}
+
+/* PHASE 2 · 1.1 — dialogues en grand (façon Skyrim), sous-titres lisibles, touches PS4, marqueurs flottants, occupation en temps réel */
+#dialogue{position:fixed;inset:0;left:0;right:0;top:0;bottom:0;transform:none;width:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:12px;padding:0 16px calc(var(--sb) + max(5vh,22px));background:radial-gradient(ellipse 70% 60% at 50% 38%,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 55%,rgba(0,0,0,.42) 100%)!important;border:0!important;border-radius:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;pointer-events:none;z-index:6;text-align:center}
+#dialogue>*{pointer-events:auto}
+#dlQui{position:fixed;left:calc(50% + clamp(70px,11vw,190px));top:27%;text-align:left;font:600 clamp(18px,2.1vw,26px)/1.1 var(--f-b);letter-spacing:.02em;text-transform:none;color:#f4efe6;text-shadow:0 2px 6px #000,0 0 2px #000;pointer-events:none}
+#dlQui span{display:block;margin:4px 0 0;font:500 clamp(12px,1.2vw,15px)/1 var(--f-b);letter-spacing:.04em;color:rgba(244,239,230,.7);text-transform:none}
+#dlTexte{margin:0;max-width:min(820px,94vw);font:500 clamp(18px,2.2vw,27px)/1.42 var(--f-b);color:#fbf7f0;text-shadow:0 2px 5px #000,0 0 3px #000,0 0 14px rgba(0,0,0,.7);min-height:2.84em;display:flex;align-items:flex-end;justify-content:center;cursor:pointer}
+.twR{color:transparent;text-shadow:none}
+#dlChoix{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:2px;width:min(700px,94vw);max-height:calc(5 * 42px + 18px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px;box-sizing:border-box;border:2px solid rgba(240,236,228,.72);background:rgba(8,8,8,.55);border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 6px 22px rgba(0,0,0,.5)}
+#dlChoix button{border:2px solid transparent!important;background:transparent;border-radius:1px;text-align:left;font:500 clamp(16px,1.8vw,21px)/1.15 var(--f-b);letter-spacing:.01em;color:#f4efe6;padding:7px 12px;min-height:40px;text-shadow:0 1px 3px #000}
+#dlChoix button kbd{display:none}
+#dlChoix button.vu{color:rgba(244,239,230,.48)}
+#dlChoix button:hover,#dlChoix button.gpSel,#dlChoix button:focus-visible{border-color:rgba(244,239,230,.85)!important;background:rgba(255,255,255,.05);outline:none!important;color:#fff}
+#dlAide{position:fixed;right:max(16px,3vw);bottom:calc(var(--sb) + 14px);margin:0;font:500 clamp(14px,1.4vw,17px)/1 var(--f-b);color:#f4efe6;text-shadow:0 1px 3px #000;display:flex;gap:14px;align-items:center}
+#dlAide:empty{display:none}#dlAide span{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+#dlAide kbd{font:700 12px/1 var(--f-d);border:1px solid rgba(244,239,230,.55);border-radius:3px;padding:3px 6px}
+body.endialogue #top,body.endialogue #side,body.endialogue #act,body.endialogue #marq,body.endialogue #cible,body.endialogue #aide,body.endialogue #sousTitre,body.endialogue #tactile,body.endialogue #souffle{display:none!important}
+@media (max-aspect-ratio:3/4){#dlQui{left:50%;transform:translateX(-50%);top:12%;text-align:center}}
+#sousTitre{bottom:calc(var(--sb) + 104px);max-width:min(900px,calc(100vw - 24px));padding:12px 20px 13px;font:500 clamp(18px,2.2vw,24px)/1.4 var(--f-b);color:#f6f0e6;text-shadow:0 2px 6px rgba(0,0,0,.95);background:linear-gradient(90deg,rgba(4,3,2,0),rgba(4,3,2,.78) 14%,rgba(4,3,2,.78) 86%,rgba(4,3,2,0))!important;border:0!important;border-radius:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;cursor:pointer}
+#sousTitre b{display:block;margin:0 0 5px;font-size:13px;letter-spacing:.22em}
+i.ps{display:inline-grid;place-items:center;width:1.55em;height:1.55em;border-radius:50%;background:#15171c;border:1px solid rgba(255,255,255,.28);font-style:normal;vertical-align:-.38em;flex:none}
+i.ps::before{content:'';display:block;box-sizing:border-box}
+i.ps-carre::before{width:.62em;height:.62em;border:2px solid #e98ec9;border-radius:1px}
+i.ps-rond::before{width:.68em;height:.68em;border:2px solid #f0545c;border-radius:50%}
+i.ps-x::before{content:'✕';font:800 .8em/1 sans-serif;color:#7fb2f0}
+i.ps-tri::before{width:0;height:0;border-left:.38em solid transparent;border-right:.38em solid transparent;border-bottom:.62em solid #58c9a6}
+i.ps-doigt{font-size:1em}i.ps-doigt::before{display:none}
+#act i.ps{font-size:15px}
+#marq{position:fixed;left:0;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:6px 12px 6px 7px;border-radius:999px;border:1px solid rgba(232,170,80,.75);background:rgba(10,9,8,.72);color:#f6f0e6;font:700 15px/1 var(--f-d);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;pointer-events:auto;cursor:pointer;transform-origin:50% 100%;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+#marq::after{content:'';position:absolute;left:50%;bottom:-7px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:rgba(232,170,80,.75)}
+#marq kbd{font:700 13px/1 var(--f-d);background:var(--amber);color:#1a1206;border-radius:4px;padding:4px 7px}
+#marq em{font:600 11px/1 var(--f-d);font-style:normal;color:var(--dim);letter-spacing:.04em;text-transform:none;margin-left:2px}#marq em b{color:var(--ink)}
+#marq i.ps{font-size:16px}
+#marq em.l1{display:inline-flex;align-items:center;gap:4px}#marq b.psL{font:700 10px/1 var(--f-d);color:#f4efe6;background:#15171c;border:1px solid rgba(255,255,255,.3);border-radius:4px 4px 7px 7px;padding:3px 5px}
+body.tactile-ui:not(.manette) #marq em.l1{display:none}
+body:not(.tactile-ui).marqueur #act{display:none!important}
+.cine #marq,body.enjeu #marq,body.carnet-ouvert #marq{display:none!important}
+#radar{position:fixed;top:calc(var(--st) + 4px);left:50%;transform:translateX(-50%);width:clamp(240px,calc(100vw - 520px),560px);height:30px;z-index:4;pointer-events:none}
+#rdPiste{position:absolute;top:3px;bottom:3px;left:14px;right:14px;background:rgba(6,6,6,.84);border-top:2px solid #d8d4cb;border-bottom:2px solid #d8d4cb;box-shadow:0 0 0 1px #000,inset 0 0 0 2px #000;overflow:hidden}
+#radar::before,#radar::after{content:'';position:absolute;top:50%;width:15px;height:15px;margin-top:-9.5px;background:#060606;border:2px solid #d8d4cb;transform:rotate(45deg);box-shadow:inset 0 0 0 2px #060606,inset 0 0 0 4px #d8d4cb;z-index:1}
+#radar::before{left:4px}#radar::after{right:4px}
+.rdCard{position:absolute;left:50%;top:50%;font:600 15px/1 var(--f-d);color:#ece8df;letter-spacing:.05em;text-shadow:0 1px 2px #000}
+.rdInter{font-size:11px;color:rgba(236,232,223,.6)}
+.rdIco{position:absolute;left:50%;top:50%;width:17px;height:17px;color:#ece8df;display:block;filter:drop-shadow(0 1px 1px #000)}
+.rdIco svg{width:100%;height:100%;display:block}.rdChez{color:#f3dca5}.rdObj{width:19px;height:19px;z-index:2}
+@media (max-width:760px){#radar{width:calc(100vw - 24px)}#top,#side{top:calc(var(--st) + 38px)}}
+.cine #radar,body.enjeu #radar,body.surv #radar{display:none!important}
+#sommeil.occ{inset:auto;left:50%;transform:translateX(-50%);bottom:calc(var(--sb) + 18px);background:rgba(8,7,6,.78);border:1px solid var(--line);border-radius:10px;padding:12px 16px;animation:none}
+#sommeil.occ>div{grid-auto-flow:column;align-items:center;gap:14px}#sommeil.occ #smTexte{margin:0;font:600 15px/1.3 var(--f-b)}
 </style>
 
 <canvas id="c" tabindex="0" aria-label="HDF BASE 1.0 KIT : vue 3D de l'enceinte"></canvas>
@@ -286,12 +345,13 @@ body.surv #top,body.surv #side,body.surv #act,body.surv #aide,body.surv #cible,b
   <h2>Pause</h2>
   <button id="mnReprendre" class="chip">Reprendre</button>
   <button id="mnSon" class="chip">Son : activé</button>
+  <button id="mnVoix" class="chip">Voix : parlées</button>
   <button id="mnAbandon" class="chip">Abandonner la boucle · retour au train</button>
   <div class="mnAide" id="mnAide"></div>
-  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.0 · réservé aux adultes</p>
+  <p class="mnVer" id="hdfVer">HDF : ENCLOS 1.1 · réservé aux adultes</p>
 </div></div>
 <div id="accueil" hidden><div class="acBoite">
-  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.0</p>
+  <h1>HDF <span>:</span> ENCLOS</h1><p class="acVer">Version 1.1</p>
   <p class="acAvert"><b>Réservé aux adultes (18 ans et plus).</b> Ce jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs.</p>
   <p class="acPitch">Un billet aller simple pour le Hameau de Feral. Un domaine clos de murs, au milieu d’une forêt sans chemin. Vingt voyageurs. Un train qui revient, certaines nuits. Et chaque matin, une lettre.</p>
   <div class="acBoutons"><button id="acJouer" class="chip">Commencer</button><button id="acOublier" class="chip" hidden>Effacer les souvenirs et recommencer</button></div>
@@ -306,8 +366,11 @@ body.surv #top,body.surv #side,body.surv #act,body.surv #aide,body.surv #cible,b
 <div id="choix" class="gl" hidden role="dialog"><h3 id="chTitre"></h3><p id="chTexte"></p><div id="chBtns"></div></div>
 <div id="surv" hidden><div class="svGrain"></div><div class="svTete"><span class="svRec">● REC</span><span id="svCam"></span><span id="svHeure"></span></div><div id="svArch"></div><div id="svParole"></div><div class="svBtns"><button id="svPrec" class="chip">◀</button><button id="svSuiv" class="chip">▶</button><button id="svRapide" class="chip">Accéléré ×20</button><button id="svQuitter" class="chip">Quitter le terminal</button></div></div>
 <div id="mortEcran" hidden></div><div id="encoreVie" hidden>Encore en vie ?!</div><div id="voile"></div>
+<div id="jeu" class="gl" hidden role="dialog" aria-label="Activité"><div class="jTete"><b id="jTitre"></b><span id="jPhase"></span><button id="jStop" class="chip">Arrêter</button></div><canvas id="jCv" width="520" height="120"></canvas><div id="jBas"><p id="jAide"></p><div id="jTouches"><button data-j="g">◀</button><button data-j="h">▲</button><button data-j="a">●</button><button data-j="b">▼</button><button data-j="d">▶</button></div></div></div>
 <div id="sommeil" hidden><div><p id="smTexte">Vous dormez…</p><button id="smReveil" class="chip">Se réveiller</button></div></div>
-<div id="dialogue" class="gl" hidden role="dialog" aria-live="polite"><div id="dlQui"></div><p id="dlTexte"></p><div id="dlChoix"></div></div>
+<div id="dialogue" class="gl" hidden role="dialog" aria-live="polite"><div id="dlQui"></div><p id="dlTexte"></p><div id="dlChoix"></div><p id="dlAide"></p></div>
+<button id="marq" hidden aria-label="Action"></button>
+<div id="radar" hidden aria-hidden="true"><div id="rdPiste"></div></div>
 <div id="stick" hidden><i></i></div>
 <div id="msg" hidden><div><h2>WebGL 2 indisponible</h2><p id="msgt">Ce navigateur ne fournit pas de contexte WebGL 2. Essayez Safari 16+, Chrome, Edge ou Firefox à jour.</p><button id="msgb" class="chip" hidden style="margin:14px auto 0">Recharger</button></div></div>
 
@@ -9574,7 +9637,7 @@ const ZONES_MARCHE = (() => { const E = ENCEINTE, Q = GARE.quai, Rm = GARE.rampe
     { nom: 'quai', x0: Q.x0, x1: Q.x1, z0: Q.z0, z1: Q.z1 },
     { nom: v.nom, x0: TRAIN.x + v.x0, x1: TRAIN.x + v.x1, z0: Q.z1 - .3, z1: GARE.zr + TRAIN.larg / 2 }]; })();
 const zoneMarche = (x, z) => ZONES_MARCHE.some(r => x > r.x0 && x < r.x1 && z > r.z0 && z < r.z1);
-const ouSuisJe = (x, z) => { const r = ZONES_MARCHE.find(q => x > q.x0 && x < q.x1 && z > q.z0 && z < q.z1); return r ? r.nom : 'hors zone'; };
+const ouSuisJe = (x, z) => { if (VOYAGE.actif) x -= VOYAGE.o;   /* 1.1 : pendant le voyage, on se repère dans le train */ const r = ZONES_MARCHE.find(q => x > q.x0 && x < q.x1 && z > q.z0 && z < q.z1); return r ? r.nom : 'hors zone'; };
 // siège de départ : voiture 1, côté quai, contre la fenêtre, face à l'ouest — le panneau « LE HAMEAU DE FERAL » est dehors, juste devant à droite
 const SIEGE0 = { x: TRAIN.x - 5.75, z: GARE.zr - .95, a: .12, p: -.04 };   /* HDF BASE : yeux en face de la baie (avant : face au montant entre deux fenêtres) */   // regard par la fenêtre, vers le panneau de gare (posé en face de la baie)   /* HDF BASE : banquette tournée vers l'ouest, deux rangs avant le panneau (avant : collé au panneau, puis face à son propre dossier) */
 // LOT 6 — données des voyageurs (déclarées avant le démarrage de la scène)
@@ -9633,6 +9696,12 @@ const SECRET = { z: 58, w: 1.15, h: 2.3, y: .6, ouv: 0, anim: 0, dedans: false, 
 const JOUEUR = { accroupi: false, k: 0, vy: 0, h: 0, souffle: 100, essouffle: false };   // PHASE 2 · LOT 1 : accroupi, saut, souffle
 const ROUE = { ouverte: false, choix: [], sel: -1 };   // PHASE 2 · LOT 1 : la roue L1
 const SAC = { niveau: 0, objets: {}, eau: 0 };   // PHASE 2 · LOT 2 : le sac du joueur (déclaré en tête : la roue et resetArrivee s'en servent)
+const JEU = { actif: false, def: null, ph: null, ip: -1, scores: [], res: {}, in: {}, prev: {}, clic: null, msg: '', msgT: 0, msgBon: 0, avatar: null, clip: null, eye: null, look: null, face: null, fin: null };   // PHASE 2 · LOT 5 : le mini-jeu en cours
+const RASS = { etat: null, t: 0, i: 0, tl: 0, org: null, parle: null, dernier: null, bastien: null, libres: [], M: null };   // PHASE 2 · LOT 6 : le rassemblement au grand mât
+const VOYAGE = { actif: false, fait: false, t: 0, D: 60, v0: 15, o: 0, annonce: false, reaction: false, son: null, clac: 0, avert: 0 };   // PHASE 2 · 1.1
+const VOIXP = { mode: 'synthese', liste: [], file: [], u: null, prio: 0, limite: 0, pause: 0, coupures: 0, debloque: false, bus: null, osc: null, f: null, g: null, qui: null, avert: 0 };   // PHASE 2 · 1.1
+const COUCH = { pool: [], matelas: [], prets: false };   // PHASE 2 · 1.1
+const MUS = { bus: null, voix: {}, cur: null, prochain: 0, pas: 0, accord: 0, stinger: 0, drones: {}, motifs: [], actives: 0 };   // PHASE 2 · 1.1
 const RESERVE = { dedans: false, ouv: 0, anim: 0, saisie: '', stock: 20, bandages: 4, archives: [], preuves: {}, page: 0, coll: [], noeuds: {}, porteColl: null, boite: null };   // PHASE 2 · LOT 3 : la réserve sous le mur
 const SURV = { actif: false, i: 0, cams: null, save: null, rapide: false, y: 1.7, a0: 0, tParole: 0 };   // PHASE 2 · LOT 3 : le terminal (caméras des tableaux)
 const AMOUR = { couples: [], liaisons: [], ex: [], refus: {}, econduits: {}, moments: {}, jaloux: {}, jalouxJoueur: [], nuit: {}, joueur: null, joueurLiaison: null, confront: null, jour: 0, archJour: 0 };   // PHASE 2 · LOT 4 : les cœurs
@@ -9804,7 +9873,7 @@ function build(A) {
 //  DÉMARRAGE
 // =====================================================================================
 const msg = (t) => { $('msg').hidden = false; if (t) $('msgt').textContent = t; };
-const touch = matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 1;
+const touch = matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 1; if (touch) document.body.classList.add('tactile-ui');
 self.FSPD_MSAA = !touch;
 const cv = $('c');
 cv.addEventListener('webglcontextlost', e => { e.preventDefault(); msg('Le processeur graphique a été réinitialisé. Rechargez la page pour relancer la scène.'); $('msgb').hidden = false; }, false);
@@ -9877,10 +9946,11 @@ A.onUpdate(dt => {
   } else {
     const W = Cm.w; let f = fw, r = st; if (stick) { f -= stick.dy; r += stick.dx; } if (GP.actif) { f -= GP.my; r += GP.mx; }   // MANETTE : stick gauche
     const l = Math.hypot(f, r); if (l > 1) { f /= l; r /= l; }
-    if (Cm.assis && l > .3) { Cm.assis = false; W.x = SIEGE0.x; W.z = GARE.zr; Cm.sol = TRAIN.plancher - .45; texteAide(); }   /* HDF BASE : lot 4 — on se lève en avançant : le joueur passe dans le couloir */
+    if (Cm.assis && l > .3 && VOYAGE.actif) { if (performance.now() > VOYAGE.avert) { VOYAGE.avert = performance.now() + 6000; notifier('Le train roule encore.'); } }   // 1.1 : on ne se lève pas en marche
+    else if (Cm.assis && l > .3) { Cm.assis = false; W.x = SIEGE0.x; W.z = GARE.zr; Cm.sol = TRAIN.plancher - .45; texteAide(); }   /* HDF BASE : lot 4 — on se lève en avançant : le joueur passe dans le couloir */
     if (CACHE.lieu && (f || r)) CACHE.bouge = 3;   // LOT 20 : bouger dans sa cachette fait du bruit
     if (SECRET.dedans && Math.hypot(f, r) > .4) { sortirSecret(); f = 0; r = 0; }   // PHASE 2 : dans l'escalier, avancer ou reculer fait ressortir
-    if (Cm.assis || TEMPS.dort || TEMPS.occupe || CACHE.lieu || SECRET.dedans || SURV.actif || !$('clavier').hidden || !$('choix').hidden || ROUE.ouverte && GP.actif) { f = 0; r = 0; }   // LOT 12 : on ne bouge pas en dormant
+    if (Cm.assis || TEMPS.dort || TEMPS.occupe || CACHE.lieu || SECRET.dedans || SURV.actif || JEU.actif || !$('clavier').hidden || !$('choix').hidden || ROUE.ouverte && GP.actif) { f = 0; r = 0; }   // LOT 12 : on ne bouge pas en dormant
     const sp = ((run || GP.run || (stick && Math.hypot(stick.dx, stick.dy) > .95)) && peutCourir() && !JOUEUR.essouffle && !JOUEUR.accroupi ? 8.5 : 4.2) * facteurVitesse() * (JOUEUR.k > .5 ? .45 : 1),   /* PHASE 2 : accroupi, souffle */ sa = Math.sin(W.a), ca = Math.cos(W.a);   /* HDF BASE : lot 11 — fatigue et santé ralentissent */
     const k = Cm.dans ? .62 : 1, dx = (-sa * f + ca * r) * sp * k * dt, dz = (-ca * f - sa * r) * sp * k * dt;
     if (Cm.dans) { const I = INTERIEURS, id = Cm.dans.id, p0 = I.local(id, W.x, W.z), p1 = I.local(id, W.x + dx, W.z + dz), q = I.collide(id, Cm.dans.lv, p0[0], p0[1], p1[0], p1[1]), w2 = I.world(id, q[0], q[1]); W.x = w2[0]; W.z = w2[1]; }   // murs, cloisons, meubles, escalier
@@ -9888,7 +9958,7 @@ A.onUpdate(dt => {
     if (!Cm.assis && !SECRET.dedans) collisionsJoueur(W);   // PHASE 2 : on ne traverse plus les gens
     const mv = Math.hypot(f, r); pas += mv * sp * k * dt * 1.9; Cm.bob += ((mv > .05 ? Math.sin(pas) * .03 : 0) - Cm.bob) * Math.min(1, dt * 10);
     if (!Cm.dans) Cm.sol += (hauteurSol(W.x, W.z) - Cm.sol) * Math.min(1, dt * 9);   /* HDF BASE : lot 3 — hauteur du sol (quai, rampe, plancher du wagon) */
-    eye = [W.x, (Cm.dans ? Cm.dans.lv * INTERIEURS.LV + .03 + 1.62 : Cm.assis ? TRAIN.plancher + 1.2 : Cm.sol + 1.7) + Cm.bob + hauteurYeux(), W.z]; if (SURV.actif) eye[1] = SURV.y; look = [eye[0] - sa * Math.cos(W.p) * 10, eye[1] + Math.sin(W.p) * 10, eye[2] - ca * Math.cos(W.p) * 10];
+    eye = [W.x, (Cm.dans ? Cm.dans.lv * INTERIEURS.LV + .03 + 1.62 : Cm.assis ? TRAIN.plancher + 1.2 : Cm.sol + 1.7) + Cm.bob + hauteurYeux(), W.z]; if (SURV.actif) eye[1] = SURV.y; if (JEU.actif && JEU.eye) { eye = JEU.eye.slice(); look = JEU.look.slice(); } else look = [eye[0] - sa * Math.cos(W.p) * 10, eye[1] + Math.sin(W.p) * 10, eye[2] - ca * Math.cos(W.p) * 10];
   }
   A.camera.fixed.eye = eye; A.camera.fixed.look = look;
   const h = Math.max(eye[1], 2); A.brouillard = clamp(1.1 - h / 160, .3, 1) * ({ brume: 1.9, pluie: 1.6, couvert: 1.15 }[meteoAppliquee] || 1);   /* HDF BASE : lot 14 — brume et pluie épaississent le brouillard (avant : altitude seule, qui écrasait A.meteo) */   // comme la visionneuse du jeu : moins de brume en altitude (plancher relevé)
@@ -10249,8 +10319,8 @@ function rencontre(a, b) {
 }
 const NS_fill = (t, v) => (self.HistorySens && self.HistorySens.fill ? self.HistorySens.fill(t, v) : t).replace(/\{\w+\}/g, '');
 function majFileParoles(dt) {   // les échanges entendus défilent en sous-titres, une réplique toutes les 3 s
-  if (HIST.tFile > 0) { HIST.tFile -= dt; return; } if (!HIST.file.length || DIALOGUE.ouvert) return;
-  const [a, txt] = HIST.file.shift(); sousTitre(nomAffiche(a), txt, 2.9); HIST.tFile = 3.1;
+  if (HIST.tFile > 0) { HIST.tFile -= dt; return; } if (!HIST.file.length || DIALOGUE.ouvert || voixOccupee()) return;   /* 1.1 : la réplique suivante attend que la précédente soit dite */
+  const [a, txt] = HIST.file.shift(); VOIXP.qui = a; sousTitre(nomAffiche(a), txt, 2.9); HIST.tFile = 3.1;
 }
 function avisSurLesAutres(a) {   // réponse à « Et les autres ? » : ce que ce voyageur pense de ceux qu'il connaît
   if (!HIST.pret) return 'Je ne sais pas encore quoi en penser.'; const hs = HIST.hs, id = a.p.id;
@@ -10283,7 +10353,7 @@ function sonContexte() {
 function sonReveil() {   // appelé à chaque geste (clic, toucher, touche, bouton de manette)
   try { const C = sonContexte(); if (C && C.state !== 'running') C.resume(); if (C && !SON.vent) ambiances(); } catch (e) {}
 }
-for (const ev of ['pointerdown', 'keydown', 'touchstart']) addEventListener(ev, sonReveil, { passive: true });
+for (const ev of ['pointerdown', 'keydown', 'touchstart', 'touchend', 'click', 'mouseup']) addEventListener(ev, sonReveil, { passive: true });   /* HDF BASE : phase 2 · 1.1 — Safari iOS ne débloque le son qu'au relâcher du doigt ou au clic (avant : pointerdown, keydown, touchstart) */
 document.addEventListener('visibilitychange', () => { try { if (!SON.ctx) return; if (document.hidden) SON.ctx.suspend(); } catch (e) {} });
 const sonPret = () => SON.ctx && SON.ctx.state === 'running';
 function source(boucle) { const s = SON.ctx.createBufferSource(); s.buffer = SON.bruit; s.loop = !!boucle; return s; }
@@ -10295,7 +10365,7 @@ function ambiances() {   // vent (bruit filtré, rafales lentes) et pluie (bruit
 }
 function majAmbiances() {
   if (!sonPret() || !SON.vent) return; const t = SON.ctx.currentTime, dehors = !Cm.dans && !joueurABord() && !CINE.attente, pluie = METEO_J && METEO_J.pluie, nuit = HORLOGE.min < 6 * 60 || HORLOGE.min > 21 * 60;
-  const v = CINE.attente ? 0 : (dehors ? .32 + (pluie ? .18 : 0) + (nuit ? .08 : 0) : .06) * (CACHE.lieu ? .5 : 1), p = CINE.attente ? 0 : pluie ? (dehors ? .3 : .07) : 0;
+  const v = CINE.attente ? 0 : (dehors ? .32 + (pluie ? .18 : 0) + (nuit ? .08 : 0) : .06) * (CACHE.lieu ? .5 : 1) * (ARR.install || RASS.etat ? .35 : 1)   /* HDF BASE : phase 2 · 1.1 — à l'arrivée au village, le vent se calme (avant : même vent partout) */, p = CINE.attente ? 0 : pluie ? (dehors ? .3 : .07) : 0;
   SON.vent.gain.setTargetAtTime(v, t, .8); SON.pluie.gain.setTargetAtTime(p, t, .8);
 }
 // pas : surface selon l'endroit ; cadence selon la vitesse ; une voix, pas de file
@@ -10348,7 +10418,7 @@ function grondement(duree = 26) {   // le train : une seule voix ; s'il gronde d
     const s = source(true), f = C.createBiquadFilter(), g = C.createGain(); f.type = 'lowpass'; f.frequency.value = 85; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.6, t + duree * .7); g.gain.linearRampToValueAtTime(0, t + duree);
     s.connect(f).connect(g).connect(SON.bus.amb); s.start(t); s.stop(t + duree + .2); SON.grond = { s, g, fin: t + duree }; } catch (e) {}
 }
-function sonCoupe(c) { SON.coupe = c; try { if (SON.maitre) SON.maitre.gain.setTargetAtTime(c ? 0 : SON.volume, SON.ctx.currentTime, .1); } catch (e) {} try { localStorage.setItem('hdf-enclos-son', c ? '0' : '1'); } catch (e) {} }
+function sonCoupe(c) { SON.coupe = c; if (c) arreterVoix(); try { if (SON.maitre) SON.maitre.gain.setTargetAtTime(c ? 0 : SON.volume, SON.ctx.currentTime, .1); } catch (e) {} try { localStorage.setItem('hdf-enclos-son', c ? '0' : '1'); } catch (e) {} }
 try { SON.coupe = localStorage.getItem('hdf-enclos-son') === '0'; } catch (e) {}
 A.onUpdate(dt => { try { majAmbiances(); majPas(dt); majRadio(dt); majFiles(); } catch (e) {} });
 
@@ -10360,7 +10430,7 @@ function choixVisibles() { if (!$('menu').hidden) return [...document.querySelec
   if (DIALOGUE.ouvert) return [...document.querySelectorAll('#dlChoix button')]; if (!$('capture').hidden) return [...document.querySelectorAll('#capture button')]; if (!$('lettre').hidden) return [...document.querySelectorAll('#lettre button')]; return []; }
 function surligner() { const L = choixVisibles(); L.forEach((b, i) => b.classList.toggle('gpSel', GP.actif && i === GP.sel % Math.max(1, L.length))); }
 function boutonManette(i) {   // PHASE 2 : Croix sauter / valider · Carré agir · Rond s'accroupir / retour · Triangle carnet · R1 état · L1 roue (maintenir) · Options menu
-  sonReveil(); const L = choixVisibles();
+  sonReveil(); if (JEU.actif) return; const L = choixVisibles();
   if (SURV.actif && (i === 14 || i === 15)) { entrerSurveillance(SURV.i + (i === 15 ? 1 : -1)); return; } if (SURV.actif && i === 1) { quitterSurveillance(); return; } if (!$('clavier').hidden && i === 1) { fermerClavier(); return; }   /* PHASE 2 · LOT 3 */
   if (i === 4) { ouvrirRoue(); return; }
   if (i === 6 && $('accueil').hidden && !CINE.actif) { basculerSac(); return; }   /* PHASE 2 · LOT 2 : L2 sac */
@@ -10376,10 +10446,11 @@ function boutonManette(i) {   // PHASE 2 : Croix sauter / valider · Carré agir
 }
 function majManette(dt) {
   const P = navigator.getGamepads ? navigator.getGamepads() : []; let g = null; for (const q of P) if (q && q.connected) { g = q; break; }
-  if (!g) { if (GP.actif) { GP.actif = false; texteAide(); } GP.mx = GP.my = GP.lx = GP.ly = 0; return; }
-  if (!GP.actif) { GP.actif = true; texteAide(); notifier('Manette connectée.'); }
+  if (!g) { if (GP.actif) { GP.actif = false; document.body.classList.remove('manette'); texteAide(); } GP.mx = GP.my = GP.lx = GP.ly = 0; return; }
+  if (!GP.actif) { GP.actif = true; document.body.classList.add('manette'); texteAide(); notifier('Manette connectée.'); }
   const ax = g.axes || []; GP.mx = zm(ax[0] || 0); GP.my = zm(ax[1] || 0); GP.lx = zm(ax[2] || 0); GP.ly = zm(ax[3] || 0);
-  const B = g.buttons || []; GP.run = !!((B[10] && B[10].pressed) || (B[7] && B[7].value > .5));
+  const B = g.buttons || []; { const l3 = !!(B[10] && B[10].pressed); if (l3 && !GP.l3p) GP.sprint = !GP.sprint; GP.l3p = l3; if (Math.hypot(GP.mx, GP.my) < .2) GP.sprint = false; GP.run = GP.sprint || l3 || !!(B[7] && B[7].value > .5); }   /* HDF BASE : phase 2 · lot 5 — L3 bascule la course jusqu'à l'arrêt (avant : il fallait garder le stick enfoncé) */
+  if (JEU.actif) jeuManette(B);
   for (let i = 0; i < B.length; i++) { const p = !!(B[i] && B[i].pressed); if (p && !GP.prec[i]) boutonManette(i); if (!p && GP.prec[i] && i === 4) fermerRoue(true); GP.prec[i] = p; }   // L1 relâché : valide la roue
   if (Cm.mode === 'pied' && !CINE.actif && $('menu').hidden && (GP.lx || GP.ly)) { Cm.w.a -= GP.lx * dt * 2.6; Cm.w.p = clamp(Cm.w.p - GP.ly * dt * 1.9, -1.3, 1.3); }
   surligner();
@@ -10400,7 +10471,8 @@ function objectifs() {
   const O = [], W = Cm.w, J = FOYERS.joueur, B = BESOINS, h = HORLOGE.min / 60, nuit = h >= 22 || h < 6, ici = Cm.dans ? Cm.dans.id : null, add = (t, cible, urgent) => O.push({ t, cible, urgent: !!urgent });
   if (CINE.actif || CINE.attente || Cm.mode !== 'pied') return O;
   if (!ARR.install) {
-    if (ARR.etape === 'assis' || joueurABord()) { const v = TRAIN.voitures.find(q => q.visitable); add(Cm.assis ? 'Se lever et descendre du train' : 'Descendre du train', { x: TRAIN.x + v.x1 - 1.15, z: GARE.zr - TRAIN.larg / 2 - .6 }); }
+    if (RASS.etat) { objectifsRass(add); return O; }   // PHASE 2 · LOT 6
+    if (VOYAGE.actif) add(VOYAGE.annonce ? 'Le train arrive · préparez-vous à descendre' : 'Le train roule vers le Hameau de Feral · regardez par la fenêtre', null); else if (ARR.etape === 'assis' || joueurABord()) { const v = TRAIN.voitures.find(q => q.visitable); add(Cm.assis ? 'Se lever et descendre du train' : 'Descendre du train', { x: TRAIN.x + v.x1 - 1.15, z: GARE.zr - TRAIN.larg / 2 - .6 }); }
     else if (ARR.etape === 'descente' || ARR.etape === 'accueil') add('Écouter l’homme, sur le quai', { x: HOMME.x, z: HOMME.z });
     else add('Franchir le portail et rejoindre le domaine', { x: PORTAIL.x, z: ENCEINTE.z1 - 4 });
     return O;
@@ -10442,7 +10514,7 @@ function majObjectifs(dt) {
 }
 function majRepere() {   // projection de la cible à l'écran (caméra à la première personne : position, lacet a, tangage p, champ vertical)
   const el = $('cible'), C = OBJ.cible, W = Cm.w;
-  if (!C || CINE.actif || CINE.attente || Cm.mode !== 'pied' || !$('menu').hidden || !$('lettre').hidden || !$('carnet').hidden || TEMPS.dort || TEMPS.occupe || CACHE.lieu || DIALOGUE.ouvert || !$('sac').hidden || SURV.actif || RESERVE.dedans) { el.hidden = true; return; }
+  if (!C || CINE.actif || CINE.attente || Cm.mode !== 'pied' || !$('menu').hidden || !$('lettre').hidden || !$('carnet').hidden || TEMPS.dort || TEMPS.occupe || CACHE.lieu || DIALOGUE.ouvert || !$('sac').hidden || SURV.actif || RESERVE.dedans || JEU.actif) { el.hidden = true; return; }
   let tx = C.x, tz = C.z, ty = (C.lv || 0) * INTERIEURS.LV + 1.2, nom = '';
   if (C.dans && (!Cm.dans || Cm.dans.id !== C.dans)) { [tx, tz] = INTERIEURS.porteDehors(C.dans); ty = 1.6; nom = C.dans === FOYERS.joueur ? 'votre maison' : maisonDe(C.dans).nom; }   // dans une maison où l'on n'est pas : on vise sa porte
   else if (!C.dans && Cm.dans) { [tx, tz] = [tx, tz]; ty = 1.4; }
@@ -10539,7 +10611,7 @@ function fermerPortailArrivee() {   // portail fermé, barrière posée, vantaux
   if (!COLL.includes(PORTAIL.barriere)) COLL.push(PORTAIL.barriere); posePortail();
 }
 function portesTrain(A) {   // vantaux mobiles de la voiture 1 (enfants du nœud du train) : ouverts, ils se rabattent contre le montant
-  for (const P of TRAIN.portes || []) { const v = GEO.mergerLots(6, 600); v.add(GEO.roundBox(.06, 1.82, 1), M3.translate(0, P.F + .93, .5), [.2, .25, .36], 18); v.add(GEO.roundBox(.07, .7, .76), M3.translate(0, P.F + 1.4, .5), [.55, .7, .8], 3);
+  for (const P of TRAIN.portes || []) { const v = GEO.mergerLots(6, 600); v.add(GEO.roundBox(.06, 1.93, 1.36), M3.translate(0, P.F + .985, .68), [.2, .25, .36], 18); v.add(GEO.roundBox(.07, .7, .76), M3.translate(0, P.F + 1.4, .68), [.55, .7, .8], 3);   /* HDF BASE : phase 2 · 1.1 — vantail de 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,10 m), le retrait de la charnière (0,17 m) et recouvre le montant (avant : 1 m sur 1,82 m, un jour de 33 cm où l'on voyait l'homme disparaître) */
     const nd = new F.Node('porte-train'); for (const p of v.build(a => A.R.makeMesh(a))) nd.addPart(p.mesh, null, p.color, p.mat, { cast: true, maxDist: 400 }); nd.pickable = false; nd.matrix = new Float32Array(16); TRAIN.noeud.add(nd); P.nd = nd; P.ouv = 1; P.anim = 0; posePorteTrain(P); }
 }
 function posePorteTrain(P) { const sg = P.hx < P.pxd ? 1 : -1, a = (1 - P.ouv) * sg * PI / 2; P.nd.matrix.set(M3.mul(M3.translate(P.hx, 0, P.lz - .5), M3.rotY(a))); }
@@ -10590,7 +10662,7 @@ function choixRoue() {
   return L.slice(0, Math.max(3, 8 - fin.length)).concat(fin).slice(0, 8);   /* HDF BASE : phase 2 · lot 2 — les actions du lieu d'abord, puis sac et carnet (avant : État, Carnet) */
 }
 function ouvrirRoue() {
-  if (ROUE.ouverte || CINE.actif || CINE.attente || Cm.mode !== 'pied' || !$('menu').hidden || !$('sac').hidden || SURV.actif || !$('clavier').hidden || !$('choix').hidden || DIALOGUE.ouvert || !$('lettre').hidden || !$('carnet').hidden || !$('capture').hidden) return;
+  if (ROUE.ouverte || CINE.actif || CINE.attente || Cm.mode !== 'pied' || !$('menu').hidden || !$('sac').hidden || SURV.actif || JEU.actif || !$('clavier').hidden || !$('choix').hidden || DIALOGUE.ouvert || !$('lettre').hidden || !$('carnet').hidden || !$('capture').hidden) return;
   ROUE.ouverte = true; ROUE.choix = choixRoue(); ROUE.sel = -1; A.echelleTemps = .3; const el = $('roue'), n = ROUE.choix.length;
   el.innerHTML = '<div class="roCentre">' + (n ? 'Choisir' : 'Rien à faire ici') + '</div>' + ROUE.choix.map((c, i) => { const ang = -PI / 2 + i * 2 * PI / n, x = Math.cos(ang) * 118, y = Math.sin(ang) * 118;
     return '<button class="roChoix" data-i="' + i + '" style="transform:translate(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px)"><kbd>' + (i + 1) + '</kbd>' + c.t + '</button>'; }).join('');
@@ -11196,7 +11268,7 @@ function ramasser(r) {
   const D = RESS_DEF[r.k], n = D.n[0] + Math.floor(Math.random() * (D.n[1] - D.n[0] + 1)), k = n * (nb('panier') && r.k !== 'pierre' && r.k !== 'branche' ? 2 : 1);
   const mis = ajouter(D.obj, k); if (!mis) return; r.pris = HORLOGE.jour; r.nd.visible = false; compter('cueillir'); BESOINS.calme = Math.min(100, BESOINS.calme + 1);
 }
-function trouverFragment(id) {
+function trouverFragment(id) { motif('decouverte');
   if (MEMOIRE.collection.includes(id)) return false; const f = FRAGMENTS.find(q => q.id === id); if (!f) return false; MEMOIRE.collection.push(id); sauverMemoire(); sonEvt('papier');
   notifier('Fragment de Feral : « ' + f.titre + ' » (' + MEMOIRE.collection.length + ' / ' + FRAGMENTS.length + '). Dans votre carnet.'); return true;
 }
@@ -11397,7 +11469,7 @@ function avancerQuete(id) {
   if (s.etape >= q.e.length) { terminerQuete(id); return; } const n = q.e[s.etape];
   setTimeout(() => notifier('« ' + q.titre + ' » · étape ' + (s.etape + 1) + ' / ' + q.e.length + ' : ' + n.t + '.'), 2400); majObjetsQuete(); verifierQuetes();
 }
-function terminerQuete(id) {
+function terminerQuete(id) { motif('quete');
   const s = VIE.quetes[id], q = QPAR[id], r = q.rec || {}, a = pnj(q.qui); s.fini = minutesTotales(); VIE.suivie = Object.keys(VIE.quetes).find(k => !VIE.quetes[k].fini) || null;
   const lignes = []; if (r.retire) retirerObjets(r.retire); if (r.objets) { const p = donner(r.objets, true); if (p.length) lignes.push('vous recevez ' + liste(p)); }
   if (r.fragment && trouverFragment(r.fragment)) lignes.push('un fragment de Feral'); if (r.recette && apprendre(r.recette)) lignes.push('une recette');
@@ -11853,7 +11925,7 @@ addEventListener('keydown', e => { if (!SURV.actif) return; if (e.code === 'Arro
   else if (e.code === 'Escape' || e.code === 'KeyE') { e.preventDefault(); e.stopImmediatePropagation(); quitterSurveillance(); } else if (e.code === 'Space') { e.preventDefault(); e.stopImmediatePropagation(); $('svRapide').click(); } }, true);
 // ======================= L'ARME
 const armePrete = () => nb('revolver') > 0 && nb('cartouche') > 0;
-function tirer() { retirer('cartouche', 1); sonTir(); VIE.flags.armeConnue = true; for (const a of PASSAGERS.liste) if (present(a) && a.b) a.b.calme = Math.max(0, (a.b.calme ?? 60) - 10); journal('Un coup de feu a claqué dans le hameau.'); }
+function tirer() { retirer('cartouche', 1); sonTir(); motif('violence'); sursaut(Cm.w.x, Cm.w.z, 45); VIE.flags.armeConnue = true; for (const a of PASSAGERS.liste) if (present(a) && a.b) a.b.calme = Math.max(0, (a.b.calme ?? 60) - 10); journal('Un coup de feu a claqué dans le hameau.'); }
 function mortParJoueur(a, pourquoi) {
   tirer(); const e = accord(a.p, '', 'e'); a.mort = { jour: HORLOGE.jour, maison: a.maison, par: 'joueur', decouvert: true }; a.maison = null; a.etat = 'mort'; a.chemin = null; a.dedans && (a.poste = null); a.c.play('Death', { fade: .1 }); if (DIALOGUE.a === a) fermerDialogue();
   journal('Vous avez abattu ' + a.p.prenom + ' (' + pourquoi + ').'); souvenir('tue-' + a.p.id + '-' + MEMOIRE.boucle, 'Boucle ' + MEMOIRE.boucle + ' : vous avez tué ' + a.p.prenom + ' d’une balle (' + pourquoi + ').');
@@ -12015,7 +12087,7 @@ function reponseAmour(a, k) {
   if (k === 'nuit') { setTimeout(() => nuitAvec(a), 900); return ['Reste.', 'Je n’osais pas te le demander.', 'Viens. Avant que je change d’avis.'][Math.floor(Math.random() * 3)]; }
   return '…';
 }
-function nuitAvec(a) {
+function nuitAvec(a) { motif('amour');
   if (DIALOGUE.ouvert) fermerDialogue(); const id = a.maison, P = INTERIEURS.plan(id); if (!P) return; const lit = P.mobilier.filter(m => m.t === 'lit').sort((u, v) => u.niveau - v.niveau)[0]; if (!lit) return;
   INTERIEURS.ensure(id); INTERIEURS.setInside(id); Cm.dans = { id, lv: lit.niveau }; const [x, z] = INTERIEURS.world(id, lit.x, lit.z + 1); Object.assign(Cm.w, { x, z }); AMOUR.nuit[a.p.id] = { maison: id, avec: 'joueur' };
   sousTitre('', '(La porte se referme. Le reste ne regarde que vous deux.)', 4); BESOINS.moral = Math.min(100, BESOINS.moral + 15); BESOINS.calme = Math.min(100, BESOINS.calme + 15); moralP(a, 10); archiver(id, a.p.prenom + ' et vous. La porte fermée.', null);
@@ -12036,7 +12108,7 @@ function majPouvoir(dm) {
   if (POUVOIR.discours !== J && m > 18.6 * 60 && m < 20 * 60 && !Cm.dans) { const c = chefPNJ(); if (c && c.act === 'veillee' && Math.hypot(c.c.pos[0] - Cm.w.x, c.c.pos[2] - Cm.w.z) < 9) { POUVOIR.discours = J;
     sousTitre(c.p.prenom, POUVOIR.tyran ? 'Personne ne discute. Personne. Vous avez vu ce que j’ai dans la poche.' : POUVOIR.corrompu ? 'Ceux qui travaillent mangent. Les autres… on verra.' : POUVOIR.autoritaire ? 'Demain, tout le monde au travail à sept heures. Pas d’exception.' : 'Demain, on partage. Tout le monde mange. C’est comme ça qu’on tiendra.', 4); } }
 }
-function conseil() {
+function conseil() { motif('conseil');
   const L = vivants(), R = Math.random; const cands = L.slice().sort((u, v) => (ambition(v) * .6 + respect(v) * 2) - (ambition(u) * .6 + respect(u) * 2)).filter(a => ambition(a) >= 1).slice(0, 3); if (POUVOIR.candidatJoueur) cands.push('joueur'); if (cands.length < 2 && !cands.includes('joueur')) { if (L.length) cands.push(...L.filter(a => !cands.includes(a)).slice(0, 2 - cands.length)); }
   if (!cands.length) return;
   const voix = new Map(cands.map(c => [c, 0])), choixDe = {};
@@ -12140,14 +12212,729 @@ function reinitReserve() {
   Object.assign(RESERVE, { dedans: false, ouv: 0, anim: 0, saisie: '', stock: 20, bandages: 4, archives: [], preuves: {}, page: 0 }); if (SURV.actif) { SURV.actif = false; SURV.rapide = false; try { document.body.classList.remove('surv'); cv.classList.remove('surv'); $('surv').hidden = true; } catch (e) {} } SURV.cams = null;
 }
 
+// ---------------------------------------------------------------- LOT 5 (phase 2) — ACTIVITÉS JOUABLES ET CORPS DES HABITANTS
+// Chaque activité se joue : un mini-jeu à mécanique propre (13 types, combinés et réglés pour chacune), pendant que le personnage du joueur, filmé de trois quarts,
+// fait le geste (animations Joe : Chop_Wood, Fish_Reel, Knead_Dough, Milk_Cow, Pottery_Wheel…). Le résultat (0 à 100 %) règle ce que l'activité rapporte.
+// Commandes : Espace / E / Croix / Carré / bouton ● = action (appui ou maintien) · ← → (Q D, croix, L1 R1) · ↑ ↓ (Z S, croix) · Échap / Rond = abandonner.
+// Les habitants courent (en retard, sous la pluie, besoin pressant, raid, fuite), sautent (flaques, joie, sursaut), se faufilent accroupis (visites secrètes, coups de feu).
+// ======================= LES RECETTES DES ACTIVITÉS (une ligne par activité : phases, animation, ce que rapporte le score)
+//   mode : 'echelle' (l'effet est multiplié par le score), 'seuil' (réussi au-delà de min, sinon rien), 'propre' (le jeu décide de ce qu'on obtient)
+const JEUX = [
+  { re: /^Vous coupez du bois/, titre: 'Fendre les bûches', clip: 'Chop_Wood', face: 'bois', mode: 'echelle', phases: [{ type: 'timing', titre: 'Frapper au cœur de la bûche', n: 5, zone: .16, vitesse: .9, accel: 1.12, txt: ['Fendue net !', 'Bien.', 'À côté…'] }], bonus: s => s >= .95 && 'Cinq coups, cinq bûches nettes.' },
+  { re: /^Vous travaillez au potager/, titre: 'Travailler la terre', clip: 'Dig_Spade', face: 'potager', mode: 'echelle', phases: [{ type: 'alterne', titre: 'Bêcher : gauche, droite, gauche…', duree: 7, cible: 18, clip: 'Dig_Spade' }, { type: 'sequence', titre: 'Arracher les mauvaises herbes', n: 7, temps: 1.3, clip: 'Hoe' }] },
+  { re: /^Vous arrosez/, titre: 'Arroser', clip: 'Water_Can', face: 'potager', mode: 'echelle', phases: [{ type: 'remplir', titre: 'Arroser chaque rang sans le noyer (maintenir, relâcher)', n: 4, zone: [.62, .82], vitesse: .42, theme: 'eau' }] },
+  { re: /^Vous récoltez/, titre: 'Récolter', clip: 'Harvest_Pull', face: 'potager', mode: 'echelle', phases: [{ type: 'remplir', titre: 'Tirer doucement : relâcher avant que ça casse', n: 5, zone: [.55, .78], vitesse: .55, theme: 'tirer' }], bonus: (s, c) => { if (s >= .8) { const J = FOYERS.joueur; (FRAIS[J] = FRAIS[J] || []).push({ n: 2, fin: minutesTotales() + 4 * 1440 }); return 'Rien d’abîmé : deux rations de plus.'; } } },
+  { re: /^Vous réparez le treuil/, titre: 'Réparer le treuil', clip: 'Hammer_Work', face: 'puits', mode: 'echelle', phases: [{ type: 'sequence', titre: 'Remonter les pièces dans l’ordre', n: 5, temps: 1.8, clip: 'Interact' }, { type: 'timing', titre: 'Serrer les clavettes', n: 3, zone: .14, vitesse: 1.1, clip: 'Hammer_Work' }] },
+  { re: /^Vous nourrissez les poules/, titre: 'Nourrir les poules', clip: 'Feed_Scatter', face: 'poulailler', mode: 'seuil', min: .3, phases: [{ type: 'timing', titre: 'Lancer le grain là où sont les poules', n: 5, zone: .2, vitesse: .7, mobile: true, txt: ['Elles se jettent dessus !', 'Pas mal.', 'Le grain tombe dans le vide.'] }] },
+  { re: /^Vous cherchez les œufs/, titre: 'Chercher les œufs', clip: 'Pick_Up', face: 'poulailler', mode: 'propre', phases: [{ type: 'cherche', titre: 'Fouiller la paille des pondoirs (la paille frémit où il y en a)', cases: 9, objets: () => Math.max(1, Math.min(6, ACT.oeufs)), essais: 6, icone: 'œuf' }],
+    propre: (s, R) => { const n = Math.min(ACT.oeufs, R.trouves || 0); if (!n) { notifier('Rien sous la paille. Les poules vous regardent faire.'); return; } const m = ajouter('oeuf', n); ACT.oeufs -= m; compter('oeufs'); } },
+  { re: /^Vous trayez la vache/, titre: 'Traire la vache', clip: 'Milk_Cow', face: 'vache', mode: 'seuil', min: .35, phases: [{ type: 'alterne', titre: 'Traire en rythme : gauche, droite', duree: 9, cible: 22, regulier: true }], bonus: s => { if (s >= .85) { ajouter('lait', 1, true); return 'Elle se laisse faire : un pot de plus.'; } } },
+  { re: /^Vous tondez un mouton/, titre: 'Tondre un mouton', clip: 'Kneel_Care', face: 'mouton', mode: 'seuil', min: .4, phases: [{ type: 'tenir', titre: 'Suivre la bête qui se débat (maintenir pour aller à droite)', duree: 9, zone: .22, mobile: true, derive: .35 }], bonus: s => { if (s >= .85) { ajouter('laine', 1, true); return 'Une toison entière, sans une entaille.'; } } },
+  { re: /^Vous pêchez/, titre: 'Pêcher', clip: 'Fish_Wait', face: 'mare', mode: 'propre', phases: [{ type: 'peche', titre: 'Attendre la touche, ferrer, ramener sans casser', n: 3 }],
+    propre: (s, R, k) => { const n = R.prises || 0; BESOINS.calme = Math.min(100, BESOINS.calme + 10 * k); compter('peche'); if (n) ajouter('poisson', n); else notifier('Rien. Le bouchon a dansé, mais rien. Au moins, c’était calme.'); } },
+  { re: /^Vous pétrissez et cuisez le pain/, titre: 'Faire le pain', clip: 'Knead_Dough', face: 'four', mode: 'seuil', min: .4, phases: [{ type: 'mash', titre: 'Pétrir la pâte (appuyer vite)', duree: 7, decay: .2, clip: 'Knead_Dough' }, { type: 'timing', titre: 'Sortir le pain quand il est doré', n: 1, zone: .12, vitesse: .35, theme: 'four', clip: 'Oven_Use', txt: ['Doré à point.', 'Un peu pâle.', 'Brûlé !'] }],
+    bonus: s => { if (s >= .9) { ajouter('pain', 1, true); return 'La croûte chante en refroidissant : un pain de plus.'; } if (s < .55) return 'La croûte est noire par endroits. On le mangera quand même.'; } },
+  { re: /^Vous lavez votre linge/, titre: 'Laver le linge', clip: 'Kneel_Care', face: 'lavoir', mode: 'haute', phases: [{ type: 'alterne', titre: 'Frotter contre la planche avant d’avoir les mains gelées', duree: 9, cible: 24, froid: true }], bonus: s => { BESOINS.hygiene = Math.min(100, BESOINS.hygiene + 15 * s); } },
+  { re: /^Vous balayez la place/, titre: 'Balayer la place', clip: 'Sweep', face: 'mat', mode: 'seuil', min: .35, phases: [{ type: 'sequence', titre: 'Pousser la poussière vers les coins', n: 9, temps: 1.1 }] },
+  { re: /^Vous tournez un bol/, titre: 'Tourner un bol', clip: 'Pottery_Wheel', face: 'poterie', mode: 'seuil', min: .5, phases: [{ type: 'tenir', titre: 'Centrer la terre sur le tour', duree: 7, zone: .18, derive: .5 }, { type: 'remplir', titre: 'Monter les parois sans qu’elles s’effondrent', n: 2, zone: [.6, .8], vitesse: .35, theme: 'argile' }], bonus: s => s >= .9 && 'Un bol presque droit. Presque.' },
+  { re: /^Vous jouez de la guitare/, titre: 'Jouer de la guitare', clip: 'Play_Guitar', face: 'mat', mode: 'echelle', phases: [{ type: 'rythme', titre: 'Plaquer les accords en mesure', n: 16, bpm: 92 }] },
+  { re: /^Vous dansez/, titre: 'Danser à la veillée', clip: 'Dance', face: 'mat', mode: 'echelle', phases: [{ type: 'rythme', titre: 'Suivre les pas en mesure (flèches)', n: 14, bpm: 104, dirs: true }] },
+  { re: /^Vous jouez aux boules/, titre: 'Jouer aux boules', clip: 'Throw', face: 'boules', mode: 'echelle', phases: [{ type: 'boules', titre: 'Viser, puis doser la force', n: 3 }], bonus: (s, c, R) => R.gagne ? 'Vous gagnez la partie ' + R.pts + ' à ' + R.ptsA + '.' : 'Vous perdez ' + R.pts + ' à ' + R.ptsA + '.' },
+  { re: /^Vous vous recueillez/, titre: 'Se recueillir', clip: 'Kneel_Care', face: 'cimetiere', mode: 'echelle', phases: [{ type: 'souffle', titre: 'Respirer : maintenir en inspirant, relâcher en expirant', cycles: 4, periode: 4 }] },
+  { re: /^Vous montez la garde/, titre: 'Monter la garde', clip: 'Idle_LookAround', face: 'portail', mode: 'seuil', min: .5, phases: [{ type: 'guet', titre: 'Guetter : agir sur une silhouette, pas sur une ombre', n: 5 }] },
+  { re: /^Vous écrivez/, titre: 'Écrire', clip: 'Write_Notes', mode: 'echelle', phases: [{ type: 'choix', titre: 'Qu’écrivez-vous ce soir ?', options: [
+    { t: 'Ce dont je me souviens des autres boucles', f: () => { BESOINS.calme = Math.min(100, BESOINS.calme + 8); return MEMOIRE.boucle > 1 ? 'Une page. Ça devrait en remplir cent.' : 'Il n’y a qu’une boucle. Pour l’instant.'; } },
+    { t: 'Une lettre à Ilona, que personne ne lira', f: () => { BESOINS.moral = Math.min(100, BESOINS.moral + 8); BESOINS.calme = Math.max(0, BESOINS.calme - 4); return 'Vous écrivez « Je sais ». Puis vous raturez. Puis vous le réécrivez.'; } },
+    { t: 'Les heures du train', f: () => { const R = MEMOIRE.raids || []; return R.length ? 'Les nuits notées : ' + R.slice(-3).map(q => 'jour ' + q.jour + ' vers ' + heureTxt(q.min)).join(', ') + '. Ça change d’une fois sur l’autre.' : 'Vous n’avez encore rien vu passer. Vous laissez la page en blanc, avec les heures en marge.'; } }] }] },
+  { re: /^Vous lisez/, titre: 'Lire', clip: 'Read_Sit', mode: 'echelle', phases: [{ type: 'lecture', titre: 'Le roman sans couverture', pages: ['« Le village n’avait pas de nom sur les cartes. On y arrivait par le train du soir, et l’on n’en repartait que par le même train, des années plus tard, ou jamais. »', '« Elle disait que les murs ne servent pas à garder les gens dedans, mais à leur faire oublier qu’il existe un dehors. »', 'Les dernières pages ont été arrachées. Sur la dernière qui reste, quelqu’un a souligné au crayon : « On s’habitue à tout. C’est cela, le pire. »'] }] },
+  { re: /^Vous vous reposez/, titre: 'Se reposer', clip: 'Sit_Chair', mode: 'echelle', phases: [{ type: 'souffle', titre: 'Fermer les yeux, ralentir le souffle', cycles: 3, periode: 5 }] },
+  { re: /^Vous fouillez/, titre: 'Fouiller', clip: 'Interact', mode: 'seuil', min: .3, phases: [{ type: 'cherche', titre: 'Tiroirs, dessous, recoins : chercher sans faire de bruit', cases: 6, objets: () => 2, essais: 4, icone: '?' }] },
+  { re: /^Vous travaillez à l’établi/, titre: 'À l’établi', clip: 'Hammer_Work', mode: 'seuil', min: .3, phases: [{ type: 'timing', titre: 'Marteler juste', n: 6, zone: .12, vitesse: 1, accel: 1.05, clip: 'Hammer_Work' }, { type: 'sequence', titre: 'Coudre et assembler', n: 5, temps: 1.5, clip: 'Saw_Work' }] },
+  { re: /^Vous cuisinez/, titre: 'Cuisiner', clip: 'Cook_Pan', mode: 'seuil', min: .3, phases: [{ type: 'tenir', titre: 'Garder le feu doux (ni trop, ni trop peu)', duree: 6, zone: .24, derive: .3, theme: 'feu', clip: 'Stir_Bowl' }, { type: 'timing', titre: 'Retirer du feu au bon moment', n: 1, zone: .14, vitesse: .4, theme: 'four', clip: 'Cook_Pan' }] },
+  { re: /^Vous fabriquez/, titre: 'Fabriquer', clip: 'Interact', mode: 'seuil', min: .3, phases: [{ type: 'sequence', titre: 'Tresser, nouer, serrer', n: 8, temps: 1.4 }] },
+  { re: /^Filer la laine|^Vous fabriquez : filer/, titre: 'Filer la laine', clip: 'Interact', mode: 'seuil', min: .3, phases: [{ type: 'alterne', titre: 'Faire tourner le rouet', duree: 8, cible: 20, regulier: true }] },
+  // étapes de quête : chacune a son geste
+  { re: /^Installer l’infirmerie/, titre: 'Installer l’infirmerie', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'sequence', titre: 'Ranger les herbes, les bandages, l’alcool', n: 8, temps: 1.5 }] },
+  { re: /^Creuser|^Déterrer/, titre: 'Creuser', clip: 'Dig_Spade', mode: 'seuil', min: .2, phases: [{ type: 'mash', titre: 'Creuser (appuyer vite)', duree: 8, decay: .15 }, { type: 'remplir', titre: 'Dégager sans abîmer ce qu’il y a dessous', n: 1, zone: [.55, .8], vitesse: .45, theme: 'tirer' }] },
+  { re: /^Cuisiner le repas/, titre: 'Le repas d’Hugo', clip: 'Cook_Pan', mode: 'seuil', min: .2, phases: [{ type: 'tenir', titre: 'Feu doux sous l’omelette géante', duree: 7, zone: .2, derive: .4, theme: 'feu' }, { type: 'rythme', titre: 'Battre les œufs en mesure', n: 10, bpm: 110 }] },
+  { re: /^Construire le banc|^Réparer la clôture|^Monter le bûcher|^Remonter le revolver/, titre: 'Assembler', clip: 'Hammer_Work', mode: 'seuil', min: .2, phases: [{ type: 'sequence', titre: 'Assembler les pièces dans l’ordre', n: 6, temps: 1.6 }, { type: 'timing', titre: 'Fixer', n: 3, zone: .15, vitesse: .9 }] },
+  { re: /^Réparer le groupe/, titre: 'Le groupe électrogène', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'sequence', titre: 'Rebrancher les câbles dans l’ordre', n: 8, temps: 1.4 }, { type: 'mash', titre: 'Tirer le lanceur', duree: 6, decay: .3 }] },
+  { re: /^Préparer la décoction|^Allumer la bougie/, titre: 'La flamme', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'tenir', titre: 'Garder la flamme sans l’étouffer', duree: 7, zone: .2, derive: .45, theme: 'feu' }] },
+  { re: /^Mettre les rêves par écrit/, titre: 'Les rêves', clip: 'Write_Notes', mode: 'seuil', min: .2, phases: [{ type: 'sequence', titre: 'Recopier sans trahir les mots', n: 7, temps: 1.6 }] },
+  { re: /^Coudre avec/, titre: 'Coudre', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'rythme', titre: 'Le point arrière, régulier', n: 12, bpm: 84 }] },
+  { re: /^Descendre la corde/, titre: 'Descendre la corde', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'tenir', titre: 'Garder la corde au centre du puits', duree: 8, zone: .2, derive: .4, mobile: true }] },
+  { re: /^Nettoyer les croix|^Nettoyer et graisser/, titre: 'Nettoyer', clip: 'Kneel_Care', mode: 'seuil', min: .2, phases: [{ type: 'alterne', titre: 'Frotter', duree: 8, cible: 18 }] },
+  { re: /^Ouvrir le double fond/, titre: 'Le double fond', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'tenir', titre: 'Tenir la clé sous tension, sans forcer', duree: 6, zone: .14, derive: .35 }] },
+  { re: /^Forcer la caisse/, titre: 'Forcer la caisse', clip: 'Push', mode: 'seuil', min: .2, phases: [{ type: 'mash', titre: 'Faire levier (appuyer vite)', duree: 7, decay: .25 }] },
+  { re: /^Démonter le revolver/, titre: 'Démonter', clip: 'Interact', mode: 'seuil', min: .2, phases: [{ type: 'sequence', titre: 'Barillet, axe, chien, détente…', n: 7, temps: 1.6 }] },
+  { re: /^Essayer le revolver/, titre: 'Essai à vide', clip: 'Aim_Pistol', mode: 'seuil', min: .2, phases: [{ type: 'timing', titre: 'Viser le centre de la cible', n: 3, zone: .12, vitesse: .8, mobile: true }] },
+];
+function jeuPour(texte) { return JEUX.find(d => d.re.test(texte)) || null; }
+function faceJeu(k) {   // où le personnage regarde pendant l'activité
+  const W = Cm.w, S = ST; switch (k) { case 'poulailler': return [S.poulailler.x, S.poulailler.z]; case 'four': return [S.four.x, S.four.z - .4]; case 'mare': return [S.mare.x, S.mare.z]; case 'lavoir': return [S.lavoir.x, S.lavoir.z];
+    case 'poterie': return [S.poterie.x, S.poterie.z - .3]; case 'boules': return [S.boules.x + 4, S.boules.z]; case 'mat': return [MAT.x, MAT.z]; case 'cimetiere': return [S.cimetiere.x, S.cimetiere.z]; case 'puits': return [PUITS.x, PUITS.z]; case 'portail': return [PORTAIL.x, ENCEINTE.z1 + 10];
+    case 'vache': { const v = bete('vache'); return v ? [v.c.pos[0], v.c.pos[2]] : [S.enclos.x, S.enclos.z]; } case 'mouton': { const v = bete('mouton'); return v ? [v.c.pos[0], v.c.pos[2]] : [S.enclos.x, S.enclos.z]; }
+    case 'bois': { for (const M of MAISONS) { const c = cabaneDe(M.id); if (Math.hypot(W.x - c.x, W.z - c.z - 1.6) < 2.5) return [c.x - 3.4, c.z + 1.6]; } break; }
+    case 'potager': { for (const M of MAISONS) { const g = potagerDe(M.id); if (dansRect(W.x, W.z, g, 1)) return [(g.x0 + g.x1) / 2, (g.z0 + g.z1) / 2]; } break; } }
+  return [W.x - Math.sin(W.a) * 2, W.z - Math.cos(W.a) * 2];
+}
+// ======================= LE PERSONNAGE DU JOUEUR (vu pendant les activités)
+function avatarJoueur() {
+  if (JEU.avatar || !PASSAGERS.pack) return JEU.avatar; const PK = PASSAGERS.pack, R = Joe.math.rng(4242), look = Joe.generateLook(PK.catalog, 'villager', 'man', R); look.name = 'Vous';
+  JEU.avatar = new Joe.Character(PK, look); JEU.avatar.visible = false; return JEU.avatar;
+}
+function dessinerAvatar(JR, dedans) { const c = JEU.avatar; if (!c || !JEU.actif || !!Cm.dans !== dedans) return; c.draw(JR); }
+function poserAvatar() {
+  const c = avatarJoueur(); if (!c) return; const W = Cm.w, y = Cm.dans ? Cm.dans.lv * INTERIEURS.LV + .03 : (RESERVE.dedans ? RS.y : Cm.sol); c.pos = [W.x, y, W.z];
+  const f = JEU.face || [W.x - Math.sin(W.a), W.z - Math.cos(W.a)]; c.yaw = Math.atan2(f[0] - W.x, f[1] - W.z); c.visible = true;
+  const dx = Math.sin(c.yaw), dz = Math.cos(c.yaw), rx = Math.cos(c.yaw), rz = -Math.sin(c.yaw), D = Cm.dans ? 1.9 : 2.8;
+  JEU.eye = [W.x - dx * D + rx * D * .55, y + (Cm.dans ? 1.75 : 2.1), W.z - dz * D + rz * D * .55]; JEU.look = [W.x + dx * .4, y + .95, W.z + dz * .4];
+}
+function clipAvatar(nom) { const c = JEU.avatar; if (c && nom && JEU.clip !== nom) { JEU.clip = nom; try { c.play(nom, { fade: .25 }); } catch (e) { c.play('Idle', { fade: .25 }); } } }
+// ======================= LE MOTEUR DES MINI-JEUX
+const PH = {};   // types de phases : init(p), maj(p, dt, ent, tenu), dessin(g, p, W, H), score(p)
+const RND = (a, b) => a + Math.random() * (b - a);
+PH.timing = { init: p => { p.x = 0; p.dir = 1; p.v = p.vitesse || .9; p.zc = RND(.2, .8); p.essais = 0; p.pts = 0; p.mz = 0; },
+  maj: (p, dt, E) => { p.x += p.dir * p.v * dt; if (p.x > 1) { p.x = 1; p.dir = -1; } if (p.x < 0) { p.x = 0; p.dir = 1; } if (p.mobile) { p.mz += dt; p.zc = .5 + .32 * Math.sin(p.mz * 1.3 + p.essais); }
+    if (E.a) { const d = Math.abs(p.x - p.zc), z = p.zone / 2; const q = d < z * .4 ? 1 : d < z ? .75 : 0; p.pts += q; p.essais++; flash(q ? (q === 1 ? (p.txt || ['Parfait !'])[0] : (p.txt || [, 'Bien.'])[1] || 'Bien.') : (p.txt || [, , 'Raté.'])[2] || 'Raté.', q ? 1 : 0); if (q) sonCoup(q); p.zc = RND(.18, .82); p.v *= p.accel || 1.08; if (p.essais >= p.n) p.fini = true; } },
+  dessin: (g, p, W, H) => { barre(g, W, H, p.theme); const z0 = (p.zc - p.zone / 2) * (W - 40) + 20, zw = p.zone * (W - 40); g.fillStyle = p.theme === 'four' ? '#d9a441' : '#5fbf6a'; g.fillRect(z0, H * .42, zw, H * .26); g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(z0 + zw * .3, H * .42, zw * .4, H * .26);
+    curseur(g, 20 + p.x * (W - 40), H); txtJ(g, p.essais + ' / ' + p.n, W - 20, 16, 'right'); }, score: p => p.pts / p.n };
+PH.mash = { init: p => { p.g = 0; p.t = 0; p.max = 0; }, maj: (p, dt, E) => { p.t += dt; if (E.a) { p.g = Math.min(1, p.g + .075); sonCoup(.4); } p.g = Math.max(0, p.g - (p.decay || .2) * dt); p.max = Math.max(p.max, p.g); if (p.g >= 1) { p.fini = true; p.bonus = 1 - p.t / p.duree; flash('Fini !', 1); } if (p.t >= p.duree) { p.fini = true; flash(p.max > .7 ? 'Presque.' : 'Trop mou…', 0); } },
+  dessin: (g, p, W, H) => { barre(g, W, H); g.fillStyle = '#d98c3a'; g.fillRect(20, H * .42, (W - 40) * p.g, H * .26); txtJ(g, Math.max(0, p.duree - p.t).toFixed(1) + ' s', W - 20, 16, 'right'); txtJ(g, 'APPUYER VITE', W / 2, H - 10, 'center'); }, score: p => p.g >= 1 ? Math.min(1, .75 + .25 * Math.max(0, p.bonus || 0) * 2) : p.max * .8 };
+PH.alterne = { init: p => { p.t = 0; p.k = 0; p.dern = null; p.rate = 0; p.froid = 0; p.dt = []; p.td = 0; }, maj: (p, dt, E) => { p.t += dt; p.td += dt; if (p.froid) p.froid = Math.min(1, p.t / p.duree); const k = E.g ? 'g' : E.d ? 'd' : null;
+    if (k) { if (k !== p.dern) { p.k++; if (p.regulier) p.dt.push(p.td); p.td = 0; sonCoup(.3); } else { p.rate++; flash('L’autre main !', 0); } p.dern = k; } if (p.k >= p.cible || p.t >= p.duree) p.fini = true; },
+  dessin: (g, p, W, H) => { barre(g, W, H); g.fillStyle = '#7fb3d9'; g.fillRect(20, H * .42, (W - 40) * Math.min(1, p.k / p.cible), H * .26); const n = p.dern === 'g' ? 'd' : 'g'; txtJ(g, n === 'g' ? '◀  maintenant' : 'maintenant  ▶', n === 'g' ? 26 : W - 26, H - 10, n === 'g' ? 'left' : 'right');
+    if (p.froid !== undefined && p.froidOk) { g.fillStyle = 'rgba(120,170,255,' + (.15 + p.t / p.duree * .5) + ')'; g.fillRect(0, 0, W * p.t / p.duree, 6); } txtJ(g, Math.max(0, p.duree - p.t).toFixed(1) + ' s', W - 20, 16, 'right'); },
+  score: p => { let s = Math.min(1, p.k / p.cible) - p.rate * .04; if (p.regulier && p.dt.length > 4) { const m = p.dt.reduce((a, b) => a + b, 0) / p.dt.length, v = Math.sqrt(p.dt.reduce((a, b) => a + (b - m) ** 2, 0) / p.dt.length); s -= Math.min(.25, v / Math.max(.05, m) * .3); } return clamp(s, 0, 1); } };
+PH.tenir = { init: p => { p.t = 0; p.x = .5; p.v = 0; p.in = 0; p.zc = .5; p.ph = RND(0, 6); }, maj: (p, dt, E, T) => { p.t += dt; p.v += ((T.a ? 1 : -1) * 1.6 + (Math.random() - .5) * 6 * (p.derive || .35)) * dt; p.v *= Math.pow(.25, dt); p.x = clamp(p.x + p.v * dt, 0, 1); if (p.x <= 0 || p.x >= 1) p.v = 0;
+    if (p.mobile) p.zc = .5 + .3 * Math.sin(p.t * .9 + p.ph) * Math.sin(p.t * .37); const dans = Math.abs(p.x - p.zc) < p.zone / 2; if (dans) p.in += dt; p.dans = dans; if (p.t >= p.duree) p.fini = true; },
+  dessin: (g, p, W, H) => { barre(g, W, H, p.theme); const z0 = (p.zc - p.zone / 2) * (W - 40) + 20; g.fillStyle = p.theme === 'feu' ? 'rgba(255,150,60,.75)' : 'rgba(95,191,106,.75)'; g.fillRect(z0, H * .42, p.zone * (W - 40), H * .26); curseur(g, 20 + p.x * (W - 40), H, p.dans ? '#fff' : '#f66');
+    txtJ(g, Math.round(p.in / Math.max(.01, p.t) * 100) + ' % dans la zone', 20, 16, 'left'); txtJ(g, Math.max(0, p.duree - p.t).toFixed(1) + ' s', W - 20, 16, 'right'); txtJ(g, 'MAINTENIR → · RELÂCHER ←', W / 2, H - 10, 'center'); }, score: p => clamp(p.in / p.duree * 1.15, 0, 1) };
+PH.remplir = { init: p => { p.x = 0; p.i = 0; p.ok = 0; p.tient = false; }, maj: (p, dt, E, T) => { if (T.a) { p.tient = true; p.x += p.vitesse * dt; if (p.x > 1) { p.x = 0; p.tient = false; p.i++; flash(p.theme === 'tirer' ? 'Cassé !' : p.theme === 'argile' ? 'Effondré !' : 'Noyé !', 0); } }
+    else if (p.tient) { p.tient = false; const ok = p.x >= p.zone[0] && p.x <= p.zone[1]; if (ok) { p.ok++; flash(p.theme === 'tirer' ? 'Ça vient !' : 'Juste ce qu’il faut.', 1); sonCoup(.6); } else flash('Pas assez.', 0); p.x = 0; p.i++; } if (p.i >= p.n) p.fini = true; },
+  dessin: (g, p, W, H) => { const h = H * .7, x0 = W / 2 - 22; g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x0, 12, 44, h); g.fillStyle = 'rgba(95,191,106,.55)'; g.fillRect(x0 - 6, 12 + h * (1 - p.zone[1]), 56, h * (p.zone[1] - p.zone[0]));
+    g.fillStyle = p.theme === 'eau' ? '#6fb6ff' : p.theme === 'argile' ? '#b07a52' : '#e2c36b'; g.fillRect(x0 + 4, 12 + h * (1 - p.x), 36, h * p.x); txtJ(g, (p.i + 1 > p.n ? p.n : p.i + 1) + ' / ' + p.n, W - 20, 16, 'right'); txtJ(g, 'MAINTENIR, puis RELÂCHER dans le vert', W / 2, H - 6, 'center'); }, score: p => p.ok / p.n };
+const FL = { g: '◀', d: '▶', h: '▲', b: '▼' };
+PH.sequence = { init: p => { p.L = Array.from({ length: p.n }, () => 'gdhb'[Math.floor(Math.random() * 4)]); p.i = 0; p.ok = 0; p.t = 0; }, maj: (p, dt, E) => { p.t += dt; const k = ['g', 'd', 'h', 'b'].find(q => E[q]);
+    if (k) { if (k === p.L[p.i]) { p.ok++; sonCoup(.5); } else flash('Pas celle-là.', 0); p.i++; p.t = 0; } else if (p.t > p.temps) { p.i++; p.t = 0; flash('Trop lent.', 0); } if (p.i >= p.n) p.fini = true; },
+  dessin: (g, p, W, H) => { for (let j = 0; j < 5 && p.i + j < p.n; j++) { const x = W / 2 - 110 + j * 55, s = j ? .7 : 1; g.globalAlpha = j ? .45 : 1; g.fillStyle = j ? '#333' : '#e8aa50'; g.beginPath(); g.arc(x, H * .5, 22 * s, 0, TAU); g.fill(); g.fillStyle = j ? '#ccc' : '#1a1206'; g.font = 'bold ' + Math.round(22 * s) + 'px system-ui'; g.textAlign = 'center'; g.fillText(FL[p.L[p.i + j]], x, H * .5 + 8 * s); } g.globalAlpha = 1;
+    g.fillStyle = 'rgba(232,170,80,.6)'; g.fillRect(W / 2 - 132, H - 14, 44 * (1 - p.t / p.temps), 4); txtJ(g, p.i + ' / ' + p.n, W - 20, 16, 'right'); }, score: p => p.ok / p.n };
+PH.rythme = { init: p => { p.b = 60 / p.bpm; p.t = -1.2; p.notes = Array.from({ length: p.n }, (_, i) => ({ t: i * p.b, k: p.dirs ? 'gdhb'[Math.floor(Math.random() * 4)] : 'a', ok: null })); p.pts = 0; },
+  maj: (p, dt, E) => { p.t += dt; const k = p.dirs ? ['g', 'd', 'h', 'b'].find(q => E[q]) : E.a ? 'a' : null; if (k) { const n = p.notes.find(q => q.ok === null && Math.abs(q.t - p.t) < .22); if (n && n.k === k) { const d = Math.abs(n.t - p.t); n.ok = d < .09 ? 1 : .6; p.pts += n.ok; flash(d < .09 ? 'En mesure !' : 'Juste.', 1); sonCoup(.5); } else flash('À contretemps.', 0); }
+    for (const n of p.notes) if (n.ok === null && p.t - n.t > .22) { n.ok = 0; } if (p.t > p.notes[p.n - 1].t + .5) p.fini = true; },
+  dessin: (g, p, W, H) => { const xh = 80; g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(20, H * .3, W - 40, H * .4); g.fillStyle = '#e8aa50'; g.fillRect(xh - 2, H * .25, 4, H * .5);
+    for (const n of p.notes) { const x = xh + (n.t - p.t) * 170; if (x < 10 || x > W) continue; g.fillStyle = n.ok === null ? '#fff' : n.ok ? '#5fbf6a' : '#a33'; g.beginPath(); g.arc(x, H * .5, 13, 0, TAU); g.fill(); if (n.k !== 'a') { g.fillStyle = '#111'; g.font = 'bold 14px system-ui'; g.textAlign = 'center'; g.fillText(FL[n.k], x, H * .5 + 5); } } txtJ(g, p.dirs ? 'la flèche quand le pas touche la ligne' : 'ACTION quand la note touche la ligne', W / 2, H - 8, 'center'); }, score: p => p.pts / p.n };
+PH.attente = { init: p => { p.i = 0; p.ok = 0; nouvelleAttente(p); }, maj: (p, dt, E) => majAttente(p, dt, E), dessin: (g, p, W, H) => dessinAttente(g, p, W, H), score: p => p.ok / p.n };
+function nouvelleAttente(p) { p.t = 0; p.quand = RND(1.6, 4.5); p.signal = false; p.leurre = p.leurres && Math.random() < .35; }
+function majAttente(p, dt, E) { p.t += dt; if (!p.signal && p.t >= p.quand) { p.signal = true; p.ts = p.t; }
+  if (E.a) { if (!p.signal) { flash('Trop tôt !', 0); p.i++; nouvelleAttente(p); } else if (p.leurre) { flash('Ce n’était qu’une ombre…', 0); p.i++; nouvelleAttente(p); } else { const r = p.t - p.ts; p.ok += r < .35 ? 1 : .7; flash(r < .35 ? 'Vif !' : 'Juste à temps.', 1); p.i++; p.reussi = (p.reussi || 0) + 1; nouvelleAttente(p); } }
+  else if (p.signal && p.t - p.ts > (p.leurre ? 1.1 : .85)) { if (p.leurre) { p.ok += 1; flash('Bien vu : rien.', 1); } else flash('Trop tard.', 0); p.i++; nouvelleAttente(p); } if (p.i >= p.n) p.fini = true; }
+function dessinAttente(g, p, W, H) { g.fillStyle = 'rgba(255,255,255,.1)'; g.fillRect(20, 16, W - 40, H - 34); if (p.signal) { g.fillStyle = p.leurre ? '#7c8899' : '#ffd27a'; g.font = 'bold 40px system-ui'; g.textAlign = 'center'; g.fillText(p.leurre ? p.icL || '~' : p.icS || '!', W / 2, H * .62); } else { g.fillStyle = 'rgba(255,255,255,.35)'; g.font = '14px system-ui'; g.textAlign = 'center'; g.fillText(p.attenteTxt || '…', W / 2, H * .55); } txtJ(g, (Math.min(p.i + 1, p.n)) + ' / ' + p.n, W - 24, 30, 'right'); }
+PH.guet = { init: p => { p.leurres = true; p.icS = '👤'; p.icL = '🐈'; p.attenteTxt = 'La nuit. Le vent dans le mur.'; PH.attente.init(p); }, maj: PH.attente.maj, dessin: PH.attente.dessin, score: PH.attente.score };
+PH.peche = { init: p => { p.etape = 'attente'; p.i = 0; p.prises = 0; p.icS = '!'; p.attenteTxt = 'Le bouchon flotte…'; nouvelleAttente(p); p.leurres = false; },
+  maj: (p, dt, E, T) => { if (p.etape === 'attente') { p.t += dt; if (!p.signal && p.t >= p.quand) { p.signal = true; p.ts = p.t; clipAvatar('Fish_Cast'); }
+      if (E.a) { if (p.signal && p.t - p.ts < .7) { p.etape = 'ramener'; p.x = .5; p.v = 0; p.tens = .5; p.dist = 1; flash('Ferré !', 1); clipAvatar('Fish_Reel'); } else { flash(p.signal ? 'Trop tard.' : 'Trop tôt : le poisson file.', 0); p.i++; nouvelleAttente(p); clipAvatar('Fish_Wait'); } }
+      else if (p.signal && p.t - p.ts > .7) { flash('Il a mordu… et il est reparti.', 0); p.i++; nouvelleAttente(p); clipAvatar('Fish_Wait'); } }
+    else { p.tens += ((T.a ? .55 : -.45) + (Math.random() - .5) * 1.6) * dt; p.tens = clamp(p.tens, 0, 1); if (T.a) p.dist -= dt * .22 * (p.tens < .85 ? 1 : .4);
+      if (p.tens >= 1) { flash('La ligne casse !', 0); p.i++; p.etape = 'attente'; nouvelleAttente(p); clipAvatar('Fish_Wait'); } else if (p.tens <= .02 && !T.a) { flash('Il se décroche…', 0); p.i++; p.etape = 'attente'; nouvelleAttente(p); clipAvatar('Fish_Wait'); }
+      else if (p.dist <= 0) { p.prises++; flash('Une perche !', 1); sonCoup(.7); p.i++; p.etape = 'attente'; nouvelleAttente(p); clipAvatar('Fish_Wait'); } } if (p.i >= p.n) p.fini = true; },
+  dessin: (g, p, W, H) => { if (p.etape === 'attente') dessinAttente(g, p, W, H); else { barre(g, W, H); const z = [.3, .8]; g.fillStyle = 'rgba(95,191,106,.5)'; g.fillRect(20 + z[0] * (W - 40), H * .42, (z[1] - z[0]) * (W - 40), H * .26); g.fillStyle = 'rgba(220,60,50,.55)'; g.fillRect(20 + .85 * (W - 40), H * .42, .15 * (W - 40), H * .26); curseur(g, 20 + p.tens * (W - 40), H); txtJ(g, 'Distance ' + Math.round(p.dist * 100) + ' %', 20, 16, 'left'); txtJ(g, 'MAINTENIR pour ramener · ne pas casser', W / 2, H - 10, 'center'); } txtJ(g, '🐟 ' + p.prises, W - 24, 16, 'right'); },
+  score: p => p.prises / p.n, res: p => ({ prises: p.prises }) };
+PH.boules = { init: p => { p.i = 0; p.etape = 'angle'; p.x = 0; p.dir = 1; p.pts = 0; p.ptsA = 0; p.tir = []; }, maj: (p, dt, E) => { p.x += p.dir * dt * (p.etape === 'angle' ? 1.1 : 1.3); if (p.x > 1) { p.x = 1; p.dir = -1; } if (p.x < 0) { p.x = 0; p.dir = 1; }
+    if (E.a) { if (p.etape === 'angle') { p.angle = p.x; p.etape = 'force'; p.x = 0; p.dir = 1; clipAvatar('Idle'); } else { const d = Math.hypot((p.angle - .5) * 2, (p.x - .62) * 1.8), q = clamp(1 - d, 0, 1), adv = clamp(RND(.25, .9), 0, 1); clipAvatar('Throw'); setTimeout(() => clipAvatar('Idle'), 1200);
+      p.tir.push(q); if (q >= adv) { p.pts++; flash(q > .85 ? 'Au cochonnet !' : 'Vous prenez le point.', 1); } else { p.ptsA++; flash('L’adversaire est plus près.', 0); } sonCoup(.6); p.i++; p.etape = 'angle'; p.x = 0; if (p.i >= p.n) p.fini = true; } } },
+  dessin: (g, p, W, H) => { g.fillStyle = 'rgba(200,190,160,.25)'; g.fillRect(20, 14, W - 40, H - 40); g.fillStyle = '#d9a441'; g.beginPath(); g.arc(W / 2, 30, 5, 0, TAU); g.fill(); const a = p.etape === 'angle' ? p.x : p.angle, ox = W / 2, oy = H - 30; g.strokeStyle = '#fff'; g.lineWidth = 2; g.beginPath(); g.moveTo(ox, oy); g.lineTo(ox + (a - .5) * W * .7, oy - 60); g.stroke();
+    if (p.etape === 'force') { g.fillStyle = '#e8aa50'; g.fillRect(W - 50, H - 30 - p.x * (H - 50), 18, p.x * (H - 50)); g.strokeStyle = '#5fbf6a'; g.strokeRect(W - 52, H - 30 - .7 * (H - 50), 22, .16 * (H - 50)); } txtJ(g, 'Vous ' + p.pts + ' · ' + p.ptsA + ' eux', 24, 16, 'left'); txtJ(g, p.etape === 'angle' ? 'VISER' : 'DOSER LA FORCE', W / 2, H - 8, 'center'); },
+  score: p => p.tir.reduce((a, b) => a + b, 0) / p.n, res: p => ({ gagne: p.pts > p.ptsA, pts: p.pts, ptsA: p.ptsA }) };
+PH.souffle = { init: p => { p.t = 0; p.bon = 0; p.tot = 0; }, maj: (p, dt, E, T) => { p.t += dt; const ph = (p.t % p.periode) / p.periode, inspire = ph < .5; p.inspire = inspire; if (p.t > .6) { p.tot += dt; if (!!T.a === inspire) p.bon += dt; } if (p.t >= p.cycles * p.periode) p.fini = true; },
+  dessin: (g, p, W, H) => { const ph = (p.t % p.periode) / p.periode, r = 14 + 30 * (ph < .5 ? ph * 2 : 2 - ph * 2); g.strokeStyle = 'rgba(255,255,255,.3)'; g.beginPath(); g.arc(W / 2, H * .48, 44, 0, TAU); g.stroke(); g.fillStyle = p.inspire ? 'rgba(127,179,217,.75)' : 'rgba(217,179,127,.6)'; g.beginPath(); g.arc(W / 2, H * .48, r, 0, TAU); g.fill();
+    txtJ(g, p.inspire ? 'inspirer · MAINTENIR' : 'expirer · RELÂCHER', W / 2, H - 6, 'center'); txtJ(g, Math.round(p.bon / Math.max(.01, p.tot) * 100) + ' %', W - 20, 16, 'right'); }, score: p => clamp(p.bon / Math.max(.01, p.tot) * 1.1, 0, 1) };
+PH.cherche = { init: p => { const n = p.cases, k = Math.min(n - 1, typeof p.objets === 'function' ? p.objets() : p.objets); p.C = Array.from({ length: n }, () => ({ o: false, vu: false })); let m = 0; while (m < k) { const i = Math.floor(Math.random() * n); if (!p.C[i].o) { p.C[i].o = true; m++; } } p.k = k; p.sel = 0; p.essai = 0; p.trouves = 0; p.t = 0; },
+  maj: (p, dt, E) => { p.t += dt; const col = p.cases === 9 ? 3 : 3; if (E.g) p.sel = (p.sel + p.cases - 1) % p.cases; if (E.d) p.sel = (p.sel + 1) % p.cases; if (E.h) p.sel = (p.sel + p.cases - col) % p.cases; if (E.b) p.sel = (p.sel + col) % p.cases; if (E.clic != null) p.sel = E.clic;
+    if (E.a || E.clic != null) { const c = p.C[p.sel]; if (!c.vu) { c.vu = true; p.essai++; if (c.o) { p.trouves++; flash('Trouvé !', 1); sonCoup(.6); } else flash('Rien.', 0); if (p.trouves >= p.k || p.essai >= p.essais) p.fini = true; } } },
+  dessin: (g, p, W, H) => { const col = 3, rows = Math.ceil(p.cases / col), cw = 64, ch = Math.min(30, (H - 30) / rows), x0 = W / 2 - col * cw / 2; p.geo = { x0, y0: 8, cw, ch, col };
+    p.C.forEach((c, i) => { const x = x0 + (i % col) * cw, y = 8 + Math.floor(i / col) * (ch + 4), fr = c.o && !c.vu && Math.sin(p.t * 9 + i * 3) > .93 ? 2 : 0; g.fillStyle = c.vu ? (c.o ? '#5fbf6a' : '#3a3a3a') : '#8a7550'; g.fillRect(x + 2 + fr, y, cw - 4, ch); if (i === p.sel) { g.strokeStyle = '#ffd27a'; g.lineWidth = 2; g.strokeRect(x + 1, y - 1, cw - 2, ch + 2); } if (c.vu && c.o) txtJ(g, p.icone || '✓', x + cw / 2, y + ch * .7, 'center'); });
+    txtJ(g, 'Essais ' + (p.essais - p.essai) + ' · trouvés ' + p.trouves + ' / ' + p.k, W - 12, H - 4, 'right'); }, score: p => p.k ? p.trouves / p.k : 1, res: p => ({ trouves: p.trouves }) };
+PH.choix = { init: p => { p.sel = 0; }, maj: (p, dt, E) => { if (E.g || E.h) p.sel = (p.sel + p.options.length - 1) % p.options.length; if (E.d || E.b) p.sel = (p.sel + 1) % p.options.length; if (E.clic != null && E.clic < p.options.length) p.sel = E.clic;
+    if (E.a || E.clic != null) { p.fini = true; const r = p.options[p.sel].f(); if (r) setTimeout(() => notifier(r), 600); } },
+  dessin: (g, p, W, H) => { p.geo = { lignes: p.options.length, y0: 8, h: (H - 12) / p.options.length }; p.options.forEach((o, i) => { const y = 8 + i * p.geo.h; g.fillStyle = i === p.sel ? 'rgba(232,170,80,.35)' : 'rgba(255,255,255,.07)'; g.fillRect(16, y, W - 32, p.geo.h - 4); txtJ(g, o.t, 26, y + p.geo.h * .62, 'left'); }); }, score: () => 1 };
+PH.lecture = { init: p => { p.i = 0; }, maj: (p, dt, E) => { if (E.a || E.d || E.clic != null) { p.i++; sonEvt('papier'); if (p.i >= p.pages.length) p.fini = true; } }, dessin: (g, p, W, H) => { const t = p.pages[Math.min(p.i, p.pages.length - 1)]; g.fillStyle = 'rgba(240,230,205,.92)'; g.fillRect(14, 4, W - 28, H - 8); g.fillStyle = '#3a3226'; g.font = 'italic 13px Georgia,serif'; g.textAlign = 'left'; texteCoupe(g, t, 24, 22, W - 48, 16); txtJ(g, 'page ' + (p.i + 1) + ' / ' + p.pages.length + ' · ACTION pour tourner', W - 22, H - 10, 'right', '#6b5a40'); }, score: () => 1 };
+// dessin
+function barre(g, W, H, theme) { const gr = g.createLinearGradient(20, 0, W - 20, 0); if (theme === 'four') { gr.addColorStop(0, '#f5e3b5'); gr.addColorStop(.55, '#d9a441'); gr.addColorStop(1, '#3a1d0e'); } else if (theme === 'feu') { gr.addColorStop(0, '#203040'); gr.addColorStop(.5, '#e0802a'); gr.addColorStop(1, '#ff3018'); } else { gr.addColorStop(0, 'rgba(255,255,255,.1)'); gr.addColorStop(1, 'rgba(255,255,255,.18)'); } g.fillStyle = gr; g.fillRect(20, H * .42, W - 40, H * .26); }
+function curseur(g, x, H, col) { g.fillStyle = col || '#fff'; g.fillRect(x - 2, H * .32, 4, H * .46); g.beginPath(); g.moveTo(x - 7, H * .3); g.lineTo(x + 7, H * .3); g.lineTo(x, H * .38); g.fill(); }
+function txtJ(g, t, x, y, al, col) { g.fillStyle = col || 'rgba(255,255,255,.85)'; g.font = '600 12px system-ui'; g.textAlign = al || 'left'; g.fillText(t, x, y); }
+function texteCoupe(g, t, x, y, w, lh) { const mots = t.split(' '); let l = ''; for (const m of mots) { const e = l ? l + ' ' + m : m; if (g.measureText(e).width > w) { g.fillText(l, x, y); y += lh; l = m; } else l = e; } if (l) g.fillText(l, x, y); }
+function flash(t, bon) { JEU.msg = t; JEU.msgBon = bon; JEU.msgT = 1.1; }
+function sonCoup(f) { try { if (!sonPret()) return; const c = SON.ctx, o = c.createOscillator(), g = c.createGain(); o.type = 'triangle'; o.frequency.value = 180 + f * 340; g.gain.value = .04; g.gain.setTargetAtTime(0, c.currentTime + .05, .04); o.connect(g); g.connect(SON.maitre || c.destination); o.start(); o.stop(c.currentTime + .3); } catch (e) {} }
+// déroulé
+function lancerJeu(def, texte, fin) {
+  if (JEU.actif) return; JEU.actif = true; JEU.def = def; JEU.fin = fin; JEU.ip = -1; JEU.scores = []; JEU.res = {}; JEU.face = def.face ? faceJeu(def.face) : (Cm.dans ? null : null); if (Cm.dans && !def.face) { const m = meubleProche(['table', 'cuisiniere', 'cheminee', 'armoire', 'buffet', 'canape', 'lit', 'evier']); if (m) { const P = INTERIEURS.plan(m.id), q = P.mobilier[m.i], [x, z] = INTERIEURS.world(m.id, q.x, q.z); JEU.face = [x, z]; } }
+  if (RESERVE.dedans && !def.face) { const k = Object.keys(RSP).sort((u, v) => Math.hypot(RSP[u][0] - Cm.w.x, RSP[u][1] - Cm.w.z) - Math.hypot(RSP[v][0] - Cm.w.x, RSP[v][1] - Cm.w.z))[0]; const q = RSP[k]; JEU.face = [Cm.w.x - Math.sin(q[2]) * 2, Cm.w.z - Math.cos(q[2]) * 2]; }
+  JEU.clip = null; poserAvatar(); clipAvatar(def.clip || 'Interact'); JEU.in = {}; JEU.prev = {}; JEU.clic = null;
+  $('jeu').hidden = false; $('jTitre').textContent = def.titre; document.body.classList.add('enjeu'); if (DIALOGUE.ouvert) fermerDialogue(); phaseSuivante();
+}
+function phaseSuivante() {
+  const D = JEU.def; if (JEU.ph) { JEU.scores.push(clamp(PH[JEU.ph.type].score(JEU.ph), 0, 1)); if (PH[JEU.ph.type].res) Object.assign(JEU.res, PH[JEU.ph.type].res(JEU.ph)); }
+  JEU.ip++; if (JEU.ip >= D.phases.length) { setTimeout(() => terminerJeu(false), 700); JEU.ph = null; return; }
+  const p = { ...D.phases[JEU.ip] }; JEU.ph = p; PH[p.type].init(p); if (p.clip) clipAvatar(p.clip); if (p.froid) p.froidOk = true;
+  $('jPhase').textContent = (D.phases.length > 1 ? (JEU.ip + 1) + ' / ' + D.phases.length + ' · ' : '') + p.titre; const tc = { timing: 'a', mash: 'a', tenir: 'a', remplir: 'a', attente: 'a', guet: 'a', peche: 'a', boules: 'a', souffle: 'a', lecture: 'a', alterne: 'gd', sequence: 'gdhb', cherche: 'gdhba', choix: 'hba' }[p.type] || 'a';
+  for (const b of document.querySelectorAll('#jTouches button')) b.hidden = !(tc.includes(b.dataset.j) || (p.type === 'rythme' && (p.dirs ? 'gdhb' : 'a').includes(b.dataset.j)));
+  $('jAide').textContent = { a: 'Espace, E, Croix ou ●', gd: '← → (Q, D) · croix ← → · L1 R1 · ◀ ▶', gdhb: 'flèches · ZQSD · croix directionnelle' }[p.type === 'rythme' ? (p.dirs ? 'gdhb' : 'a') : tc.length > 3 ? 'gdhb' : tc] || 'flèches et action';
+}
+function terminerJeu(abandon) {
+  if (!JEU.actif) return; const D = JEU.def, s = abandon ? null : JEU.scores.length ? JEU.scores.reduce((a, b) => a + b, 0) / JEU.scores.length : 0, R = JEU.res, f = JEU.fin;
+  JEU.actif = false; JEU.ph = null; $('jeu').hidden = true; document.body.classList.remove('enjeu'); if (JEU.avatar) JEU.avatar.visible = false; majAction();
+  if (s != null) setTimeout(() => notifier(D.titre + ' : ' + Math.round(s * 100) + ' %'), 50); try { f(s, R); } catch (e) { console.error(e); }
+}
+function majJeu(dt) {
+  if (!JEU.actif) return; const p = JEU.ph, E = {}, T = JEU.in; for (const k of ['a', 'g', 'd', 'h', 'b']) E[k] = !!T[k] && !JEU.prev[k]; E.clic = JEU.clic; JEU.clic = null; JEU.prev = { ...T };
+  if (JEU.avatar) { JEU.avatar.update(dt); } if (p && !p.fini) { PH[p.type].maj(p, dt, E, T); if (p.fini) setTimeout(phaseSuivante, 650); }
+  JEU.msgT -= dt; const cv2 = $('jCv'), g = cv2.getContext('2d'), W = cv2.width, H = cv2.height; g.clearRect(0, 0, W, H); if (p) PH[p.type].dessin(g, p, W, H);
+  if (JEU.msgT > 0) { g.globalAlpha = Math.min(1, JEU.msgT * 2); g.fillStyle = JEU.msgBon ? '#9fe3a5' : '#ff9a8a'; g.font = 'bold 18px system-ui'; g.textAlign = 'center'; g.fillText(JEU.msg, W / 2, 26); g.globalAlpha = 1; }
+}
+// l'occupation passe par le mini-jeu, puis le temps file comme avant (×60)
+function occuper(texte, minutes, effort, effet) {
+  if (TEMPS.occupe || TEMPS.dort || JEU.actif) return; const D = jeuPour(texte); if (!D) { occuperDirect(texte, minutes, effort, effet); return; }
+  JEU.effort = effort; lancerJeu(D, texte, (s, R) => {
+    if (s == null) { notifier('Vous laissez tomber.'); return; }
+    if (D.mode === 'seuil' && s < (D.min ?? .35)) { notifier(D.re.source.includes('Vous fouillez') ? 'Trop de bruit, trop vite : vous ne trouvez rien d’utile.' : 'Raté. Il faudra recommencer.'); BESOINS.energie = Math.max(0, BESOINS.energie - 2); return; }
+    const k0 = D.mode === 'echelle' ? clamp(.3 + .7 * s, 0, 1) : D.mode === 'haute' ? .9 + .1 * s : 1;
+    /* HDF BASE : phase 2 · lot 10 — temps réel : l'activité dure le temps qu'on la joue, l'effet tombe à la fin du geste (avant : puis le temps défilait ×60 pendant « minutes ») */ (k => { if (D.mode === 'propre') D.propre(s, R, k); else effet(k * k0 >= .9 && D.mode !== 'echelle' ? Math.max(k * k0, .96) : k * k0); const b = D.bonus && D.bonus(s, k, R); if (typeof b === 'string') setTimeout(() => notifier(b), 2200); })(1); majAffichageBesoins(true); majAction();
+  });
+}
+// commandes
+const TOUCHES_JEU = { Space: 'a', KeyE: 'a', Enter: 'a', NumpadEnter: 'a', ArrowLeft: 'g', KeyQ: 'g', KeyA: 'g', ArrowRight: 'd', KeyD: 'd', ArrowUp: 'h', KeyZ: 'h', KeyW: 'h', ArrowDown: 'b', KeyS: 'b' };
+addEventListener('keydown', e => { if (!JEU.actif) return; e.preventDefault(); e.stopImmediatePropagation(); if (e.code === 'Escape') { terminerJeu(true); return; } const k = TOUCHES_JEU[e.code]; if (k) JEU.in[k] = true; }, true);
+addEventListener('keyup', e => { if (!JEU.actif) return; const k = TOUCHES_JEU[e.code]; if (k) { JEU.in[k] = false; e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+for (const b of document.querySelectorAll('#jTouches button')) { const k = b.dataset.j; b.addEventListener('pointerdown', e => { e.preventDefault(); sonReveil(); JEU.in[k] = true; }); for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) b.addEventListener(ev, () => { JEU.in[k] = false; }); }
+$('jStop').onclick = () => terminerJeu(true);
+$('jCv').addEventListener('pointerdown', e => { const p = JEU.ph; if (!p || !p.geo) { JEU.in.a = true; setTimeout(() => { JEU.in.a = false; }, 120); return; } const r = e.target.getBoundingClientRect(), x = (e.clientX - r.left) * e.target.width / r.width, y = (e.clientY - r.top) * e.target.height / r.height;
+  if (p.type === 'cherche') { const G = p.geo, c = Math.floor((x - G.x0) / G.cw), l = Math.floor((y - G.y0) / (G.ch + 4)); if (c >= 0 && c < G.col && l >= 0) { const i = l * G.col + c; if (i < p.cases) JEU.clic = i; } } else if (p.type === 'choix') { const i = Math.floor((y - p.geo.y0) / p.geo.h); if (i >= 0 && i < p.options.length) JEU.clic = i; } });
+function jeuManette(B) { const pr = i => !!(B[i] && B[i].pressed); JEU.in.a = pr(0) || pr(2); JEU.in.g = pr(14) || pr(4); JEU.in.d = pr(15) || pr(5); JEU.in.h = pr(12); JEU.in.b = pr(13); if (pr(1) && !GP.prec[1]) terminerJeu(true); }
+// ======================= LE CORPS DES HABITANTS : COURIR, SAUTER, S'ACCROUPIR
+function clipTrajet(a, act, pts) {   // comment on y va
+  if (!pts || !pts.length) return 'Walk'; let L = 0, x = a.c.pos[0], z = a.c.pos[2]; for (const q of pts) { L += Math.hypot(q[0] - x, q[1] - z); x = q[0]; z = q[1]; } const h = HORLOGE.min / 60, k = parseInt(a.p.id.slice(1), 10);
+  const n = AMOUR.nuit[a.p.id]; if (act === 'dormir' && n && n.secret && (h >= 21 || h < 5)) return 'Crouch_Walk';   // une visite secrète : on se faufile
+  if (RAID.etat === 'annonce' || RAID.etat === 'fouille') return 'Run';
+  if (METEO_J && METEO_J.pluie && !a.dedans && L > 12) return 'Run';
+  if (a.b && (a.b.soif < 12 || a.b.faim < 10)) return 'Run';
+  if (act === 'rdv' && L > 25) return 'Run'; if (act === 'repas' && L > 70 && (k + HORLOGE.jour) % 4 === 0) return 'Run';
+  if (/courag|impatien|impulsi|audacieu/.test(a.p.perso.join(' ')) && a.p.age < 45 && (k + HORLOGE.jour) % 5 === 0 && L > 40) return 'Run';
+  return 'Walk';
+}
+const vitesseCorps = o => o.court ? 2.3 : o.furtif ? .55 : 1;
+function sautPNJ(a, joie) { if (a.saut || !a.vu || a.dedans || assisOuCouche(a)) return; a.saut = { t: 0, d: joie ? .85 : .62, reprise: a.c.clip || 'Walk', h: joie ? .55 : .42 }; a.c.play(joie ? 'Jump_Loop' : 'Jump_Start', { fade: .08 }); }
+function majCorpsPNJ(dt) {
+  const pluie = METEO_J && METEO_J.pluie;
+  for (const a of PASSAGERS.liste) { if (!a.vu || a.dedans || a.mort || a.parti) { if (a.saut) a.saut = null; continue; }
+    if (a.saut) { const s = a.saut; s.t += dt; const u = s.t / s.d; a.c.pos[1] = hauteurSol(a.c.pos[0], a.c.pos[2]) + Math.max(0, Math.sin(Math.min(1, u) * PI)) * s.h; if (u > .55 && !s.land) { s.land = true; a.c.play('Jump_Land', { fade: .08 }); } if (u >= 1) { a.saut = null; a.c.play(a.etat === 'marche' ? (a.court ? 'Run' : a.furtif ? 'Crouch_Walk' : 'Walk') : s.reprise, { fade: .15 }); } continue; }
+    if (a.etat === 'marche' && a.court && Math.random() < dt * (pluie ? .35 : .06)) sautPNJ(a);   // flaques, racines
+    if (a.act === 'boules' && a.etat === 'activite' && Math.random() < dt * .04) sautPNJ(a, true);
+    if (a.peur > 0) { a.peur -= dt; if (a.peur <= 0 && a.etat !== 'marche') a.c.play(a.etat === 'activite' && a.but && a.but.clip ? a.but.clip : 'Idle_LookAround', { fade: .3 }); } }
+}
+function sursaut(x, z, r) {   // un coup de feu, un cri : ceux qui sont près sursautent, se baissent, puis certains s'enfuient en courant
+  for (const a of PASSAGERS.liste) { if (!present(a) || a.dedans || a.act === 'dormir' || Math.hypot(a.c.pos[0] - x, a.c.pos[2] - z) > r) continue; if (a.vu && !assisOuCouche(a)) { sautPNJ(a); setTimeout(() => { if (a.saut || a.mort) return; a.c.play('Crouch_Idle', { fade: .15 }); a.peur = 3.5; a.reprendre = 0; }, 700); }
+    if (a.maison && Math.random() < .5) setTimeout(() => { if (a.mort || !a.maison) return; const [dx, dz] = INTERIEURS.porteDehors(a.maison); vers(a, itineraire(a.c.pos[0], a.c.pos[2], dx, dz), 'Run'); a.vaChez = true; }, 3800); }
+}
+let etatRaidPrec = 'aucun';
+A.onUpdate(dt => { try { majJeu(dt); majCorpsPNJ(dt); if (RAID.etat !== etatRaidPrec) { if (RAID.etat === 'annonce') for (const a of PASSAGERS.liste) if (present(a) && !a.dedans && a.act !== 'dormir' && a.maison) { const [dx, dz] = INTERIEURS.porteDehors(a.maison); vers(a, itineraire(a.c.pos[0], a.c.pos[2], dx, dz), 'Run'); a.vaChez = true; } etatRaidPrec = RAID.etat; } } catch (e) { console.error(e); } });
+
+// ---------------------------------------------------------------- LOT 6 (phase 2) — LE RASSEMBLEMENT AU GRAND MÂT (le vrai début)
+// Le portail refermé, personne ne file vers les maisons : tout le monde marche vers le grand mât. Quand le joueur les rejoint, la discussion commence
+// (« ce n'est pas le Hameau de Feral »), chacun selon son caractère ; les accords et les heurts règlent les premières relations (History).
+// Puis l'organisateur du moment propose la répartition des sept maisons, par affinités (amis ensemble, brouillés séparés, les plus âgés de plain-pied).
+// Le joueur se voit proposer une maison et peut en demander une autre où il reste un lit. Puis la nuit tombe : chacun rentre chez soi.
+const DISC = [   // qui parle (traits recherchés, sinon le premier venu), ce qu'il dit, ce que ça change entre eux
+  { qui: ['V12', /sceptique|rationnel/], dit: 'Bon. Quelqu’un peut m’expliquer ? Ce n’est pas le Hameau de Feral. Il n’y a même pas de route.' },
+  { qui: ['V04', /taciturne|travailleur/], dit: 'J’ai vu des photos du hameau, chez le notaire. Il y avait une mairie, un lavoir sur la place. Ici, rien de tout ça.', accord: -1 },
+  { qui: ['V01', /observatrice|calme/], dit: 'Ma sœur m’écrivait qu’il y avait une église, avec une cloche qu’on entendait le dimanche. Vous voyez une église, vous ?', accord: -1 },
+  { qui: ['V05', /curieuse|bavarde/], dit: 'Et aucune carte ne montre de mur autour de Feral. Aucune. J’ai les relevés dans mon sac.', accord: -1 },
+  { qui: ['V06', /jovial|gourmand/], dit: 'Il y a des maisons, des potagers, un puits… On a vu pire, comme accueil, non ?' },
+  { qui: ['V17', /perspicace|réservée/], dit: 'Ce qui m’inquiète, c’est que personne ne nous attendait. Les maisons sont prêtes. Mais vides.', heurt: -1 },
+  { qui: ['V02', /impulsif|vantard/], dit: 'Moi, je ne reste pas. Ce portail, il s’ouvre bien quelque part.', geste: 'portail' },
+  { qui: ['V07', /anxieuse|méthodique/], dit: 'Mon téléphone ne capte rien. Même l’heure s’est arrêtée.' },
+  { qui: ['V13', /mystique/], dit: 'La forêt est trop silencieuse. Pas un oiseau. Vous avez remarqué ?' },
+  { qui: ['V02'], dit: 'Fermé. Fermé à clé. De l’autre côté.', apres: 'portail', moral: -10 },
+  { qui: ['V16', /bourru|jaloux/], dit: 'Mon fils m’a dit qu’il vivait ici. Si c’est ici… alors où est-il ?' },
+  { qui: ['V15', /audacieuse|secrète/], dit: 'Je l’ai déjà photographié, ce mur. Je vous jure que je l’ai déjà photographié.' },
+  { qui: ['org'], dit: 'Ça suffit. On ne sait rien. On va passer la nuit ici, et demain on fait le tour du mur. Ensemble.' },
+  { qui: ['V09', /franche|impatiente|têtu/], dit: 'Et vous êtes qui, vous, pour décider à notre place ?', heurt: 'org' },
+  { qui: ['org'], dit: 'Quelqu’un qui a déjà dormi dehors. Vous voulez essayer ?', heurt: -1 },
+  { qui: ['V11', /sociable|rêveuse/], dit: 'On pourrait au moins… se dire nos prénoms. Ça aiderait.', tous: .03 },
+  { qui: ['org'], dit: 'Sept maisons. On se répartit : les amis ensemble, ceux qui ont du mal à monter les escaliers en bas, et chacun son lit.', fin: true },
+];
+function orgRass() { const L = PASSAGERS.liste.filter(a => !a.parti); return L.slice().sort((u, v) => ambition(v) - ambition(u) || (/autorit/.test(v.p.perso.join(' ')) ? 1 : 0) - (/autorit/.test(u.p.perso.join(' ')) ? 1 : 0))[0]; }
+function locuteur(spec, deja) {
+  if (spec[0] === 'org') return RASS.org; const L = PASSAGERS.liste.filter(a => !a.parti), id = pnj(spec[0]); if (id && L.includes(id)) return id;
+  return (spec[1] && L.find(a => !deja.has(a) && spec[1].test(a.p.perso.join(' ')))) || L.find(a => !deja.has(a)) || L[0];
+}
+function lancerRassemblement() {
+  RASS.etat = 'marche'; RASS.t = 0; RASS.i = 0; RASS.org = orgRass(); const L = PASSAGERS.liste.filter(a => !a.parti), n = L.length;
+  L.forEach((a, i) => { const t = i / n * TAU, r = 4.6 + (i % 3) * .9, x = MAT.x + Math.cos(t) * r, z = MAT.z + Math.sin(t) * r; a.rass = [x, z]; a.vaChez = false; a.regard = [MAT.x, MAT.z]; vers(a, itineraire(a.c.pos[0], a.c.pos[2], x, z)); });
+  notifier('Le groupe se dirige vers le grand mât, au milieu du domaine.');
+}
+function majRassemblement(dt) {
+  if (!RASS.etat || RASS.etat === 'fini') return; RASS.t += dt; const W = Cm.w, pres = Math.hypot(W.x - MAT.x, W.z - MAT.z) < 14 && !Cm.dans, L = PASSAGERS.liste.filter(a => !a.parti);
+  if (RASS.etat === 'marche') { const arrives = L.filter(a => a.etat !== 'marche').length; if ((pres && arrives >= L.length * .7) || RASS.t > 150) { RASS.etat = 'discussion'; RASS.t = 0; RASS.tl = 1; RASS.parle = new Set(); assurerHistory(); } return; }
+  if (RASS.etat === 'discussion') { RASS.tl -= dt; if (RASS.tl > 0 || (pres && voixOccupee())) return;   /* lot 9 : on laisse finir la réplique prononcée */ const D = DISC[RASS.i]; if (!D) { RASS.etat = 'repartition'; RASS.t = 0; repartitionMaisons(); return; }
+    const a = locuteur(D.qui, RASS.parle); RASS.parle.add(a); RASS.i++; RASS.tl = Math.max(3.2, D.dit.length / 22);
+    if (pres) sousTitre(a.p.prenom, D.dit, RASS.tl - .2); else if (RASS.i === 1) notifier('Au grand mât, les voyageurs discutent. Vous devriez les rejoindre.');
+    if (a.etat !== 'marche' && !assisOuCouche(a)) { regarder(a.c, MAT.x, MAT.z); a.c.play(D.heurt ? 'Point' : D.moral ? 'Idle' : 'Talk', { fade: .25 }); a.reprendre = 0; setTimeout(() => { if (a.etat !== 'marche' && RASS.etat === 'discussion') a.c.play('Idle_LookAround', { fade: .3 }); }, RASS.tl * 900); }
+    if (D.geste === 'portail') { RASS.bastien = a; const p = [PORTAIL.x + .5, ENCEINTE.z1 - 2.2]; vers(a, itineraire(a.c.pos[0], a.c.pos[2], p[0], p[1]), 'Run'); setTimeout(() => { if (a.etat !== 'marche') { a.c.play('Push', { fade: .2 }); } }, 9000); }
+    if (D.apres === 'portail' && RASS.bastien) { const b = RASS.bastien; setTimeout(() => vers(b, itineraire(b.c.pos[0], b.c.pos[2], b.rass[0], b.rass[1])), 300); }
+    if (HIST.pret) { const hs = HIST.hs; const prec = RASS.dernier;
+      if (D.accord && prec) { hs.regard(a.p.id, prec.p.id, .1, 'd’accord au mât'); hs.regard(prec.p.id, a.p.id, .1, 'd’accord au mât'); }
+      if (D.heurt) { const cible = D.heurt === 'org' ? RASS.org : prec; if (cible && cible !== a) { hs.regard(a.p.id, cible.p.id, -.14, 'dispute au mât'); hs.regard(cible.p.id, a.p.id, -.14, 'dispute au mât'); hs.recall(cible.p.id, { about: a.p.id, what: 'il m’a contredit devant tout le monde', valence: -.4 }); } }
+      if (D.tous) for (const o of L) for (const q of L) if (o !== q) hs.regard(o.p.id, q.p.id, D.tous, 'présentations'); }
+    if (D.moral && a.b) a.b.moral = Math.max(0, a.b.moral + D.moral); RASS.dernier = a; return; }
+}
+function repartitionMaisons() {   // par affinités : chacun choisit la maison où il s'entend le mieux avec ceux déjà là (lits comptés), les plus âgés de plain-pied
+  const lits = id => { const P = INTERIEURS.plan(id); return P ? P.postes.filter(q => q.role === 'lit').length : 2; }, M = MAISONS.map(m => ({ id: m.id, cap: lits(m.id), occ: [], plain: m.etages === 1 }));
+  const L = PASSAGERS.liste.filter(a => !a.parti), org = RASS.org, ordre = [org, ...L.filter(a => a !== org).sort((u, v) => (v.p.age >= 60) - (u.p.age >= 60) || Math.random() - .5)];
+  const J0 = M.find(h => h.id === 'L001'); J0.cap -= 1;   // un lit gardé pour le joueur, en attendant son choix
+  for (const a of ordre) { let best = null, bs = -1e9; for (const h of M) { if (h.occ.length >= h.cap) continue; let s = 0; for (const o of h.occ) { s += relH(a, o) + relH(o, a); if (relH(a, o) < -.08) s -= .6; } if (a.p.age >= 60 && h.plain) s += .35; if (a === org && h.id === 'L001') s += .5; s += (h.cap - h.occ.length) * .02 + Math.random() * .05; if (s > bs) { bs = s; best = h; } }
+    (best || M.find(h => h.occ.length < h.cap) || M[0]).occ.push(a); }
+  for (const h of M) for (const a of h.occ) { a.maison = h.id; a.p.maison = h.id; }
+  RASS.libres = M.filter(h => h.occ.length < h.cap + (h.id === 'L001' ? 1 : 0)).map(h => h.id);
+  // la maison proposée au joueur : chez ceux qui l'apprécient le plus, s'il y reste un lit
+  const pref = MAISONS.map(m => m.id).filter(id => id === 'L001' || M.find(h => h.id === id).occ.length < M.find(h => h.id === id).cap).sort((u, v) => sympathie(v) - sympathie(u))[0] || 'L001';
+  RASS.M = M; const nomsDe = id => (M.find(h => h.id === id).occ.map(a => a.p.prenom)), org2 = org.p.prenom;
+  const pres = Math.hypot(Cm.w.x - MAT.x, Cm.w.z - MAT.z) < 14 && !Cm.dans; if (pres) sousTitre(org2, 'Vous, là. Il reste de la place ' + (pref === 'L001' ? 'dans la grande maison' : 'chez les ' + nomCourt(pref)) + '. Ça vous va ?', 4.5);
+  const autres = RASS.libres.filter(id => id !== pref).slice(0, 3), fmt = id => maisonDe(id).nom + (nomsDe(id).length ? ' (' + liste(nomsDe(id)) + ')' : ' (vide)');
+  setTimeout(() => choix('Votre maison', org2 + ' vous propose : ' + fmt(pref) + '. Vous pouvez accepter, ou demander une autre maison où il reste un lit. Vous vivrez avec ceux qui y sont.', [['Accepter : ' + maisonDe(pref).nom, () => installerJoueur(pref)], ...autres.map(id => ['Demander : ' + fmt(id), () => installerJoueur(id, true)])]), pres ? 1800 : 300);
+}
+function sympathie(id) { const L = PASSAGERS.liste.filter(a => a.maison === id); return L.reduce((t, a) => t + (a.relation || 0) / 30 + (HIST.pret ? HIST.hs.relation(a.p.id, 'joueur') : 0), 0) + (L.length ? 0 : -.1); }
+function installerJoueur(id, demande) {
+  FOYERS.joueur = id; const M = RASS.M; for (const h of M) FOYERS.maisons[h.id] = h.occ.map(a => a.p.id);
+  for (const h of M) { const l = typeof HAMEAU !== 'undefined' && HAMEAU.lieux ? HAMEAU.lieux.find(q => q.id === h.id) : null; if (l) l.occupants = FOYERS.maisons[h.id].concat(h.id === id ? ['joueur'] : []); }
+  RASS.etat = 'fini'; ARR.install = true; let i = 0; for (const a of PASSAGERS.liste) if (!a.parti) { a.rass = null; allerChezSoi(a, .5 + .6 * i++ + Math.random() * .5); }
+  const colocs = FOYERS.maisons[id].map(q => pnj(q).p.prenom); journal('Au grand mât, les voyageurs se sont réparti les maisons. Vous vivez ' + (id === 'L001' ? 'dans la grande maison' : 'chez les ' + nomCourt(id)) + (colocs.length ? ', avec ' + liste(colocs) : ', seul') + '.');
+  if (demande) for (const a of PASSAGERS.liste) if (a.maison === id) a.relation = (a.relation || 0) + 3;
+  sousTitre(RASS.org.p.prenom, 'Bien. Chacun chez soi. Demain, on y verra plus clair. Fermez vos portes.', 4); notifier('Votre maison : ' + maisonDe(id).nom + (colocs.length ? ' · avec ' + liste(colocs) : '') + '. Le repère vous y mène.');
+}
+function objectifsRass(add) { if (RASS.etat === 'marche') add('Rejoindre les autres au grand mât', { x: MAT.x + 5, z: MAT.z + 5 }); else if (RASS.etat === 'discussion') add('Écouter les voyageurs, au grand mât', { x: MAT.x + 5, z: MAT.z + 5 }); else if (RASS.etat === 'repartition') add('Choisir votre maison', null); }
+A.onUpdate(dt => { try { majRassemblement(dt); } catch (e) { console.error('rassemblement', e); } });
+
+// ---------------------------------------------------------------- LOT 7 (phase 2) — LA MUSIQUE (composée en direct, Web Audio)
+// Rien dans le train ni sur le quai : le vent seul. Au rassemblement du grand mât, le vent retombe et la musique commence.
+// Elle suit le moment (jour, soir et veillée, nuit) et les événements (raid, réserve, terminal, lettre, capture) ; des motifs brefs marquent la violence,
+// une quête accomplie, une découverte, un conseil, une nuit d'amour.
+// Rigueur du son :
+//  · deux files : les notes de l'ambiance (ordonnancées 0,45 s à l'avance, horloge audio) et les motifs d'événement (file d'attente : jamais deux motifs l'un sur l'autre) ;
+//  · après une coupure (onglet caché, appel, Safari qui suspend), on ne rattrape pas les notes perdues : on repart de maintenant (sinon, une rafale de notes) ;
+//  · polyphonie plafonnée (48 voix) et limiteur en sortie : pas de saturation, pas de craquements ;
+//  · enveloppes douces (aucune note ne démarre ni ne s'arrête sèchement), fondus de 3 s entre ambiances ;
+//  · la musique s'efface quand un personnage parle, feutrée à l'intérieur, plus basse pendant une activité ; « Son : coupé » arrête tout calcul.
+const NOTE = n => 440 * Math.pow(2, (n - 69) / 12);
+const MOODS = {   // tempo, accords (notes MIDI), gamme de mélodie, instruments
+  arrivee: { bpm: 52, accords: [[50, 57, 62, 65], [46, 53, 58, 62], [41, 48, 53, 57], [48, 55, 60, 64]], gamme: [74, 76, 77, 79, 81, 84], pad: .16, cloche: .3, temps: 8 },
+  jour: { bpm: 84, accords: [[55, 59, 62, 67], [52, 55, 59, 64], [48, 52, 55, 60], [50, 54, 57, 62]], gamme: [67, 69, 71, 74, 76, 79], arpege: .11, pad: .05, melodie: .22, temps: 8 },
+  soir: { bpm: 70, accords: [[57, 60, 64, 69], [53, 57, 60, 65], [48, 52, 55, 60], [52, 56, 59, 64]], gamme: [69, 72, 74, 76, 79, 81], arpege: .1, pad: .09, melodie: .15, temps: 8, guitare: true },
+  nuit: { bpm: 40, accords: [[45, 52, 57], [41, 48, 53], [43, 50, 55], [40, 47, 52]], gamme: [69, 72, 76, 79, 81], pad: .07, cloche: .16, drone: 33, temps: 8, rare: true },
+  raid: { bpm: 60, accords: [[38, 39, 45], [38, 44, 45], [37, 38, 44]], gamme: [62, 63, 66], pad: .12, pouls: .5, drone: 26, temps: 4, aigu: true },
+  reserve: { bpm: 36, accords: [[36, 43, 49], [36, 42, 48]], gamme: [84, 85, 91], pad: .06, drone: 31, cloche: .08, temps: 8, rare: true, froid: true },
+  surveillance: { bpm: 30, accords: [[40, 47]], gamme: [], pad: .03, drone: 47, temps: 8, rare: true },
+  lettre: { bpm: 54, accords: [[52, 59, 64], [48, 55, 60], [45, 52, 57], [47, 54, 59]], gamme: [64, 66, 67, 71, 72, 76], piano: .2, pad: .04, temps: 8 },
+  capture: { bpm: 30, accords: [[33, 34, 40]], gamme: [], pad: .14, drone: 24, temps: 8, rare: true },
+};
+function quelleMusique() {
+  if (CINE.actif || CINE.attente || !$('accueil').hidden) return null; if (!$('capture').hidden) return 'capture'; if (SURV.actif) return 'surveillance'; if (RESERVE.dedans) return 'reserve';
+  if (RAID.etat === 'annonce' || RAID.etat === 'fouille') return 'raid'; if (!$('lettre').hidden) return 'lettre'; if (!ARR.install && !RASS.etat) return null; if (RASS.etat && RASS.etat !== 'fini') return 'arrivee';
+  const h = HORLOGE.min / 60; return h >= 6 && h < 17.5 ? 'jour' : h >= 17.5 && h < 21.5 ? 'soir' : 'nuit';
+}
+function busMusique() {
+  if (MUS.bus || !SON.ctx) return MUS.bus; const C = SON.ctx; MUS.bus = C.createGain(); MUS.bus.gain.value = 0; MUS.filtre = C.createBiquadFilter(); MUS.filtre.type = 'lowpass'; MUS.filtre.frequency.value = 9000;
+  MUS.lim = C.createDynamicsCompressor(); MUS.lim.threshold.value = -14; MUS.lim.knee.value = 8; MUS.lim.ratio.value = 6; MUS.lim.attack.value = .004; MUS.lim.release.value = .25;
+  MUS.bus.connect(MUS.filtre); MUS.filtre.connect(MUS.lim); MUS.lim.connect(SON.maitre); MUS.bus.gain.setTargetAtTime(.32, C.currentTime, 1.5); return MUS.bus;
+}
+function voixMood(k) { if (MUS.voix[k]) return MUS.voix[k]; const g = SON.ctx.createGain(); g.gain.value = 0; g.connect(busMusique()); MUS.voix[k] = g; return g; }
+function env(g, t, a, v, d) { g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + a); g.gain.exponentialRampToValueAtTime(.0005, t + a + d); g.gain.linearRampToValueAtTime(0, t + a + d + .04); }
+function compterNote(o, fin) { MUS.actives++; o.onended = () => { MUS.actives = Math.max(0, MUS.actives - 1); try { o.disconnect(); } catch (e) {} }; o.stop(fin); }
+function osc(type, f, t, dur, vol, sortie, a = .01, det = 0) { if (MUS.actives > 48) return; const C = SON.ctx, o = C.createOscillator(), g = C.createGain(); o.type = type; o.frequency.value = f; o.detune.value = det; env(g, t, a, vol, dur); o.connect(g); g.connect(sortie); o.start(t); compterNote(o, t + a + dur + .08); return o; }
+function pad(notes, t, dur, vol, sortie, froid) { if (MUS.actives > 36) return; const C = SON.ctx, f = C.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = froid ? 2400 : 900; f.connect(sortie);
+  for (const n of notes) for (const d of [-7, 7]) { const o = C.createOscillator(), g = C.createGain(); o.type = froid ? 'sine' : 'sawtooth'; o.frequency.value = NOTE(n); o.detune.value = d; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol / notes.length, t + dur * .35); g.gain.linearRampToValueAtTime(0, t + dur * 1.05); o.connect(g); g.connect(f); o.start(t); compterNote(o, t + dur * 1.1); } }
+function cloche(n, t, vol, sortie) { osc('sine', NOTE(n), t, 3.2, vol, sortie, .005); osc('sine', NOTE(n) * 2.76, t, 1.2, vol * .35, sortie, .005); osc('sine', NOTE(n) * 5.4, t, .5, vol * .12, sortie, .005); }
+function pincer(n, t, vol, sortie, guit) { if (MUS.actives > 48) return; const C = SON.ctx; if (guit) { const o = C.createOscillator(), f = C.createBiquadFilter(), g = C.createGain(); o.type = 'sawtooth'; o.frequency.value = NOTE(n); f.type = 'lowpass'; f.frequency.setValueAtTime(2600, t); f.frequency.exponentialRampToValueAtTime(400, t + .5); env(g, t, .004, vol, .9); o.connect(f); f.connect(g); g.connect(sortie); o.start(t); compterNote(o, t + 1); }
+  else { osc('triangle', NOTE(n), t, .7, vol, sortie, .004); osc('sine', NOTE(n) * 2, t, .3, vol * .3, sortie, .004); } }
+function piano(n, t, vol, sortie) { osc('sine', NOTE(n), t, 1.9, vol, sortie, .006); osc('sine', NOTE(n) * 2, t, 1.1, vol * .4, sortie, .006); osc('sine', NOTE(n) * 3, t, .6, vol * .15, sortie, .006); }
+function pouls(t, vol, sortie) { if (MUS.actives > 48) return; const C = SON.ctx, o = C.createOscillator(), g = C.createGain(); o.frequency.setValueAtTime(70, t); o.frequency.exponentialRampToValueAtTime(38, t + .25); env(g, t, .005, vol, .3); o.connect(g); g.connect(sortie); o.start(t); compterNote(o, t + .42); }
+function drone(k, f) { const C = SON.ctx, D = MUS.drones; if (D[k]) return; const g = C.createGain(); g.gain.value = 0; g.connect(voixMood(k)); const os = [f, f * 1.5, f * 2.003].map((q, i) => { const o = C.createOscillator(); o.type = i ? 'sine' : 'triangle'; o.frequency.value = q; const og = C.createGain(); og.gain.value = [.5, .2, .12][i]; o.connect(og); og.connect(g); o.start(); return o; }); g.gain.setTargetAtTime(.12, C.currentTime, 2); D[k] = { g, os }; }
+function arreterDrone(k) { const d = MUS.drones[k]; if (!d) return; const t = SON.ctx.currentTime; d.g.gain.cancelScheduledValues(t); d.g.gain.setTargetAtTime(0, t, .8); for (const o of d.os) { try { o.stop(t + 5); } catch (e) {} } delete MUS.drones[k]; }
+const ALEA = L => L[Math.floor(Math.random() * L.length)];
+function jouerTemps(k, t) {   // un temps de l'ambiance k
+  const M = MOODS[k], out = voixMood(k), b = 60 / M.bpm, ac = M.accords[MUS.accord % M.accords.length], i = MUS.pas % M.temps;
+  if (i === 0) { if (M.pad) pad(ac, t, b * M.temps, M.pad, out, M.froid); if (M.drone) drone(k, NOTE(M.drone)); }
+  if (M.arpege && !M.rare) { const n = ac[[0, 2, 1, 3, 2, 1, 3, 2][i % 8] % ac.length] + 12; pincer(n, t, M.arpege, out, M.guitare); if (M.guitare && i % 4 === 0) pincer(ac[0], t, M.arpege * .9, out, true); }
+  if (M.melodie && M.gamme.length && Math.random() < .35) pincer(ALEA(M.gamme), t + b * .5, M.melodie * .6, out, false);
+  if (M.cloche && M.gamme.length && Math.random() < (M.rare ? .18 : .3) && i % 2 === 0) cloche(ALEA(M.gamme), t, M.cloche, out);
+  if (M.piano && (i % 2 === 0 || Math.random() < .3)) piano(Math.random() < .5 ? ALEA(M.gamme) : ac[i % ac.length] + 12, t, M.piano, out);
+  if (M.pouls) { pouls(t, M.pouls, out); if (i % 2 === 1) pouls(t + b * .28, M.pouls * .6, out); }
+  if (M.aigu && i === M.temps - 1 && M.gamme.length) osc('sine', NOTE(ALEA(M.gamme) + 12), t, b * 2, .03, out, b);
+  MUS.pas++; if (MUS.pas % M.temps === 0) MUS.accord++;
+}
+function motif(k) { if (!MUS.motifs.includes(k) && MUS.motifs.length < 2) MUS.motifs.push(k); }   // la file des motifs : on joue le suivant quand le précédent s'est éteint
+function jouerMotif(k) {
+  const C = SON.ctx, t = C.currentTime + .06, out = busMusique(); MUS.stinger = performance.now() + 5000; if (MUS.cur) voixMood(MUS.cur).gain.setTargetAtTime(.25, C.currentTime, .3);
+  if (k === 'violence') { pouls(t, .9, out); osc('sawtooth', NOTE(37), t, 4, .12, out, .02); osc('sawtooth', NOTE(38), t, 4, .1, out, .02); osc('sine', NOTE(73), t + .4, 3, .05, out, 1); }
+  else if (k === 'quete') [64, 67, 71, 76].forEach((n, i) => pincer(n, t + i * .14, .14, out, false));
+  else if (k === 'decouverte') { cloche(76, t, .2, out); cloche(83, t + .5, .15, out); }
+  else if (k === 'conseil') [55, 62, 67].forEach((n, i) => piano(n, t + i * .35, .18, out));
+  else if (k === 'amour') [72, 76, 79, 84].forEach((n, i) => piano(n, t + i * .25, .12, out));
+}
+function majMusique() {
+  if (!SON.ctx || SON.ctx.state !== 'running' || SON.coupe) return; const C = SON.ctx, k = quelleMusique(), now = C.currentTime; if (!busMusique()) return;
+  if (k !== MUS.cur) { if (MUS.cur) { const v = voixMood(MUS.cur); v.gain.cancelScheduledValues(now); v.gain.setTargetAtTime(0, now, 1.2); const old = MUS.cur; setTimeout(() => { if (MUS.cur !== old) arreterDrone(old); }, 4000); }
+    MUS.cur = k; MUS.pas = 0; MUS.accord = 0; MUS.prochain = now + .2; if (k) { const v = voixMood(k); v.gain.cancelScheduledValues(now); v.gain.setTargetAtTime(1, now, 1.2); } }
+  if (MUS.motifs.length && performance.now() > MUS.stinger - 2500) jouerMotif(MUS.motifs.shift());
+  if (!k) return; if (performance.now() > MUS.stinger) voixMood(k).gain.setTargetAtTime(1, now, 1);
+  const parle = typeof voixOccupee === 'function' && voixOccupee();
+  MUS.filtre.frequency.setTargetAtTime(Cm.dans || CACHE.lieu ? 1800 : METEO_J && METEO_J.pluie ? 3500 : 9000, now, .8);
+  MUS.bus.gain.setTargetAtTime((JEU.actif ? .22 : .32) * (parle ? .45 : 1) * (DIALOGUE.ouvert ? .7 : 1), now, .4);
+  if (MUS.prochain < now - .1) MUS.prochain = now + .08;   // après une coupure : on repart de maintenant, sans rafale
+  const b = 60 / MOODS[k].bpm; let n = 0; while (MUS.prochain < now + .45 && n++ < 4) { jouerTemps(k, MUS.prochain); MUS.prochain += b; }
+}
+setInterval(() => { try { majMusique(); } catch (e) { console.error('musique', e); } }, 110);
+
+// ---------------------------------------------------------------- LOT 8 (phase 2) — DORMIR DANS SON LIT
+// Chaque lit offre une ou deux places (un lit double : deux côtés). Chaque habitant a SA place, gardée nuit après nuit ; les couples partagent un lit double ;
+// celui qui dort chez un autre prend la place libre à côté de lui, sinon le canapé, sinon un matelas par terre. Jamais deux corps au même endroit.
+// Corps : allongé sur le dos (Lie_Back), la tête sur l'oreiller, à hauteur du matelas, sous une couverture.
+// (avant : clip Sleep_Lie posé sur le côté, 30 cm au-dessus du matelas et en travers ; deux ou trois dormeurs pouvaient se retrouver dans la même place.)
+const LIE_BAS = .08;                                         // Lie_Back : le dos est ~10 cm au-dessus de l'origine du corps ; origine posée 8 cm sous la surface (le corps s'enfonce de 2 cm)
+function couchages(id) {
+  const P = INTERIEURS.plan(id); if (!P) return []; if (P._couch) return P._couch; const S = [];
+  const dans = (lx, lz) => Math.abs(lx) < P.W / 2 - .45 && Math.abs(lz) < P.D / 2 - .45;
+  const lits = P.mobilier.filter(m => m.t === 'lit');
+  for (const m of lits) { const c = Math.cos(m.yaw), s = Math.sin(m.yaw), w = m.w || 1.4, cotes = w >= 1.3 ? [-.35, .35] : [0];
+    for (const lat of cotes) S.push({ type: 'lit', m, niveau: m.niveau, x: m.x + lat * c, z: m.z - lat * s, yaw: m.yaw, y: .58 - LIE_BAS, double: cotes.length > 1 }); }
+  for (const m of P.mobilier.filter(m => m.t === 'canape')) S.push({ type: 'canape', m, niveau: m.niveau, x: m.x + .08 * Math.sin(m.yaw), z: m.z + .08 * Math.cos(m.yaw), yaw: m.yaw + Math.PI / 2, y: .42 - LIE_BAS });
+  for (const m of lits) { const c = Math.cos(m.yaw), s = Math.sin(m.yaw), w = m.w || 1.4;   // matelas par terre, du côté du lit où il y a la place
+    for (const sd of [1, -1]) { const lat = sd * (w / 2 + .5), x = m.x + lat * c, z = m.z - lat * s; if (dans(x, z) && dans(x + s, z + c) && dans(x - s, z - c)) { S.push({ type: 'sol', m, niveau: m.niveau, x, z, yaw: m.yaw, y: .1 - LIE_BAS }); break; } } }
+  S.forEach((t, k) => t.k = k); return P._couch = S;
+}
+function litJoueur(id) { const P = INTERIEURS.plan(id); if (!P) return null; return P.mobilier.find(m => m.t === 'lit' && m.niveau === 1) || P.mobilier.find(m => m.t === 'lit') || null; }
+function placeJoueur(id) { if (id !== FOYERS.joueur) return -1; const S = couchages(id), L = litJoueur(id); const t = S.find(t => t.type === 'lit' && t.m === L); return t ? t.k : -1; }   // un côté du lit du joueur lui reste
+function occupees(id, sauf) { return new Set(PASSAGERS.liste.filter(b => b !== sauf && b.couche && b.couche.id === id && b.dedans === id && b.etat === 'chez').map(b => b.couche.k)); }
+function placeLit(a, id) {
+  const S = couchages(id); if (!S.length) return null; const occ = occupees(id, a), kj = placeJoueur(id); if (kj >= 0) occ.add(kj);
+  a.lits = a.lits || {}; const resid = PASSAGERS.liste.filter(b => b !== a && b.maison === id && !b.parti && !b.mort && b.lits && b.lits[id] != null), reserve = new Set(resid.map(b => b.lits[id]));
+  const libre = k => k != null && k >= 0 && S[k] && !occ.has(k), pref = [];
+  if (a.lits[id] != null) pref.push(a.lits[id]);
+  const p = typeof partenaireDe === 'function' ? partenaireDe(a) : null;             // le couple : l'autre côté du lit double
+  if (p) { const kp = p.couche && p.couche.id === id ? p.couche.k : p.lits && p.lits[id]; const tp = S[kp]; if (tp && tp.double) for (const t of S) if (t.m === tp.m && t.k !== tp.k) pref.unshift(t.k); }
+  for (const k of pref) if (libre(k)) return k;
+  for (const t of S) if (t.type === 'lit' && libre(t.k) && !reserve.has(t.k)) return t.k;   // un lit que personne d'autre n'a pris pour soi
+  for (const t of S) if (t.type === 'lit' && libre(t.k)) return t.k;                       // la place d'un absent (il dort ailleurs cette nuit)
+  for (const t of S) if (libre(t.k)) return t.k;                                           // canapé, puis matelas par terre
+  return null;
+}
+function coucher(a, id) {
+  const k = placeLit(a, id); if (k == null) return false; const S = couchages(id), t = S[k], P = INTERIEURS.plan(id), M = maisonDe(id); if (!M) return false;
+  if (a.maison === id) { a.lits = a.lits || {}; if (t.type === 'lit') a.lits[id] = k; }    // sa place, la même chaque nuit
+  const [x, z] = INTERIEURS.world(id, t.x, t.z); a.dedans = id; a.etat = 'chez'; a.couche = { id, k, type: t.type };
+  a.poste = { kind: 'habitant', role: 'lit', niveau: t.niveau, x: t.x, z: t.z, yaw: t.yaw, clip: 'Lie_Back', action: null, couche: true };
+  a.c.pos = [x, t.niveau * P.hauteur + .03 + t.y, z]; a.c.yaw = M.yaw + t.yaw; a.c.play('Lie_Back', { fade: .4, offset: Math.random() * 3 });
+  return true;
+}
+// les couvertures (et le matelas posé par terre) : un petit nombre de nœuds réutilisés, placés sur les dormeurs visibles
+function preparerCouvertures() {
+  if (COUCH.prets) return; COUCH.prets = true; const cols = [[.62, .2, .18], [.25, .38, .55], [.55, .5, .32], [.35, .45, .3], [.6, .58, .55]];
+  for (let i = 0; i < 16; i++) { const col = cols[i % cols.length];
+    const nd = noeudLocal('couverture', 0, 0, m => { m.add(BX(.7, .17, 1.02, .08), T(0, .215, .24), col, 4); m.add(BX(.7, .24, .34, .08), T(0, .25, .62), col, 4); m.add(BX(.72, .04, .18, .02), T(0, .31, -.2), [.9, .89, .85], 4);   /* des épaules aux pieds : la tête reste dehors, sur l'oreiller */ }, { cast: false, maxDist: 40, dyn: true }); COUCH.pool.push(nd); }
+  for (let i = 0; i < 6; i++) { const nd = noeudLocal('matelas-sol', 0, 0, m => { m.add(BX(.8, .12, 2, .04), T(0, .06, 0), [.86, .84, .78], 4); m.add(BX(.5, .1, .3, .04), T(0, .15, -.8), [.95, .94, .9], 4); }, { cast: false, maxDist: 40, dyn: true }); COUCH.matelas.push(nd); }
+}
+function majCouvertures() {
+  if (!PASSAGERS.pret) return; preparerCouvertures(); let i = 0, j = 0;
+  for (const a of PASSAGERS.liste) { if (!a.couche || a.etat !== 'chez' && a.etat !== 'mort' || !a.dedans || a.dedans !== a.couche.id || !a.vu || !INTERIEURS.built(a.dedans)) continue;
+    const p = a.c.pos, mat = M3.mul(M3.translate(p[0], p[1], p[2]), M3.rotY(a.c.yaw));
+    if (i < COUCH.pool.length) { const nd = COUCH.pool[i++]; nd.matrix = mat; nd.visible = true; }
+    if (a.couche.type === 'sol' && j < COUCH.matelas.length) { const nd = COUCH.matelas[j++]; nd.matrix = (M3.mul(M3.translate(p[0], p[1] - .05, p[2]), M3.rotY(a.c.yaw))); nd.visible = true; } }
+  for (; i < COUCH.pool.length; i++) COUCH.pool[i].visible = false; for (; j < COUCH.matelas.length; j++) COUCH.matelas[j].visible = false;
+}
+A.onUpdate(() => { try { majCouvertures(); } catch (e) { console.error('couvertures', e); } });
+
+// ---------------------------------------------------------------- LOT 9 (phase 2) — LES VOIXP ET LES DIALOGUES EN GRAND
+// Chaque personnage a sa voix : hauteur, débit, timbre tirés de son sexe, de son âge et de son nom (toujours la même).
+//  · Bruitage : une petite voix synthétique (un seul oscillateur permanent, dont on module la hauteur et le volume) qui « parle » au rythme du texte.
+//  · Synthèse vocale (si l'appareil a une voix française) : la réplique est réellement prononcée, avec la voix de son sexe, son âge, son débit.
+//  · Le texte s'écrit au rythme de la parole ; toucher ou cliquer le texte l'affiche en entier.
+// Protection du son (Safari surtout) :
+//  · une seule réplique prononcée à la fois, dans une file (priorité au dialogue avec le joueur ; les répliques entendues trop anciennes sont abandonnées) ;
+//  · jamais « cancel » puis « speak » dans la même image : 180 ms d'écart (sinon Safari perd la réplique) ; la réplique en cours reste référencée (sinon Safari oublie sa fin) ;
+//  · garde-fou : une réplique qui ne finit pas est arrêtée (Chrome, onglet caché) ;
+//  · après chaque réplique, et à chaque toucher, clic, touche ou bouton de manette, on vérifie que le son tourne et on le relance ;
+//  · si la synthèse coupe le son de l'appareil trois fois, elle se désactive d'elle-même (bruitage à la place) et le joueur en est averti ;
+//  · pendant qu'on parle, la musique baisse en douceur (pas de coupure) et le bruitage se tait (pas de chevauchement).
+try { const m = localStorage.getItem('hdf-enclos-voix'); if (m) VOIXP.mode = m; } catch (e) {}
+const SS = self.speechSynthesis || null;
+const VF = /am[ée]lie|audrey|aur[ée]lie|marie|julie|hortense|denise|c[ée]line|virginie|sandy|shelley|grandma|flo|chantal|sylvie|eloise|vivienne|brigitte|female|femme|google fran/i;
+const VM = /thomas|daniel|nicolas|paul|henri|claude|jacques|eddy|grandpa|reed|rocko|r[ée]mi|antoine|male|homme|mathieu|guillaume|alain|jean|fabrice|olivier/i;
+function chargerVoix() { if (!SS) return; let L = []; try { L = SS.getVoices() || []; } catch (e) {} VOIXP.liste = L.filter(v => /^fr/i.test(v.lang)).sort((a, b) => (/fr[-_]FR/i.test(b.lang) - /fr[-_]FR/i.test(a.lang)) || (b.localService - a.localService)); }
+if (SS) { chargerVoix(); try { if (SS.addEventListener) SS.addEventListener('voiceschanged', chargerVoix); else SS.onvoiceschanged = chargerVoix; } catch (e) {} }
+const voixDispo = () => !!SS && VOIXP.liste.length > 0;
+const voixOccupee = () => !!VOIXP.u || VOIXP.file.length > 0 || performance.now() < VOIXP.pause;
+const hashV = s => { let h = 2166136261; for (const ch of String(s)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+function profil(a) {
+  if (!a || !a.p) return null; if (a._voix) return a._voix; const p = a.p, h = hashV(p.id), F = p.sexe === 'F', vieux = Math.max(0, p.age - 50);
+  const base = F ? 215 + h % 55 - vieux * 1.2 : 112 + h % 38 - vieux * .6, vit = (p.age > 62 ? .86 : p.age < 30 ? 1.07 : 1) * (1 + ((h >> 4) % 9 - 4) * .015);
+  const ok = VOIXP.liste.filter(v => F ? VF.test(v.name) : VM.test(v.name)), neutres = VOIXP.liste.filter(v => !VF.test(v.name) && !VM.test(v.name));
+  const L = ok.length ? ok : neutres.length ? neutres : VOIXP.liste, v = L.length ? L[(h >> 7) % L.length] : null, genre = v ? (VF.test(v.name) ? 'F' : VM.test(v.name) ? 'M' : '?') : '?';
+  let pitch = 1 + ((h >> 11) % 13 - 6) * .018; if (genre !== p.sexe) pitch *= F ? 1.32 : .72; if (p.age > 60) pitch *= .93; if (p.age < 25) pitch *= 1.05;
+  return a._voix = { base, vit, formant: F ? 1500 + h % 400 : 1050 + h % 300, onde: (h >> 5) % 3 ? 'triangle' : 'square', voix: v, pitch: Math.max(.5, Math.min(1.9, pitch)), rate: Math.max(.75, Math.min(1.2, .96 * vit)) };
+}
+function profSpecial(qui) {   // l'homme du train, le haut-parleur de la gare
+  if (qui !== 'L’homme' && qui !== 'Haut-parleur') return null; const L = VOIXP.liste, F = qui === 'Haut-parleur', v = (L.filter(v => F ? VF.test(v.name) : VM.test(v.name))[0]) || L[0] || null, bon = v && (F ? VF.test(v.name) : VM.test(v.name));
+  return F ? { base: 235, vit: .88, formant: 1750, onde: 'triangle', voix: v, pitch: bon ? 1.02 : 1.3, rate: .88 } : { base: 88, vit: .82, formant: 900, onde: 'triangle', voix: v, pitch: bon ? .78 : .6, rate: .82 };
+}
+function agentNomme(n) { if (!n) return null; return PASSAGERS.liste.find(a => a.p.prenom === n) || PASSAGERS.liste.find(a => nomAffiche(a) === n) || null; }
+function nettoyer(t) { return String(t || '').replace(/\([^)]*\)/g, ' ').replace(/[«»“”"]/g, '').replace(/…/g, ', ').replace(/\s*—\s*/g, ', ').replace(/\bZzz\b/gi, '').replace(/\s+/g, ' ').replace(/^[\s,.;:!?]+/, '').trim(); }
+// ---- le bruitage : un oscillateur permanent, modulé (aucun nœud créé par syllabe : aucun risque de saturation)
+function busVoix() {
+  if (VOIXP.bus || !SON.ctx) return VOIXP.bus; const C = SON.ctx; VOIXP.bus = C.createGain(); VOIXP.bus.gain.value = .55; VOIXP.bus.connect(SON.maitre);
+  VOIXP.osc = C.createOscillator(); VOIXP.osc.type = 'triangle'; VOIXP.osc.frequency.value = 160; VOIXP.f = C.createBiquadFilter(); VOIXP.f.type = 'bandpass'; VOIXP.f.Q.value = 1.1; VOIXP.f.frequency.value = 1200;
+  VOIXP.g = C.createGain(); VOIXP.g.gain.value = 0; VOIXP.osc.connect(VOIXP.f); VOIXP.f.connect(VOIXP.g); VOIXP.g.connect(VOIXP.bus); VOIXP.osc.start(); return VOIXP.bus;
+}
+const VOYELLES = 'aeiouyéèêëàâîïôûù';
+function blip(prof, ch) {
+  if (!SON.ctx || SON.ctx.state !== 'running' || SON.coupe || !busVoix()) return; const t = SON.ctx.currentTime + .005, iv = VOYELLES.indexOf(ch.toLowerCase()), fort = /[!?A-ZÉÈ]/.test(ch);
+  const f = prof.base * (1 + (iv >= 0 ? iv % 6 : 3) * .05 + (Math.random() - .5) * .07) * (fort ? 1.12 : 1);
+  VOIXP.osc.frequency.setTargetAtTime(f, t, .012); VOIXP.f.frequency.setTargetAtTime(prof.formant * (.88 + Math.random() * .3), t, .02);
+  VOIXP.g.gain.setTargetAtTime(.3 * (fort ? 1.15 : 1), t, .007); VOIXP.g.gain.setTargetAtTime(0, t + .05, .018);
+}
+// ---- le texte qui s'écrit (et le bruitage syllabe par syllabe)
+const TW = new Map();
+function ecrireTexte(el, prefixe, texte, prof, cps) {
+  TW.delete(el); el.innerHTML = prefixe + '<span class="twT"></span><span class="twR"></span>'; const sT = el.querySelector('.twT'), sR = el.querySelector('.twR'); sR.textContent = texte;
+  if (!texte) return; TW.set(el, { texte, sT, sR, prof, cps, t0: performance.now(), i: 0, dernier: 0, paren: 0 });
+  if (VOIXP.osc && prof) { try { VOIXP.osc.type = prof.onde; } catch (e) {} }
+}
+function finirTexte(el) { const s = TW.get(el); if (!s) return; s.sT.textContent = s.texte; s.sR.textContent = ''; TW.delete(el); }
+setInterval(() => { const now = performance.now();
+  for (const [el, s] of TW) { const n = Math.min(s.texte.length, Math.floor((now - s.t0) / 1000 * s.cps)); if (n <= s.i) continue;
+    for (let j = s.i; j < n; j++) { const ch = s.texte[j]; if (ch === '(') s.paren++; else if (ch === ')') s.paren = Math.max(0, s.paren - 1);
+      if (s.prof && !s.paren && VOYELLES.includes(ch.toLowerCase()) && now - s.dernier > 62) { blip(s.prof, ch); s.dernier = now; } }
+    s.i = n; s.sT.textContent = s.texte.slice(0, n); s.sR.textContent = s.texte.slice(n); if (n >= s.texte.length) TW.delete(el); } }, 33);
+// ---- la synthèse vocale : une file, une réplique à la fois
+function dire(texte, prof, prio) {
+  if (!SS || !texte) return; const now = performance.now();
+  if (prio >= 2) { VOIXP.file = VOIXP.file.filter(e => e.prio >= 2 && false); if (VOIXP.u) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = now + 180; } }   // le joueur parle à quelqu'un : la nouvelle réplique remplace l'ancienne
+  else if (VOIXP.prio >= 2 && DIALOGUE.ouvert) return;                                    // pendant un dialogue, les conversations voisines ne sont pas prononcées
+  if (VOIXP.file.length > 2) VOIXP.file.splice(0, VOIXP.file.length - 2); VOIXP.file.push({ texte, prof, prio, t: now });
+}
+function parlerSuivant() {
+  const now = performance.now(); if (!SS) return;
+  if (VOIXP.u) { if (now > VOIXP.limite) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = now + 250; } return; }
+  if (now < VOIXP.pause) return; const e = VOIXP.file.shift(); if (!e) return; if (e.prio < 2 && now - e.t > 8000) return;
+  if (VOIXP.mode !== 'synthese' || SON.coupe || !voixDispo()) return;
+  const u = new SpeechSynthesisUtterance(e.texte); u.lang = (e.prof.voix && e.prof.voix.lang) || 'fr-FR'; if (e.prof.voix) u.voice = e.prof.voix; u.pitch = e.prof.pitch; u.rate = e.prof.rate; u.volume = Math.max(.1, Math.min(1, SON.volume ?? 1));
+  const fin = () => { if (VOIXP.u !== u) return; VOIXP.u = null; VOIXP.pause = performance.now() + 140; setTimeout(verifierSon, 60); };
+  u.onend = fin; u.onerror = fin; VOIXP.u = u; VOIXP.prio = e.prio; VOIXP.limite = now + (e.texte.length / (13 * u.rate)) * 2200 + 4000;
+  try { SS.speak(u); } catch (err) { VOIXP.u = null; }
+}
+setInterval(() => { try { parlerSuivant(); } catch (e) { VOIXP.u = null; } }, 90);
+function arreterVoix() { VOIXP.file.length = 0; if (VOIXP.u) { VOIXP.u = null; try { SS.cancel(); } catch (e) {} VOIXP.pause = performance.now() + 180; } }
+function verifierSon() {   // Safari : après la synthèse vocale, le contexte audio peut rester « interrompu »
+  const C = SON.ctx; if (!C || document.hidden) return; if (C.state === 'running') return; try { const p = C.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  setTimeout(() => { if (!SON.ctx || SON.ctx.state === 'running' || document.hidden) return; VOIXP.coupures++;
+    if (VOIXP.coupures >= 3 && VOIXP.mode === 'synthese') { VOIXP.mode = 'bruitage'; try { localStorage.setItem('hdf-enclos-voix', 'bruitage'); } catch (e) {} majBoutonVoix(); notifier('Synthèse vocale désactivée : elle coupait le son sur cet appareil. Menu · Voix pour la rétablir.'); }
+    else if (performance.now() > VOIXP.avert) { VOIXP.avert = performance.now() + 30000; notifier('Son en pause · touchez l’écran ou cliquez pour le réactiver.'); } }, 700);
+}
+// ---- le geste qui débloque (Safari) : une réplique muette, puis le contexte audio relancé dans le même geste
+function gesteSon() {
+  if (SS && !VOIXP.debloque && VOIXP.mode === 'synthese') { VOIXP.debloque = true; try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; u.lang = 'fr-FR'; SS.speak(u); } catch (e) {} }
+  try { const C = SON.ctx; if (C && C.state !== 'running') { const p = C.resume(); if (p && p.catch) p.catch(() => {}); } } catch (e) {}
+}
+for (const ev of ['touchend', 'click', 'keydown', 'mouseup']) addEventListener(ev, gesteSon, { passive: true, capture: true });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { arreterVoix(); return; } try { if (SON.ctx && SON.ctx.state !== 'running') { const p = SON.ctx.resume(); if (p && p.catch) p.catch(() => {}); } } catch (e) {} });
+setInterval(() => { if (VOIXP.u || document.hidden || !SON.ctx || !VOIXP.debloque) return; if (SON.ctx.state === 'interrupted') verifierSon(); }, 1500);
+// ---- une réplique : texte écrit au rythme de la voix, bruitage ou synthèse ; renvoie la durée de lecture (s)
+function parole(qui, txt, el, prefixe, dlg) {
+  const a = qui && typeof qui === 'object' ? qui : (VOIXP.qui && (!qui || nomAffiche(VOIXP.qui) === qui || VOIXP.qui.p.prenom === qui) ? VOIXP.qui : agentNomme(qui)); VOIXP.qui = null;
+  const prof = a ? profil(a) : profSpecial(qui), dit = nettoyer(txt), cps = 15 * (prof ? prof.vit : 1.15);
+  const tts = !!(dit && prof && VOIXP.mode === 'synthese' && voixDispo() && !SON.coupe), bruit = !!(dit && prof && !tts && VOIXP.mode !== 'muet');
+  const vitesse = tts ? 12.5 * prof.rate : cps; ecrireTexte(el, prefixe || '', txt, bruit ? prof : null, vitesse);
+  if (tts) dire(dit, prof, dlg ? 2 : 1); return txt.length / vitesse + .9;
+}
+function majBoutonVoix() { const b = $('mnVoix'); if (b) b.textContent = 'Voix : ' + ({ synthese: voixDispo() ? 'parlées' : 'parlées (aucune voix française : bruitage)', bruitage: 'bruitage', muet: 'muettes' }[VOIXP.mode]); }
+function basculerVoix() { const O = ['synthese', 'bruitage', 'muet']; VOIXP.mode = O[(O.indexOf(VOIXP.mode) + 1) % 3]; arreterVoix(); try { localStorage.setItem('hdf-enclos-voix', VOIXP.mode); } catch (e) {} if (VOIXP.mode === 'synthese') { VOIXP.coupures = 0; VOIXP.debloque = false; gesteSon(); } majBoutonVoix(); }
+// ---- le dialogue : la caméra se tourne vers le visage de l'interlocuteur et resserre le champ (façon Skyrim)
+const FOCUS = { fov: null };
+function majFocusDialogue(dt) {   // cadrage façon Skyrim : l'interlocuteur au centre, en buste ; le champ se resserre selon la distance
+  const a = DIALOGUE.ouvert && DIALOGUE.a; document.body.classList.toggle('endialogue', !!a);
+  if (a && Cm.mode === 'pied' && !CINE.actif) {
+    if (FOCUS.fov == null) FOCUS.fov = A.camera.fov; const W = Cm.w, e = A.camera.fixed.eye || [W.x, 1.7, W.z], hd = a.c.G && a.c.pack ? a.c.G[a.c.pack.joeSkel.byName.Head] : null;
+    const hx = hd ? hd[12] : a.c.pos[0], hz = hd ? hd[14] : a.c.pos[2], hy = hd ? hd[13] : a.c.pos[1] + 1.5, d = Math.max(.7, Math.hypot(hx - e[0], hz - e[2]));
+    const ta = Math.atan2(W.x - hx, W.z - hz); let da = ta - W.a; da = Math.atan2(Math.sin(da), Math.cos(da)); const k = 1 - Math.exp(-Math.min(dt, .1) * 5);
+    W.a += da * k; const cible = hy - .22, tp = Math.atan2(cible - e[1], d); W.p += (Math.max(-.7, Math.min(.6, tp)) - W.p) * k;   // on vise le haut de la poitrine : la tête est dans le tiers haut
+    const asp = innerWidth / Math.max(1, innerHeight), fv = 2 * Math.atan(.68 / d), fh = asp < 1.2 ? 2 * Math.atan(.5 / (d * asp)) : 0, fov = Math.max(26 * Math.PI / 180, Math.min(72 * Math.PI / 180, Math.max(fv, fh)));   /* en portrait, le buste entier tient aussi en largeur */ A.camera.fov += (fov - A.camera.fov) * k; }
+  else if (FOCUS.fov != null) { const k = 1 - Math.exp(-Math.min(dt, .1) * 5); A.camera.fov += (FOCUS.fov - A.camera.fov) * k; if (Math.abs(A.camera.fov - FOCUS.fov) < .002) { A.camera.fov = FOCUS.fov; FOCUS.fov = null; } }
+}
+A.onUpdate(dt => { try { majFocusDialogue(dt); } catch (e) {} });
+function aideDialogue() { const el = $('dlAide'); if (!el) return; const kb = !GP.actif && !touch; el.innerHTML = '<span><i class="ps ps-x"></i> Choisir' + (kb ? ' <kbd>Entrée</kbd>' : '') + '</span><span data-partir><i class="ps ps-rond"></i> Partir' + (kb ? ' <kbd>Échap</kbd>' : '') + '</span>'; /* pictogrammes PS4 toujours */ }
+document.getElementById('dlAide').addEventListener('click', e => { if (e.target.closest('[data-partir]') && DIALOGUE.ouvert) fermerDialogue(); });
+addEventListener('keydown', e => { if (!DIALOGUE.ouvert || e.target.tagName === 'INPUT') return; const L = [...document.querySelectorAll('#dlChoix button')]; if (!L.length) return;
+  if (e.code === 'ArrowDown' || e.code === 'ArrowUp') { e.preventDefault(); e.stopPropagation(); GP.sel = (GP.sel + (e.code === 'ArrowDown' ? 1 : L.length - 1)) % L.length; L.forEach((b, i) => b.classList.toggle('gpSel', i === GP.sel)); }
+  else if (e.code === 'Enter' || e.code === 'NumpadEnter') { e.preventDefault(); e.stopPropagation(); (L[GP.sel % L.length] || L[0]).click(); GP.sel = 0; } }, true);
+
+// ---------------------------------------------------------------- LOT 10 (phase 2) — MARQUEURS D'INTERACTION ET TEMPS RÉEL
+// Un marqueur flotte au-dessus de ce qu'on peut utiliser (porte, personne, meuble, puits, boîte aux lettres, station du hameau) avec la touche à presser :
+// Carré sur la manette PS4, E au clavier ; sur écran tactile, on touche le marqueur. Quand il y a d'autres actions possibles, « L1 » (ou Tab) rappelle la roue.
+// Les activités se font en temps réel : l'horloge du jeu ne s'accélère plus (seul le sommeil accélère la nuit).
+const GLYPHE = { carre: '<i class="ps ps-carre"></i>', x: '<i class="ps ps-x"></i>', rond: '<i class="ps ps-rond"></i>', tri: '<i class="ps ps-tri"></i>' };
+const MARQ = { el: null, t: '', ancre: null };
+function projeter(tx, ty, tz) {   // même caméra que le repère d'objectif
+  const W = Cm.w, e = A.camera.fixed.eye || [W.x, 1.7, W.z], dx = tx - e[0], dy = ty - e[1], dz = tz - e[2], sa = Math.sin(W.a), ca = Math.cos(W.a);
+  const xr = dx * ca - dz * sa, zf = -dx * sa - dz * ca, cp = Math.cos(W.p), sp = Math.sin(W.p), yc = dy * cp - zf * sp, zc = zf * cp + dy * sp;
+  if (zc < .25) return null; const f = 1 / Math.tan(A.camera.fov / 2), asp = innerWidth / innerHeight, nx = xr / zc * f / asp, ny = yc / zc * f;
+  if (Math.abs(nx) > .95 || Math.abs(ny) > .95) return null; return [(nx * .5 + .5) * innerWidth, (.5 - ny * .5) * innerHeight, Math.hypot(dx, dy, dz)];
+}
+function ancreAction(t) {   // où se trouve la chose sur laquelle porte l'action
+  const W = Cm.w, I = INTERIEURS, fx = W.x - Math.sin(W.a) * .9, fz = W.z - Math.cos(W.a) * .9;
+  if (/^Parler/.test(t)) { const v = voyageurEnFace(); if (v) { const g = v.c.G[v.c.pack.joeSkel.byName.Head]; return [g[12], g[13] + .42, g[14]]; } }
+  if (Cm.dans) { const id = Cm.dans.id, P = I.plan(id), lv = Cm.dans.lv, y0 = lv * P.hauteur;
+    if (t === 'Sortir') { const [x, z] = I.world(id, P.porte.x, P.D / 2 - .2); return [x, y0 + 2.1, z]; }
+    if (t === 'Monter' || t === 'Descendre') { const st = P.escalier.find(s => t === 'Monter' ? s.niveau === lv : s.niveau === lv - 1); if (st) { const q = t === 'Monter' ? st.bas : st.haut, [x, z] = I.world(id, q[0], q[1]); return [x, y0 + 1.6, z]; } }
+    let best = null, bd = 2.6; for (const m of P.mobilier) { if (m.niveau !== lv) continue; const [x, z] = I.world(id, m.x, m.z), d = Math.hypot(x - fx, z - fz); if (d < bd) { bd = d; best = [x, y0 + ({ lit: .95, table: 1.15, canape: 1.1, armoire: 2.15, buffet: 1.35, cheminee: 1.6, cuisiniere: 1.3, evier: 1.3 }[m.t] || 1.3), z]; } }
+    return best; }
+  if (t === 'Entrer') { let best = null, bd = 2.5; for (const M of MAISONS) { const [x, z] = I.porteDehors(M.id), d = Math.hypot(x - W.x, z - W.z); if (d < bd) { bd = d; best = [x, 2.3, z]; } } return best; }
+  const C = [[PUITS.x, 1.9, PUITS.z]]; if (BOITE.x != null) C.push([BOITE.x, 1.55, BOITE.z]); for (const k in ST) { const s = ST[k]; if (s && s.x != null) C.push([s.x, 1.9, s.z]); }
+  if (/Nourrir|Traire|Tondre|Caresser|bête|chat|chien|vache|mouton|poule/i.test(t)) for (const b of VIE.animaux) if (b.c && b.c.pos) C.unshift([b.c.pos[0], b.c.pos[1] + 1.1, b.c.pos[2]]);
+  let best = null, bd = 3.2; for (const c of C) { const d = Math.hypot(c[0] - fx, c[2] - fz); if (d < bd) { bd = d; best = c; } } return best;
+}
+function majMarqueur() {
+  const el = MARQ.el || (MARQ.el = $('marq')); if (!el) return; const a = actCur;
+  const cache = !a || CINE.actif || CINE.attente || DIALOGUE.ouvert || JEU.actif || TEMPS.dort || TEMPS.occupe || SURV.actif || ROUE.ouverte || !$('menu').hidden || !$('carnet').hidden || !$('sac').hidden || !$('lettre').hidden || /^(Se réveiller|Arrêter|Sortir de la cachette|Se défendre)$/.test(a ? a.t : '');
+  if (cache) { if (!el.hidden) el.hidden = true; document.body.classList.remove('marqueur'); return; }
+  if (a.t !== MARQ.t) { MARQ.t = a.t; MARQ.ancre = null; }
+  const anc = ancreAction(a.t), p = anc && projeter(anc[0], anc[1], anc[2]);
+  if (!p) { if (!el.hidden) el.hidden = true; document.body.classList.remove('marqueur'); return; }
+  const touche = GLYPHE.carre;   // toujours le pictogramme PS4 (Carré) ; au clavier, E en petit
+  const html = touche + '<span>' + a.t + '</span>' + (!GP.actif && !touch ? '<em>E</em>' : '') + '<em class="l1"><b class="psL">L1</b> plus</em>';
+  if (el._h !== html) { el._h = html; el.innerHTML = html; }
+  el.hidden = false; document.body.classList.add('marqueur'); const s = Math.max(.72, Math.min(1.05, 2.4 / Math.max(1, p[2])));
+  el.style.transform = 'translate(' + Math.round(p[0]) + 'px,' + Math.round(p[1]) + 'px) translate(-50%,-100%) scale(' + s.toFixed(2) + ')';
+}
+A.onBeforeRender(() => { try { majMarqueur(); } catch (e) {} });
+// ---- parler seulement à qui l'on voit : en face (±45°), à portée (2,6 m), sans mur, sans cloison, sans paroi du train entre les deux
+function croiseSegment(ax, az, bx, bz, cx, cz, dx, dz) { const r = (bx - ax) * (dz - cz) - (bz - az) * (dx - cx); if (Math.abs(r) < 1e-9) return false; const t = ((cx - ax) * (dz - cz) - (cz - az) * (dx - cx)) / r, u = ((cx - ax) * (bz - az) - (cz - az) * (bx - ax)) / r; return t > .02 && t < .98 && u >= 0 && u <= 1; }
+function vueDegagee(a) {
+  const W = Cm.w, x1 = a.c.pos[0], z1 = a.c.pos[2];
+  if ((a.etat === 'assis') !== (Cm.assis || joueurABord())) return false;                                   // la paroi du train
+  if (Cm.dans) { const id = Cm.dans.id, P = INTERIEURS.plan(id), lv = Cm.dans.lv, p = INTERIEURS.local(id, W.x, W.z), q = INTERIEURS.local(id, x1, z1);
+    for (const c of P.cloisons) { if (c.niveau !== lv || !croiseSegment(p[0], p[1], q[0], q[1], c.a[0], c.a[1], c.b[0], c.b[1])) continue;
+      if (c.porte) { const vert = Math.abs(c.b[0] - c.a[0]) < Math.abs(c.b[1] - c.a[1]), cc = vert ? c.a[0] : c.a[1], k = vert ? (cc - p[0]) / ((q[0] - p[0]) || 1e-9) : (cc - p[1]) / ((q[1] - p[1]) || 1e-9), al = vert ? p[1] + (q[1] - p[1]) * k : p[0] + (q[0] - p[0]) * k;
+        if (al > Math.min(c.porte[0], c.porte[1]) + .08 && al < Math.max(c.porte[0], c.porte[1]) - .08) continue; }   // par l'embrasure d'une porte, on se voit
+      return false; }
+    return true; }
+  const boites = RESERVE.dedans ? RESERVE.coll : COLL;                                                           // dehors : maisons, murs, cabanes, mobilier du hameau
+  for (const b of boites) { if ((W.x > b.x0 && W.x < b.x1 && W.z > b.z0 && W.z < b.z1) || (x1 > b.x0 && x1 < b.x1 && z1 > b.z0 && z1 < b.z1)) continue;
+    let t0 = 0, t1 = 1; const dx = x1 - W.x, dz = z1 - W.z, ok = [[dx, W.x, b.x0, b.x1], [dz, W.z, b.z0, b.z1]].every(([d, o, lo, hi]) => { if (Math.abs(d) < 1e-9) return o >= lo && o <= hi; let u = (lo - o) / d, v = (hi - o) / d; if (u > v) [u, v] = [v, u]; t0 = Math.max(t0, u); t1 = Math.min(t1, v); return t0 <= t1; });
+    if (ok && t1 > .02 && t0 < .98) return false; }
+  return true;
+}
+
+// ---------------------------------------------------------------- LOT 11 (phase 2) — LE VOYAGE (le jeu commence dans le train)
+// Après le carton titre, on est assis dans la voiture 1 et le train roule encore : une minute de voyage à travers la forêt, à regarder l'horizon par la baie.
+// À 30 s, carillon puis haut-parleur : « Le Hameau de Feral, tout le monde descend. » Le train ralentit, freine (crissement), s'arrête à quai à 60 s.
+// Pendant le voyage, on peut regarder partout mais pas se lever (« Le train roule encore. »). Roulement et claquements des rails suivent la vitesse.
+// (avant : cinématique de 19 s vue de l'extérieur, puis réveil dans le train déjà arrêté.)
+function resteVoyage(t) { const D = VOYAGE.D, v = VOYAGE.v0, h = D / 2; if (t < h) return v * h * 1.5 - v * t; const u = Math.max(0, D - t); return v * u * u / (2 * h); }   // croisière, puis freinage régulier
+function vitesseVoyage(t) { const D = VOYAGE.D, v = VOYAGE.v0, h = D / 2; return t < h ? v : v * Math.max(0, D - t) / h; }
+function lancerVoyage() {
+  VOYAGE.actif = true; VOYAGE.fait = true; VOYAGE.t = 0; VOYAGE.annonce = false; VOYAGE.reaction = false; VOYAGE.o = -resteVoyage(0);
+  TRAIN.noeud.pos[0] = TRAIN.x + VOYAGE.o; Cm.assis = true; Cm.sol = TRAIN.plancher; Cm.w.x = SIEGE0.x + VOYAGE.o; Cm.w.z = SIEGE0.z; ARR.tAssis = 0; sonVoyage(true);
+}
+function majVoyage(dt) {
+  if (!VOYAGE.actif) return; VOYAGE.t += dt; const t = VOYAGE.t, o = t >= VOYAGE.D ? 0 : -resteVoyage(t);
+  const d = o - VOYAGE.o; TRAIN.noeud.pos[0] = TRAIN.x + o; if (Cm.assis && !Cm.dans) { Cm.w.x += d; const F = A.camera.fixed; if (F && F.eye && F.look && !CINE.actif) { F.eye[0] += d; F.look[0] += d; } } VOYAGE.o = o; ARR.tAssis = 0;   // la caméra (calculée plus tôt dans l'image) suit le même mouvement : pas d'une image de retard
+  if (t > 30 && !VOYAGE.annonce) { VOYAGE.annonce = true; carillon(); setTimeout(() => sousTitre('Haut-parleur', 'Le Hameau de Feral, tout le monde descend.', 5), 1900); }
+  if (t > 40 && !VOYAGE.reaction) { VOYAGE.reaction = true; const L = PASSAGERS.liste.filter(a => a.etat === 'assis'), a = L.find(a => a.p.id === 'V01') || L[0];
+    if (a) sousTitre(a.p.prenom, a.p.id === 'V01' ? 'Feral… Ma sœur m’attend peut-être sur le quai.' : 'Enfin. J’ai cru qu’on n’arriverait jamais.', 4); }
+  majSonVoyage(t);
+  if (t >= VOYAGE.D) { VOYAGE.actif = false; TRAIN.noeud.pos[0] = TRAIN.x; for (const a of PASSAGERS.liste) if (a.etat === 'assis') a.c.pos[0] = a.bx; ARR.tAssis = 0; sonVoyage(false); notifier('Le train est à quai. Levez-vous pour descendre.'); }
+}
+// ---- le son du train : un roulement continu (bruit filtré, une seule source) et les claquements des joints de rail
+function sonVoyage(on) {
+  if (!on) { const S = VOYAGE.son; if (!S || !SON.ctx) return; const t = SON.ctx.currentTime; S.g.gain.cancelScheduledValues(t); S.g.gain.setTargetAtTime(0, t, .6); S.cr.gain.setTargetAtTime(0, t, .3); setTimeout(() => { try { S.src.stop(); S.o.stop(); } catch (e) {} }, 3000); VOYAGE.son = null; return; }
+  if (VOYAGE.son || !SON.ctx || !SON.bruit) return; const C = SON.ctx, src = source(true), f = C.createBiquadFilter(), g = C.createGain(); f.type = 'lowpass'; f.frequency.value = 220; g.gain.value = 0;
+  src.connect(f); f.connect(g); g.connect(SON.bus.amb); src.start();
+  const o = C.createOscillator(), cr = C.createGain(); o.type = 'sine'; o.frequency.value = 2350; cr.gain.value = 0; o.connect(cr); cr.connect(SON.bus.amb); o.start();   // crissement des freins
+  VOYAGE.son = { src, f, g, o, cr };
+}
+function majSonVoyage(t) {
+  const S = VOYAGE.son; if (!S) { if (sonPret()) sonVoyage(true); return; } if (!sonPret()) return; const C = SON.ctx, now = C.currentTime, v = vitesseVoyage(t), k = v / VOYAGE.v0;
+  S.g.gain.setTargetAtTime(.05 + .32 * k, now, .3); S.f.frequency.setTargetAtTime(120 + 160 * k, now, .3);
+  const frein = t > VOYAGE.D - 9 && v > .4 ? .018 * Math.min(1, (t - (VOYAGE.D - 9)) / 3) : 0; S.cr.gain.setTargetAtTime(frein, now, .25); S.o.frequency.setTargetAtTime(2350 + 120 * Math.sin(t * 7), now, .05);
+  if (v > .5 && performance.now() > VOYAGE.clac) { VOYAGE.clac = performance.now() + 18 / v * 1000; for (const d of [0, .16]) claquement(now + .02 + d, .2 + .25 * k); }
+}
+function claquement(t, vol) {
+  const C = SON.ctx, s = source(false), f = C.createBiquadFilter(), g = C.createGain(); f.type = 'bandpass'; f.frequency.value = 1700; f.Q.value = 1.4;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .004); g.gain.exponentialRampToValueAtTime(.001, t + .07); g.gain.linearRampToValueAtTime(0, t + .09);
+  s.connect(f); f.connect(g); g.connect(SON.bus.amb); s.start(t, Math.random()); s.stop(t + .1); s.onended = () => { try { s.disconnect(); f.disconnect(); g.disconnect(); } catch (e) {} };
+}
+function carillon() {   // trois notes, comme dans les gares
+  if (!sonPret() || SON.coupe) return; const C = SON.ctx, t = C.currentTime + .05;
+  [[659, 0], [784, .45], [988, .9]].forEach(([f, d]) => { for (const [m, v] of [[1, .16], [2.01, .05], [3.02, .02]]) { const o = C.createOscillator(), g = C.createGain(); o.type = 'sine'; o.frequency.value = f * m;
+    g.gain.setValueAtTime(0, t + d); g.gain.linearRampToValueAtTime(v, t + d + .01); g.gain.exponentialRampToValueAtTime(.0005, t + d + 1.6); g.gain.linearRampToValueAtTime(0, t + d + 1.65);
+    o.connect(g); g.connect(SON.bus.evt); o.start(t + d); o.stop(t + d + 1.7); o.onended = () => { try { o.disconnect(); g.disconnect(); } catch (e) {} }; } });
+}
+
+// ---------------------------------------------------------------- LOT 12 (phase 2) — LA BOUSSOLE (façon Skyrim, en haut de l'écran)
+// Bandeau noir à double filet : les points cardinaux (N, NE, E, SE, S, SO, O, NO) défilent avec le regard (±90° visibles).
+// Dessus, en icônes claires : les objectifs (losange ambre plein pour l'objectif principal, contour pour les autres), votre maison, les maisons, le grand mât,
+// le puits, la boîte aux lettres, le portail, la gare et les stations du hameau (à moins de 90 m). Les icônes s'estompent vers les bords.
+const RADAR = { el: null, piste: null, items: [], obj: [], pret: false };
+const ICO = {
+  maison: '<svg viewBox="0 0 20 20"><path d="M3 10 10 4l7 6v6H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  chez: '<svg viewBox="0 0 20 20"><path d="M3 10 10 4l7 6v6H3z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><rect x="8.5" y="11.5" width="3" height="4.5" fill="#0b0b0b"/></svg>',
+  mat: '<svg viewBox="0 0 20 20"><path d="M6 18V3" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 3.5h9l-2.5 3 2.5 3h-9z" fill="currentColor"/></svg>',
+  puits: '<svg viewBox="0 0 20 20"><path d="M4 9h12v8H4zM3 6h14M6 6V3m8 3V3M5 3h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+  boite: '<svg viewBox="0 0 20 20"><rect x="3" y="6" width="14" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m3 7 7 5 7-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+  portail: '<svg viewBox="0 0 20 20"><path d="M3 18V5m14 13V5M3 5h14M6 18V8m4 10V8m4 10V8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+  gare: '<svg viewBox="0 0 20 20"><rect x="4" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 9h12M7 17l1.5-3m4.5 3-1.5-3" stroke="currentColor" stroke-width="1.6"/></svg>',
+  station: '<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>',
+  croix: '<svg viewBox="0 0 20 20"><path d="M10 3v14M5.5 8h9" stroke="currentColor" stroke-width="2"/></svg>',
+  obj: '<svg viewBox="0 0 20 20"><path d="M10 2 18 10 10 18 2 10z" fill="#e8aa50" stroke="#1a1206" stroke-width="1.6"/></svg>',
+  obj2: '<svg viewBox="0 0 20 20"><path d="M10 3.5 16.5 10 10 16.5 3.5 10z" fill="none" stroke="#e8aa50" stroke-width="2"/></svg>',
+};
+function poisRadar() {
+  const L = [];
+  for (const M of MAISONS) { const [x, z] = INTERIEURS.porteDehors(M.id); L.push({ k: 'maison', x, z, id: M.id, loin: 90 }); }
+  L.push({ k: 'mat', x: MAT.x, z: MAT.z, loin: 400 }, { k: 'puits', x: PUITS.x, z: PUITS.z, loin: 90 }, { k: 'portail', x: PORTAIL.x, z: ENCEINTE.z1, loin: 400 }, { k: 'gare', x: TRAIN.x, z: GARE.zr, loin: 600 });
+  for (const k in ST) { const s = ST[k]; if (s && s.x != null) L.push({ k: k === 'cimetiere' ? 'croix' : 'station', x: s.x, z: s.z, loin: 90 }); }
+  return L;
+}
+function creerRadar() {
+  RADAR.el = $('radar'); RADAR.piste = $('rdPiste'); if (!RADAR.el) return; RADAR.pret = true;
+  ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'].forEach((t, i) => { const e = document.createElement('b'); e.className = 'rdCard' + (i % 2 ? ' rdInter' : ''); e.textContent = t; RADAR.piste.appendChild(e); RADAR.items.push({ e, cap: i * 45 }); });
+  for (const p of poisRadar()) { const e = document.createElement('i'); e.className = 'rdIco'; e.innerHTML = ICO[p.k]; RADAR.piste.appendChild(e); RADAR.items.push({ e, p }); }
+  for (let i = 0; i < 4; i++) { const e = document.createElement('i'); e.className = 'rdIco rdObj'; e.innerHTML = ICO[i ? 'obj2' : 'obj']; RADAR.piste.appendChild(e); RADAR.obj.push(e); }
+}
+const capVers = (dx, dz) => Math.atan2(dx, -dz) * 180 / Math.PI;   // nord = −z, est = +x
+function placerRadar(e, rel, W) { if (Math.abs(rel) > 92) { if (e.style.display !== 'none') e.style.display = 'none'; return; } if (e.style.display === 'none') e.style.display = ''; const u = rel / 90; e.style.transform = 'translate(' + (u * W / 2).toFixed(1) + 'px,-50%) translateX(-50%)'; e.style.opacity = (1 - Math.pow(Math.abs(u), 4)).toFixed(2); }
+function majRadar() {
+  if (!RADAR.pret) { if (PASSAGERS.pret && typeof MAISONS !== 'undefined') creerRadar(); return; }
+  const W = Cm.w, cache = Cm.mode !== 'pied' || CINE.actif || CINE.attente || JEU.actif || SURV.actif || !$('capture').hidden; RADAR.el.hidden = cache; if (cache) return;
+  const larg = RADAR.piste.clientWidth || 300, cap = -W.a * 180 / Math.PI, rel = c => { let r = (c - cap) % 360; if (r > 180) r -= 360; if (r < -180) r += 360; return r; };
+  for (const it of RADAR.items) { if (!it.p) { placerRadar(it.e, rel(it.cap), larg); continue; } const p = it.p, dx = p.x - W.x, dz = p.z - W.z, d = Math.hypot(dx, dz);
+    if (d > p.loin || d < 2.5) { if (it.e.style.display !== 'none') it.e.style.display = 'none'; continue; } const chez = p.k === 'maison' && p.id === FOYERS.joueur;
+    if (it.chez !== chez) { it.chez = chez; it.e.innerHTML = ICO[chez ? 'chez' : 'maison']; it.e.classList.toggle('rdChez', chez); } placerRadar(it.e, rel(capVers(dx, dz)), larg); }
+  const cibles = (OBJ.liste || []).filter(o => o.cible).slice(0, 4);
+  RADAR.obj.forEach((e, i) => { const o = cibles[i]; if (!o) { e.style.display = 'none'; return; } let { x, z } = o.cible; if (o.cible.dans && (!Cm.dans || Cm.dans.id !== o.cible.dans)) [x, z] = INTERIEURS.porteDehors(o.cible.dans);
+    const dx = x - W.x, dz = z - W.z; if (Math.hypot(dx, dz) < 1.5) { e.style.display = 'none'; return; } e.title = o.t; placerRadar(e, rel(capVers(dx, dz)), larg); });
+}
+A.onBeforeRender(() => { try { majRadar(); } catch (e) {} });
+
 // ---------------------------------------------------------------- HUD DE JEU — MENU DE PAUSE
 // Échap ou le bouton « Menu » : le jeu se fige (A.skipUpdate), on peut reprendre ou abandonner la boucle (retour au train, la mémoire est gardée, comme une capture sans la séquence).
 function basculerMenu(ouvrir) {
   const m = $('menu'), o = ouvrir ?? m.hidden; if (o && (CINE.actif || !$('accueil').hidden || !$('capture').hidden)) return;
-  m.hidden = !o; A.skipUpdate = !!o; $('bMenu').setAttribute('aria-pressed', !!o); $('mnSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); GP.sel = 0;
-  if (o) $('mnAide').innerHTML = touch ? '<b>Pouce gauche</b> marcher · <b>glisser</b> regarder<br><b>Bouton</b> agir · <b>État</b> et <b>Carnet</b> en haut à droite' : '<b>ZQSD</b> marcher · <b>Maj</b> courir · <b>glisser</b> regarder<br><b>E</b> agir · <b>B</b> état · <b>J</b> carnet · <b>I</b> sac · <b>Échap</b> menu<br><b>Tab</b> roue · <b>Espace</b> sauter · <b>C</b> s’accroupir<br><b>Manette</b> : Carré agir, L1 roue, Croix sauter, Rond s’accroupir, L3 courir, Triangle carnet, L2 sac, R1 état, Options menu';
+  m.hidden = !o; A.skipUpdate = !!o; $('bMenu').setAttribute('aria-pressed', !!o); $('mnSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); majBoutonVoix(); GP.sel = 0;
+  if (o) $('mnAide').innerHTML = touch ? '<b>Pouce gauche</b> marcher · <b>glisser</b> regarder<br><b>Bouton</b> agir · <b>État</b> et <b>Carnet</b> en haut à droite' : '<b>ZQSD</b> marcher · <b>Maj</b> courir · <b>glisser</b> regarder<br><b>E</b> agir · <b>B</b> état · <b>J</b> carnet · <b>I</b> sac · <b>Échap</b> menu<br><b>Tab</b> roue · <b>Espace</b> sauter · <b>C</b> s’accroupir<br><b>Manette</b> : Carré agir, L1 roue, Croix sauter, Rond s’accroupir, L3 courir (appuyer une fois), Triangle carnet, L2 sac, R1 état, Options menu';
   else cv.focus({ preventScroll: true });
 }
+$('mnVoix').onclick = () => { sonReveil(); basculerVoix(); };   // PHASE 2 · 1.1 : voix parlées, bruitage, muettes
+$('dlTexte').addEventListener('click', () => finirTexte($('dlTexte'))); $('sousTitre').addEventListener('click', () => finirTexte($('sousTitre')));
 $('mnSon').onclick = () => { sonReveil(); sonCoupe(!SON.coupe); $('mnSon').textContent = 'Son : ' + (SON.coupe ? 'coupé' : 'activé'); };
 $('bMenu').onclick = () => basculerMenu(); $('mnReprendre').onclick = () => basculerMenu(false);
 $('mnAbandon').onclick = () => { basculerMenu(false); MEMOIRE.boucle++; sauverMemoire(); $('cineTitre').querySelector('p').textContent = 'Boucle ' + MEMOIRE.boucle + ' · vous vous souvenez de tout'; lancerCinematique(); };
@@ -12395,7 +13182,7 @@ function meurtreDeNuit() {
   return false;
 }
 function decouvrirCorps() {
-  for (const b of PASSAGERS.liste) { if (!b.mort || b.mort.decouvert) continue; b.mort.decouvert = true; const L = vivants(), nom = b.p.prenom, e = accord(b.p, '', 'e');
+  for (const b of PASSAGERS.liste) { if (!b.mort || b.mort.decouvert) continue; b.mort.decouvert = true; motif('violence'); const L = vivants(), nom = b.p.prenom, e = accord(b.p, '', 'e');
     journal(nom + ' a été retrouvé' + e + ' mort' + e + ' ce matin.'); notifier('Un cri, au matin. On a retrouvé ' + nom + ' mort' + e + '.');
     for (const o of L) { o.b.moral = Math.max(0, o.b.moral - 20); if (HIST.pret) HIST.hs.feel(ia(o), -.8, 'meurtre'); }
     souvenir('mort-' + b.p.id + '-' + MEMOIRE.boucle, 'Boucle ' + MEMOIRE.boucle + ' : ' + nom + ' a été tué' + e + ' dans la nuit du jour ' + (b.mort.jour - 1) + ' au jour ' + b.mort.jour + '.');
@@ -12675,13 +13462,13 @@ function actionTravail(x, z) {
   }
   return null;
 }
-function occuper(texte, minutes, effort, effet) {
+function occuperDirect(texte, minutes, effort, effet) {   /* HDF BASE : phase 2 · lot 5 — l'occupation passe d'abord par le mini-jeu de l'activité (occuper, bloc LOT 5) */
   if (TEMPS.occupe || TEMPS.dort) return; if (DIALOGUE.ouvert) fermerDialogue();
-  TEMPS.occupe = { texte, debut: minutesTotales(), fin: minutesTotales() + minutes, effort, effet }; TEMPS.k = 60;
+  TEMPS.occupe = { texte, debut: minutesTotales(), fin: minutesTotales() + minutes, effort, effet }; TEMPS.k = 1; $('sommeil').classList.add('occ');   /* HDF BASE : phase 2 · 1.1 — temps réel (avant : TEMPS.k = 60) */
   $('sommeil').hidden = false; $('smTexte').textContent = texte + ' · ' + heureTxt(HORLOGE.min); $('smReveil').textContent = 'Arrêter'; majAction();
 }
 function finirOccupation(interrompu) {
-  const o = TEMPS.occupe; if (!o) return; TEMPS.occupe = null; TEMPS.k = 1; $('sommeil').hidden = true; $('smReveil').textContent = 'Se réveiller';
+  const o = TEMPS.occupe; if (!o) return; TEMPS.occupe = null; TEMPS.k = 1; $('sommeil').hidden = true; $('sommeil').classList.remove('occ'); $('smReveil').textContent = 'Se réveiller';
   const k = interrompu ? clamp((minutesTotales() - o.debut) / Math.max(1, o.fin - o.debut), 0, 1) : 1;
   if (k > .05) { try { o.effet(k); } catch (e) { console.error(e); } } else notifier('Vous arrêtez.');
   majAffichageBesoins(true); majAction();
@@ -13006,7 +13793,8 @@ function dormir(lit, id) {
   const hj = HORLOGE.min / 60, nuit = hj >= 20.5 || hj < 6;
   if (!nuit && BESOINS.energie > 70) { notifier('Vous n’avez pas sommeil.'); return; }
   TEMPS.avant = { x: Cm.w.x, z: Cm.w.z, a: Cm.w.a };   // on se relèvera au même endroit, à côté du lit
-  const [x, z] = INTERIEURS.world(id, lit.x, lit.z); Cm.w.x = x; Cm.w.z = z; Cm.w.p = .9;   // couché, les yeux au plafond
+  const cotes = couchages(id).filter(t => t.type === 'lit' && t.m === lit), occ = occupees(id, null), libre = cotes.find(t => !occ.has(t.k)) || null; if (cotes.length && !libre) { notifier('Quelqu’un dort déjà dans ce lit.'); return; }
+  const [x, z] = libre ? INTERIEURS.world(id, libre.x, libre.z) : INTERIEURS.world(id, lit.x, lit.z); Cm.w.x = x; Cm.w.z = z; Cm.w.p = .9;   /* 1.1 : votre côté du lit, libre */   // couché, les yeux au plafond
   TEMPS.dort = true; TEMPS.k = 60; TEMPS.t = 0; TEMPS.min = 0; TEMPS.nuit = nuit; $('sommeil').hidden = false; $('smTexte').textContent = 'Vous dormez · ' + heureTxt(HORLOGE.min);
   if (DIALOGUE.ouvert) fermerDialogue();
 }
@@ -13016,7 +13804,7 @@ function reveiller(pourquoi) {
   notifier(msg + ' Il est ' + heureTxt(HORLOGE.min) + '.'); majAffichageBesoins(true); majAction();
 }
 function majSommeil(dt) {
-  if (TEMPS.occupe) { const o = TEMPS.occupe, reste = o.fin - minutesTotales(); $('smTexte').textContent = o.texte + ' · ' + heureTxt(HORLOGE.min); if (reste <= 0) finirOccupation(false); return; }   // LOT 18
+  if (TEMPS.occupe) { const o = TEMPS.occupe, reste = o.fin - minutesTotales(); $('smTexte').textContent = o.texte + ' · encore ' + Math.max(1, Math.ceil(reste)) + ' min'; if (reste <= 0) finirOccupation(false); return; }   // LOT 18
   if (!TEMPS.dort) return; TEMPS.t += dt; TEMPS.min += dt * TEMPS.k * HORLOGE.vitesse; const hj = HORLOGE.min / 60, B = BESOINS;
   $('smTexte').textContent = 'Vous dormez · ' + heureTxt(HORLOGE.min);
   if (B.faim < 8) reveiller('faim'); else if (B.soif < 8) reveiller('soif'); else if (B.chaleur < 15) reveiller('froid');
@@ -13044,7 +13832,7 @@ function majBesoins(dt) {
   const h = (TEMPS && TEMPS.k ? dt * TEMPS.k : dt) * HORLOGE.vitesse / 60, B = BESOINS, W = Cm.w;   // heures de jeu écoulées
   if (ETAT_JOUEUR.dernier) { const d = Math.hypot(W.x - ETAT_JOUEUR.dernier[0], W.z - ETAT_JOUEUR.dernier[1]); ETAT_JOUEUR.vitesse += (d / Math.max(dt, 1e-3) - ETAT_JOUEUR.vitesse) * Math.min(1, dt * 4); }
   ETAT_JOUEUR.dernier = [W.x, W.z];
-  const v = ETAT_JOUEUR.vitesse, dort = TEMPS && TEMPS.dort, effort = dort ? 0 : TEMPS.occupe ? TEMPS.occupe.effort : Cm.assis ? -.6 : v > 6 ? 3 : v > .5 ? 1.6 : 1;
+  const v = ETAT_JOUEUR.vitesse, dort = TEMPS && TEMPS.dort, effort = dort ? 0 : TEMPS.occupe ? TEMPS.occupe.effort : JEU.actif ? (JEU.effort ?? 1.2) : Cm.assis ? -.6 : v > 6 ? 3 : v > .5 ? 1.6 : 1;
   const abri = aLAbri(), hj = HORLOGE.min / 60, T = temperatureDehors(hj) + (METEO_J ? METEO_J.dT : 0), cible = abri ? (Cm.dans ? chaleurInterieure(Cm.dans.id, T) : 100) : clamp((T - 3) * 7 - (METEO_J && METEO_J.pluie ? 25 : 0), 0, 100);
   const nuitDehors = !abri && (hj < 6 || hj > 21.5);
   const ralenti = dort ? .5 : 1;   // LOT 12 : le corps tourne au ralenti en dormant
@@ -13085,9 +13873,9 @@ const liste = xs => xs.length > 1 ? xs.slice(0, -1).join(', ') + ' et ' + xs[xs.
 function piedsJoueur() { return Cm.dans ? Cm.dans.lv * INTERIEURS.LV : Cm.assis ? TRAIN.plancher : Cm.sol; }
 function voyageurEnFace() {
   if (Cm.mode !== 'pied' || !PASSAGERS.pret) return null;
-  const W = Cm.w, fx = -Math.sin(W.a), fz = -Math.cos(W.a), ici = Cm.dans ? Cm.dans.id : null, py = piedsJoueur(); let best = null, bd = 2.8;
+  const W = Cm.w, fx = -Math.sin(W.a), fz = -Math.cos(W.a), ici = Cm.dans ? Cm.dans.id : null, py = piedsJoueur(); let best = null, bd = 2.6;   /* HDF BASE : phase 2 · 1.1 — en face (±45°), 2,6 m, et sans mur ni cloison entre les deux (avant : 2,8 m, ±57°, à travers les murs) */
   for (const a of PASSAGERS.liste) { if ((a.dedans && !INTERIEURS.built(a.dedans)) || (a.dedans || null) !== ici || Math.abs(a.c.pos[1] - py) > 1.2) continue;
-    const dx = a.c.pos[0] - W.x, dz = a.c.pos[2] - W.z, d = Math.hypot(dx, dz); if (d > bd || d < .15 || (dx * fx + dz * fz) / d < .55) continue; best = a; bd = d; }
+    const dx = a.c.pos[0] - W.x, dz = a.c.pos[2] - W.z, d = Math.hypot(dx, dz); if (d > bd || d < .15 || (dx * fx + dz * fz) / d < .7 || !vueDegagee(a)) continue; best = a; bd = d; }
   return best;
 }
 const assisOuCouche = a => a.etat === 'assis' || (a.etat === 'chez' && a.poste && /Sit|Read|Sleep|Lie/.test(a.poste.clip || ''));
@@ -13153,8 +13941,8 @@ function reponse(a, cle) {
 }
 function ecrireDialogue(texte) {
   const a = DIALOGUE.a, nom = a.connu ? a.p.prenom + ' ' + a.p.nom : accord(a.p, 'Voyageur', 'Voyageuse');
-  $('dlQui').innerHTML = nom + (a.connu ? '<span>' + a.p.metier + '</span>' : ''); $('dlTexte').textContent = texte;
-  const C = $('dlChoix'); C.innerHTML = ''; sujets(a).forEach(([cle, lib], i) => { const b = document.createElement('button'); b.innerHTML = (touch ? '' : '<kbd>' + (i + 1) + '</kbd>') + lib; b.onclick = () => choisir(cle); C.appendChild(b); });
+  $('dlQui').innerHTML = nom + (a.connu ? '<span>' + a.p.metier + '</span>' : ''); parole(a, texte, $('dlTexte'), '', true);   /* HDF BASE : phase 2 · 1.1 — la réplique est dite (voix) et s'écrit (avant : textContent) */
+  const C = $('dlChoix'); C.innerHTML = ''; sujets(a).forEach(([cle, lib], i) => { const b = document.createElement('button'); b.innerHTML = (touch ? '' : '<kbd>' + (i + 1) + '</kbd>') + lib; if (a.sujets && a.sujets.has(cle) && cle !== 'fin') b.classList.add('vu'); b.onclick = () => choisir(cle); C.appendChild(b); }); aideDialogue(); GP.sel = 0; surligner();
 }
 function ouvrirDialogue(a) {
   DIALOGUE.ouvert = true; DIALOGUE.a = a; a.sujets = a.sujets || new Set(); a.memoire = a.memoire || []; if (a.relation == null) a.relation = 0;
@@ -13168,7 +13956,7 @@ function choisir(cle) {
   if (cle === 'fin') { ecrireDialogue(txt); setTimeout(fermerDialogue, 900); return; } ecrireDialogue(txt);
 }
 function fermerDialogue() {
-  const a = DIALOGUE.a; DIALOGUE.ouvert = false; DIALOGUE.a = null; $('dialogue').hidden = true; if (!a) return; a.sousMenu = null;
+  const a = DIALOGUE.a; DIALOGUE.ouvert = false; DIALOGUE.a = null; $('dialogue').hidden = true; if (VOIXP.prio >= 2) arreterVoix(); finirTexte($('dlTexte')); if (!a) return; a.sousMenu = null;
   if (a.etat === 'activite' && a.but) arriveDehors(a); else if (a.etat === 'chez' && a.poste) a.c.play(a.poste.clip || 'Idle', { fade: .3 }); else if (a.etat === 'assis') a.c.play(a.clip, { fade: .3 }); else if (a.etat === 'marche') a.c.play('Walk', { fade: .3 }); else a.c.play('Idle_LookAround', { fade: .3 });
 }
 addEventListener('keydown', e => { if (!DIALOGUE.ouvert || e.target.tagName === 'INPUT') return; const n = parseInt(e.key, 10), S = sujets(DIALOGUE.a);
@@ -13212,13 +14000,13 @@ function butPour(a, act) {
   if (act === 'bois') { const c = cabaneDe(id); return { x: c.x - 2.4, z: c.z + 1.6, clip: 'Chop_Wood', face: [c.x - 3.4, c.z + 1.6] }; }
   const t = angleVeillee(a, k) ?? (k * .33 + R() * .2), r = 3.6 + (k % 3) * 1.1, cv = R(); return { x: MAT.x + Math.cos(t) * r, z: MAT.z + Math.sin(t) * r, clip: cv < .45 ? 'Talk' : cv < .6 ? 'Clap' : 'Idle_LookAround', face: [MAT.x, MAT.z] };   /* HDF BASE : lot 16 — à la veillée, on se place près de ses amis (avant : place fixe par numéro) */
 }
-function sortirSiDedans(a) { if (!a.dedans) return; const [x, z] = INTERIEURS.porteDehors(a.dedans); a.dedans = null; a.poste = null; a.c.pos = [x, 0, z]; }
+function sortirSiDedans(a) { a.couche = null; if (!a.dedans) return; const [x, z] = INTERIEURS.porteDehors(a.dedans); a.dedans = null; a.poste = null; a.c.pos = [x, 0, z]; }
 function planifier(a, act) {
   evenementPNJ(a, act);   // LOT 13
   a.act = act; const b = butPour(a, act); a.but = b;
   if (b.dans) { const ou = b.maison || a.maison; if (a.dedans === ou) { entrer(a, b.role, b.maison); return; }   /* PHASE 2 · LOT 4 : chez soi, ou chez celui qu'on aime */
-    sortirSiDedans(a); const [dx, dz] = INTERIEURS.porteDehors(ou); a.vaChez = true; vers(a, itineraire(a.c.pos[0], a.c.pos[2], dx, dz)); return; }
-  sortirSiDedans(a); a.vaChez = false; const cible = b.via || [b.x, b.z], pts = itineraire(a.c.pos[0], a.c.pos[2], cible[0], cible[1]); if (b.via) pts.push([b.x, b.z]); vers(a, pts);
+    sortirSiDedans(a); const [dx, dz] = INTERIEURS.porteDehors(ou); a.vaChez = true; { const pts = itineraire(a.c.pos[0], a.c.pos[2], dx, dz); vers(a, pts, clipTrajet(a, act, pts)); } return; }
+  sortirSiDedans(a); a.vaChez = false; const cible = b.via || [b.x, b.z], pts = itineraire(a.c.pos[0], a.c.pos[2], cible[0], cible[1]); if (b.via) pts.push([b.x, b.z]); vers(a, pts, clipTrajet(a, act, pts));
 }
 function arriveDehors(a) { const b = a.but; a.etat = 'activite'; if (a.act === 'puits') auPuits(a);   // LOT 13
   if (b && b.face) regarder(a.c, b.face[0], b.face[1]); a.c.play(b && b.clip || 'Idle_LookAround', { fade: .4, offset: Math.random() * 2 }); }
@@ -13271,6 +14059,7 @@ function repartirFoyers() {                                    // places de lit 
 }
 function allerChezSoi(a, delai) { const [dx, dz] = INTERIEURS.porteDehors(a.maison); a.vaChez = true; a.etat = 'attente'; a.delai = delai; a.prochain = itineraire(a.c.pos[0], a.c.pos[2], dx, dz); a.regard = null; }
 function entrer(a, role, chez) {                               // passage dans l'intérieur : une place « habitant » libre de son plan (rôle voulu : table, lit… ; sinon hors lit)
+  if (role === 'lit' && coucher(a, chez || a.maison)) return; a.couche = null;   /* HDF BASE : phase 2 · 1.1 — chacun sa place dans un lit, allongé sur le dos sous la couverture (avant : Sleep_Lie de travers, au-dessus du matelas, places partagées) */
   const id = chez || a.maison, P = INTERIEURS.plan(id), M = maisonDe(id), pris = PASSAGERS.liste.filter(b => b.dedans === id && b.poste).map(b => b.poste);
   const libres0 = P.postes.filter(q => q.kind === 'habitant' && !pris.includes(q) && q !== a.poste), voulus = libres0.filter(q => role ? q.role === role : q.role !== 'lit'), libres = voulus.length ? voulus : libres0.filter(q => q.role !== 'lit');
   const q = libres[Math.floor(Math.random() * libres.length)] || a.poste || P.postes.find(q => q.kind === 'habitant');
@@ -13281,7 +14070,7 @@ function entrer(a, role, chez) {                               // passage dans l
 function majInstallation(dt) {
   if (ARR.etape !== 'depart' && ARR.etape !== 'parti') return;
   ARR.tInstall += dt;
-  if (!ARR.install && ARR.tInstall > 4) { ARR.install = true; repartirFoyers(); let i = 0; for (const a of PASSAGERS.liste) if (a.etat === 'attend') allerChezSoi(a, .8 * i++ + Math.random() * .5); }
+  if (!ARR.install && ARR.tInstall > 4 && !RASS.etat) lancerRassemblement();   /* HDF BASE : phase 2 · lot 6 — d'abord le grand mât, la discussion, puis la répartition des maisons (avant : chacun chez soi au bout de 4 s) */
   if (ARR.install) for (const a of PASSAGERS.liste) if (a.etat === 'attend' && !a.vaChez && !a.dedans) allerChezSoi(a, .3 + Math.random());
 }
 
@@ -13289,9 +14078,9 @@ function majInstallation(dt) {
 // Descente (au lever du joueur ou après 25 s) : chaque voyageur longe le couloir jusqu'à la porte la plus proche, descend, rejoint sa place en arc devant l'homme.
 // Accueil (groupe réuni, joueur sur le quai) : salut, deux répliques sous-titrées, il montre le portail. Puis il remonte à bord ; le train repart dès que le joueur
 // n'est plus dans le wagon (sinon : « Terminus, il faut descendre »). Les voyageurs passent le portail et attendent le long de l'allée (installation : lot 8).
-function vers(o, pts, clip) { o.chemin = pts.map(q => q.slice()); o.etat = 'marche'; o.c.play(clip || 'Walk', { fade: .35 }); }
+function vers(o, pts, clip) { o.chemin = pts.map(q => q.slice()); o.etat = 'marche'; o.court = clip === 'Run'; o.furtif = clip === 'Crouch_Walk'; o.c.play(clip || 'Walk', { fade: .35 }); }   /* HDF BASE : phase 2 · lot 5 — on court ou on se faufile (vitesse) */
 function avancer(o, dt) {                                      // déplacement le long d'o.chemin ; true à l'arrivée
-  const P = o.chemin; if (!P || !P.length) return true; const c = o.c, [tx, tz] = P[0], dx = tx - c.pos[0], dz = tz - c.pos[2], d = Math.hypot(dx, dz), st = o.v * dt;
+  const P = o.chemin; if (!P || !P.length) return true; const c = o.c, [tx, tz] = P[0], dx = tx - c.pos[0], dz = tz - c.pos[2], d = Math.hypot(dx, dz), st = o.v * (o.c && o.chemin && o.p ? vitesseCorps(o) : 1) * dt;
   if (d <= st) { c.pos[0] = tx; c.pos[2] = tz; P.shift(); } else { c.pos[0] += dx / d * st; c.pos[2] += dz / d * st; }
   if (d > .05) { const df = Math.atan2(Math.sin(Math.atan2(dx, dz) - c.yaw), Math.cos(Math.atan2(dx, dz) - c.yaw)); c.yaw += df * Math.min(1, dt * 8); }
   c.pos[1] += (hauteurSol(c.pos[0], c.pos[2]) - c.pos[1]) * Math.min(1, dt * 6);
@@ -13299,7 +14088,7 @@ function avancer(o, dt) {                                      // déplacement l
 }
 const regarder = (c, x, z) => { c.yaw = Math.atan2(x - c.pos[0], z - c.pos[2]); };
 const joueurABord = () => !Cm.dans && ouSuisJe(Cm.w.x, Cm.w.z) === 'voiture 1';
-function sousTitre(qui, txt, duree) { const el = $('sousTitre'); el.innerHTML = '<b>' + qui + '</b> ' + txt; el.hidden = false; ARR.sous = duree; }
+function sousTitre(qui, txt, duree) { const el = $('sousTitre'); el.hidden = false; ARR.sous = Math.max(duree, parole(qui, txt, el, qui ? '<b>' + qui + '</b>' : '', false)); }   /* HDF BASE : phase 2 · 1.1 — voix du personnage, texte écrit au rythme de la parole, affiché en grand (avant : texte posé d'un coup, durée fixe, petit) */
 function spotsQuai() { const out = []; for (let k = 0; k < 19; k++) { const ring = k < 10 ? 0 : 1, n = ring ? 9 : 10, i = ring ? k - 10 : k, th = (-62 + 124 * (i + .5) / n) * PI / 180, r = ring ? 7.4 : 5;
   out.push([HOMME.x + Math.sin(th) * r, HOMME.z + Math.cos(th) * r]); } return out; }
 function spotsAllee() { const P = CHEMINS[0].pts, out = []; for (let k = 0; k < 19; k++) { const z = 132 - k * 2.1, q = P.reduce((b, p) => Math.abs(p[1] - z) < Math.abs(b[1] - z) ? p : b, P[0]), sg = k % 2 ? 1 : -1;
@@ -13309,7 +14098,7 @@ function cheminDescente(a, spot) { const L2 = TRAIN.larg / 2, d = porteDe(a), X 
   return [[X(a.place.x), Z(0)], [X(d), Z(0)], [X(d), Z(-L2 + .25)], [X(d), Z(-L2 - 1.1)], spot]; }
 function cheminDomaine(spot, k) { const o = ((k % 3) - 1) * .7; return [[PORTAIL.x + o, GARE.quai.z0 + .6], [PORTAIL.x + o, GARE.rampe.z0 + .5], [PORTAIL.x + o * .8, ENCEINTE.z1 - 4], spot]; }
 function resetArrivee() {
-  reveiller('reset'); if (TEMPS.occupe) { TEMPS.occupe = null; TEMPS.k = 1; $('sommeil').hidden = true; } for (const k in GARDE_MANGER) delete GARDE_MANGER[k];   // LOT 12 (lot 18 : travail interrompu)
+  reveiller('reset'); if (TEMPS.occupe) { TEMPS.occupe = null; TEMPS.k = 1; $('sommeil').hidden = true; $('sommeil').classList.remove('occ'); } for (const k in GARDE_MANGER) delete GARDE_MANGER[k];   // LOT 12 (lot 18 : travail interrompu)
   for (const k in EAU) delete EAU[k]; if (PASSAGERS.liste) for (const a of PASSAGERS.liste) a.b = null;   // LOT 13
   for (const k in FEU) delete FEU[k]; if (PASSAGERS.liste) for (const a of PASSAGERS.liste) a.malade = null; METEO_J = null; meteoAppliquee = ''; fermerPortailArrivee(); SECRET.dedans = false; SECRET.ouv = 0; SECRET.anim = 0; poseSecrete(); for (const P of TRAIN.portes || []) { P.ouv = 1; P.anim = 0; if (P.nd) posePorteTrain(P); } Object.assign(JOUEUR, { accroupi: false, k: 0, vy: 0, h: 0, souffle: 100, essouffle: false });   // LOT 14 (et le portail se rouvre pour le train)
   for (const o of [CULTURE, BOIS, FRAIS]) for (const k in o) delete o[k]; AUTARCIE.recoltes = AUTARCIE.pertes = AUTARCIE.bois = 0; if (typeof majVisuelCultures === 'function' && Object.keys(AUTARCIE.noeuds).length) majVisuelCultures();   // LOT 17
@@ -13317,7 +14106,7 @@ function resetArrivee() {
   for (const a of PASSAGERS.liste || []) { a.parti = false; a.escorte = null; a.cacheRaid = false; a.inspecte = false; if (a.c) a.c.visible = true; }   // LOT 20
   for (const a of PASSAGERS.liste || []) { a.mort = null; a.enferme = false; a.blesse = false; a.meurtrier = null; a.accuse = false; } Object.assign(VIOL, { nuit: 0, vols: [], meurtres: [], tombes: [], soupcon: null, attaqueJ: 0, agresseur: null }); if (TOMBES_A) { for (const n of TOMBES_A) n.visible = false; TOMBES_A = []; }   // LOT 22
   BOITE.pleine = null; BOITE.jour = 0; if (BOITE.noeud) BOITE.noeud.visible = false;   // LOT 23
-  EVASION.carte = false; EVASION.posee = null; if (EVASION.noeud) EVASION.noeud.visible = false; reinitVieHameau(); reinitReserve(); reinitSocial();   /* PHASE 2 · LOTS 2-4 : sac, quêtes, stations, réserve, couples, pouvoir */   // LOT 24 : l'inventaire ne survit pas à la boucle
+  EVASION.carte = false; EVASION.posee = null; if (EVASION.noeud) EVASION.noeud.visible = false; reinitVieHameau(); reinitReserve(); reinitSocial(); Object.assign(RASS, { etat: null, t: 0, i: 0, org: null, M: null }); FOYERS.joueur = 'L001'; if (JEU.actif) { JEU.actif = false; $('jeu').hidden = true; document.body.classList.remove('enjeu'); }   /* PHASE 2 · LOTS 2-4 : sac, quêtes, stations, réserve, couples, pouvoir */   // LOT 24 : l'inventaire ne survit pas à la boucle
   ORGA.jour = ORGA.partage = 0; ORGA.journal = []; ORGA.puits = 100; ORGA.alerte = ORGA.casse = false; for (const a of PASSAGERS.liste || []) { a.tache = null; a.refus = 0; }   // LOT 19
   HIST.paires = {}; HIST.file = []; if (HIST.pret) { try { initHistory(); if (HIST.spatial) A.spatial.bindHistory(HIST.hs, { fallback: true }); } catch (e) {} }   // LOT 15 : mémoire et relations remises à zéro : la météo se réapplique à la minute suivante (pas d'appel à heure() ici : resetArrivee peut tourner avant sa déclaration)
   Object.assign(BESOINS, BESOINS_DEPART); ETAT_JOUEUR.seuils = {}; MALADIE.joueur = null;   // LOT 11 : le voyage recommence, le corps aussi
@@ -13351,21 +14140,22 @@ function lancerDepart() {
 }
 function majPassagers(dt) {                                    // appelée à chaque image : arrivée, déplacements, animations
   if (!PASSAGERS.pret) return;
+  majVoyage(dt);   // PHASE 2 · 1.1 : le train roule (dans la simulation : suit aussi les tests)
   const e = A.camera.fixed.eye, dx = TRAIN.noeud.pos[0] - TRAIN.x, H = PASSAGERS.homme;
-  if (ARR.etape === 'assis' && !CINE.actif) { ARR.tAssis += dt; if (!Cm.assis || ARR.tAssis > 25) lancerDescente(); }
+  if (ARR.etape === 'assis' && !CINE.actif && !VOYAGE.actif) { ARR.tAssis += dt; if (!Cm.assis || ARR.tAssis > 25) lancerDescente(); }
   ARR.tEtape += dt;
   if (ARR.etape === 'descente') { const n = PASSAGERS.liste.filter(a => a.etat === 'attend').length;
     if ((n >= PASSAGERS.liste.length || ARR.tEtape > 45) && !joueurABord() && !Cm.assis) { ARR.etape = 'accueil'; ARR.t = 0; ARR.s1 = 0; } }
   if (ARR.etape === 'accueil') scenarioAccueil(dt);
   if (ARR.etape === 'embarque') { if (!H.cache && !H.ferme && avancer(H, dt)) { H.ferme = .5; fermerPorteTrain(1); }   /* HDF BASE : phase 2 — la porte se referme derrière l'homme, puis il disparaît (avant : il disparaissait, porte ouverte) */
-    if (H.ferme > 0) { H.ferme -= dt; if (H.ferme <= 0) { H.cache = true; H.c.visible = false; ARR.tEtape = 0; } }
+    if (H.ferme > 0) { H.ferme -= dt; { const P1 = (TRAIN.portes || [])[1]; if (H.ferme <= 0 && P1 && P1.ouv > .02) { P1.ouv = Math.max(0, P1.ouv - dt / .45); P1.anim = P1.ouv > 0 ? -1 : 0; if (P1.nd) posePorteTrain(P1); H.ferme = P1.ouv > .02 ? .01 : 0; } } if (H.ferme <= 0) { H.cache = true;   /* HDF BASE : phase 2 · 1.1 — il ne disparaît qu'une fois la porte close (avant : au bout de 0,5 s, même si l'animation n'était pas finie) */ H.c.visible = false; ARR.tEtape = 0; } }
     if (H.cache) { if (joueurABord()) { ARR.rappel -= dt; ARR.tEtape = 0; if (ARR.rappel <= 0) { sousTitre('L’homme', 'Terminus. Il faut descendre, le train repart.', 4); ARR.rappel = 8; } } else if (ARR.tEtape > 2.5) lancerDepart(); } }
   if (ARR.etape === 'depart') { ARR.v = Math.min(22, ARR.v + dt * .55); TRAIN.noeud.pos[0] += ARR.v * dt; if (TRAIN.noeud.pos[0] - TRAIN.x > 520) { TRAIN.noeud.visible = false; ARR.etape = 'parti'; } }
   if (ARR.sous > 0) { ARR.sous -= dt; if (ARR.sous <= 0) $('sousTitre').hidden = true; }
   majInstallation(dt); majJournee(dt);
   if (DIALOGUE.ouvert) { const d = DIALOGUE.a; if (Math.hypot(d.c.pos[0] - Cm.w.x, d.c.pos[2] - Cm.w.z) > 4 || CINE.actif) fermerDialogue(); else if (!assisOuCouche(d)) regarder(d.c, Cm.w.x, Cm.w.z); }
   for (const a of PASSAGERS.liste) {
-    if (a === DIALOGUE.a) continue;                              // LOT 10 : il écoute le joueur
+    if (a === DIALOGUE.a) { if (a.etat === 'assis') a.c.pos[0] = a.bx + dx; continue; }   /* HDF BASE : phase 2 · 1.1 — à bord, l'interlocuteur suit le train qui roule (avant : il restait en arrière et le dialogue se fermait) */   // LOT 10 : il écoute le joueur
     if (a.etat === 'assis') a.c.pos[0] = a.bx + dx;             // à bord : suivent le train (cinématique)
     else if (a.etat === 'attente') { a.delai -= dt; if (a.delai <= 0) vers(a, a.prochain); }
     else if (a.etat === 'marche' && avancer(a, dt) && a.vaChez) entrer(a, a.but && a.but.role, a.but && a.but.maison);   // LOT 8 : arrivé à sa porte
@@ -13396,10 +14186,11 @@ function dessinerPassagers(vpj, eye, env, A) {
   for (const a of PASSAGERS.liste) if (a.vu && !aBord(a)) a.c.draw(JR);
   const H = PASSAGERS.homme; if (H && H.vu) H.c.draw(JR);
   for (const s of RAID.sci) if (s.c.visible && !s.dedans && s.vu) s.c.draw(JR);   // LOT 20 : scientifiques dehors
-  dessinerAnimaux(JR);   // PHASE 2 · LOT 2 : poules, moutons, vache, chat, chien (éclairage du jour)
+  dessinerAnimaux(JR); dessinerAvatar(JR, false);   // PHASE 2 · LOT 2 (lot 5 : le joueur pendant une activité) : poules, moutons, vache, chat, chien (éclairage du jour)
   // à bord : éclairage intérieur chaud (valeurs de VIE)
   gl.uniform3f(u.uSunCol, .05, .045, .04); gl.uniform3f(u.uSky, .9, .82, .7); gl.uniform3f(u.uGround, .45, .36, .28);
   for (const a of PASSAGERS.liste) if (a.vu && aBord(a)) a.c.draw(JR);
+  dessinerAvatar(JR, true);
   gl.disable(gl.CULL_FACE); gl.bindVertexArray(null);
 }
 
@@ -13609,7 +14400,7 @@ function poserTableau(A, T) {
 // ---------------------------------------------------------------- LOT 5 — CINÉMATIQUE D'OUVERTURE (≈ 19 s, passable d'un appui, d'une touche ou du bouton « Passer »)
 // 0 → carton titre sur noir · A : survol du train qui traverse la forêt au crépuscule · B : depuis le quai, le train arrive et freine ·
 // C : avancée lente vers l'entrée fortifiée · D : fondu, réveil assis dans la voiture 1 (premier plan du jeu). Le train freine jusqu'à sa place à quai (TRAIN.x).
-const CINE = { actif: false, t: 0, duree: 19, L: 230, T: 13, plans: [['A', 0], ['B', 7.5], ['C', 11.8], ['D', 16.3]] };
+const CINE = { actif: false, t: 0, duree: 3.4,   /* HDF BASE : phase 2 · 1.1 — carton titre puis le voyage en train (lot 11) (avant : 19 s de cinématique extérieure) */ L: 230, T: 13, plans: [['A', 0], ['B', 7.5], ['C', 11.8], ['D', 16.3]] };
 const trainDecalage = t => -CINE.L * Math.pow(1 - Math.min(1, t / CINE.T), 2);          // freinage régulier : vitesse 2L/T au début (≈ 35 m/s), nulle à l'arrêt
 const lisse = (a, b, u) => a + (b - a) * u * u * (3 - 2 * u);
 function cinePlan(t) {
@@ -13624,8 +14415,8 @@ function cineFrame(dt) {                                                        
   if (!CINE.actif) return false;
   CINE.t += CINE.attente ? 0 : dt; const t = CINE.t;   // LOT 25 : figée tant que l'accueil est affiché
   if (t >= CINE.duree) { finCinematique(); return false; }
-  TRAIN.noeud.pos[0] = TRAIN.x + trainDecalage(t);
-  const P = cinePlan(t); A.camera.fixed.eye = P.eye; A.camera.fixed.look = P.look; A.camera.fov = P.fov * PI / 180; A.camera.near = t > 16.3 ? .08 : .3;
+  TRAIN.noeud.pos[0] = TRAIN.x - resteVoyage(0); Cm.w.x = SIEGE0.x - resteVoyage(0);   // 1.1 : déjà dans le train, qui roule
+  const P = cinePlan(99); A.camera.fixed.eye = P.eye; A.camera.fixed.look = P.look; A.camera.fov = P.fov * PI / 180; A.camera.near = .08;
   A.brouillard = clamp(1.1 - P.eye[1] / 160, .3, 1);
   const noir = t < 2.4 ? 1 : t < 3.4 ? 1 - (t - 2.4) : t < 15.3 ? 0 : t < 16.3 ? t - 15.3 : t < 17 ? 1 : t < 18.5 ? 1 - (t - 17) / 1.5 : 0;
   cineNoir.style.opacity = noir.toFixed(3); cineTitre.style.opacity = t < 2.4 ? 1 : 0;
@@ -13635,11 +14426,11 @@ function cineFrame(dt) {                                                        
 function lancerCinematique() {
   sortirMaison(); if (Cm.mode !== 'pied') mode('pied');
   Cm.w = { ...WALK0 }; Cm.assis = true; Cm.sol = TRAIN.plancher; resetArrivee();   /* HDF BASE : lot 7 — l'ouverture remet l'arrivée à zéro */
-  CINE.actif = true; CINE.t = 0; document.body.classList.add('cine'); cineNoir.style.opacity = 1; cineTitre.style.opacity = 1;
+  VOYAGE.fait = false; VOYAGE.actif = false; CINE.actif = true; CINE.t = 0; document.body.classList.add('cine'); cineNoir.style.opacity = 1; cineTitre.style.opacity = 1;
 }
 function finCinematique() {
   $('accueil').hidden = true; CINE.attente = false;   // LOT 25
-  CINE.actif = false; TRAIN.noeud.pos[0] = TRAIN.x; document.body.classList.remove('cine'); cineNoir.style.opacity = 0;
+  CINE.actif = false; if (!VOYAGE.fait) lancerVoyage(); else TRAIN.noeud.pos[0] = TRAIN.x; document.body.classList.remove('cine'); cineNoir.style.opacity = 0;
   A.camera.fov = 62 * PI / 180; texteAide(); cv.focus({ preventScroll: true });
 }
 $('cinePasser').hidden = true;   /* HDF BASE : phase 2 — plus de bouton « Passer » */
@@ -13650,7 +14441,7 @@ cv.addEventListener('pointerdown', e => { if (CINE.attente) return; if (CINE.act
 // ---------------------------------------------------------------- entrer, sortir, monter, descendre (comme JOUEURS.trouverAction dans le jeu : téléportation par la porte et l'escalier)
 function sortirMaison() { if (!Cm.dans) return; sonEvt('porte'); const [x, z] = INTERIEURS.porteDehors(Cm.dans.id); Cm.w.x = x; Cm.w.z = z; Cm.w.a = maisonDe(Cm.dans.id).yaw + PI; Cm.dans = null; INTERIEURS.setInside(null); }
 function actionDispo() {
-  if (Cm.mode !== 'pied' || DIALOGUE.ouvert || SURV.actif || !$('clavier').hidden || !$('choix').hidden) return null;
+  if (Cm.mode !== 'pied' || DIALOGUE.ouvert || SURV.actif || JEU.actif || !$('clavier').hidden || !$('choix').hidden) return null;
   { const v = voyageurEnFace(); if (v) return { t: 'Parler' + (v.connu ? ' à ' + v.p.prenom : ''), f: () => ouvrirDialogue(v) }; }   /* LOT 10 : parler à un voyageur */
   const I = INTERIEURS, W = Cm.w;
   if (TEMPS.dort) return { t: 'Se réveiller', f: () => reveiller('bouton') };   // LOT 12
@@ -13673,17 +14464,18 @@ function actionDispo() {
   }
   return actionMeuble(id, P, lv, lx, lz) || actionCachette(W.x, W.z) || actionsVie()[0] || null;   /* PHASE 2 · LOT 2 : fouiller, écrire, cuisiner, remplir la gourde */   // LOT 12 : boire, manger, dormir, se laver (lot 20 : l'armoire, la nuit)
 }
-A.onBeforeRender((dt, t, env) => { const e = env && env.eye; if (!e || !TRAIN.lampes) return; if (Math.abs(e[2] - GARE.zr) < TRAIN.larg && e[1] > TRAIN.plancher) for (const p of TRAIN.lampes) A.addLight({ p, c: [1, .82, .58], i: 7, r: 8 }); });   // plafonniers du wagon quand on est à bord
+A.onBeforeRender((dt, t, env) => { const e = env && env.eye; if (!e || !TRAIN.lampes) return; if (Math.abs(e[2] - GARE.zr) < TRAIN.larg && e[1] > TRAIN.plancher) { const dT = TRAIN.noeud.pos[0] - TRAIN.x; for (const p of TRAIN.lampes) A.addLight({ p: [p[0] + dT, p[1], p[2]], c: [1, .82, .58], i: 7, r: 8 }); }   /* 1.1 : les plafonniers suivent le train en marche */ });   // plafonniers du wagon quand on est à bord
 const actEl = $('act'); let actCur = null, actTxt = '';
-function majAction() { actCur = actionDispo(); const t = actCur ? actCur.t : ''; if (t !== actTxt) { actTxt = t; actEl.hidden = !t; actEl.innerHTML = t ? (touch ? '' : '<kbd>E</kbd>') + t : ''; } }
+function majAction() { actCur = actionDispo(); const t = actCur ? actCur.t : ''; if (t !== actTxt) { actTxt = t; actEl.hidden = !t; actEl.innerHTML = t ? GLYPHE.carre + t : '';   /* HDF BASE : phase 2 · 1.1 — pictogramme PS4 Carré (avant : touche E) */ } }
 const agir = () => { const a = actionDispo(); if (a) { a.f(); majAction(); } };   /* HDF BASE : correctif — action recalculée à l'appui (avant : action de l'image précédente, « Sortir » au lieu de « Monter ») */
 actEl.addEventListener('click', () => { agir(); cv.focus({ preventScroll: true }); });
+$('marq').addEventListener('click', () => { agir(); cv.focus({ preventScroll: true }); });   // PHASE 2 · 1.1 : toucher le marqueur agit
 addEventListener('keydown', e => { if (e.code === 'KeyE' && !e.repeat && Cm.mode === 'pied' && e.target.tagName !== 'INPUT') agir(); });
 
 // ---------------------------------------------------------------- interface
 const aide = $('aide'), etat = $('etat'); let aideT = 0;
 function texteAide() {
-  aide.innerHTML = GP.actif ? (Cm.assis ? 'Vous êtes à bord · <b>stick gauche</b> pour vous lever' : '<b>Carré</b> agir · <b>L1</b> roue · <b>Croix</b> sauter · <b>Rond</b> s’accroupir · <b>L3</b> courir · <b>Triangle</b> carnet · <b>L2</b> sac · <b>R1</b> état · <b>Options</b> menu') : Cm.mode === 'orbite'
+  aide.innerHTML = GP.actif ? (Cm.assis ? 'Vous êtes à bord · <b>stick gauche</b> pour vous lever' : '<b>Carré</b> agir · <b>L1</b> roue · <b>Croix</b> sauter · <b>Rond</b> s’accroupir · <b>L3</b> courir (bascule) · <b>Triangle</b> carnet · <b>L2</b> sac · <b>R1</b> état · <b>Options</b> menu') : Cm.mode === 'orbite'
     ? (touch ? '<b>Un doigt</b> tourner · <b>Deux doigts</b> déplacer, zoomer' : '<b>Glisser</b> tourner · <b>Clic droit</b> déplacer · <b>Molette</b> zoom · <b>V</b> à pied')
     : Cm.assis ? (touch ? 'Vous êtes à bord · <b>glisser</b> pour regarder · <b>pouce gauche</b> pour vous lever' : 'Vous êtes à bord · <b>glisser</b> pour regarder · <b>avancer</b> pour vous lever')
     : (touch ? '<b>Pouce gauche</b> marcher · <b>glisser</b> regarder · <b>bouton</b> agir' : '<b>ZQSD</b> marcher · <b>Maj</b> courir · <b>E</b> agir · <b>Tab</b> roue · <b>Espace</b> sauter · <b>C</b> s’accroupir · <b>B</b> état · <b>J</b> carnet · <b>I</b> sac · <b>Échap</b> menu');   /* HDF BASE : lot 12 — E sert aussi à boire, manger, dormir (avant : « E entrer, monter ») */
@@ -13705,8 +14497,8 @@ function carte() {
   if ((carteT = (carteT + 1) % 10)) return; const E = ENCEINTE, pied = Cm.mode === 'pied';
   if (pied) { const W = Cm.w, d = W.x > E.x0 + .5 && W.x < E.x1 - .5 && W.z > E.z0 + .5 && W.z < E.z1 - .5; const ou = ouSuisJe(W.x, W.z); etat.textContent = Cm.dans ? 'Maison · ' + (Cm.dans.lv ? 'étage' : 'rez-de-chaussée') : Cm.assis ? 'À bord · assis' : ou === 'voiture 1' ? 'À bord · voiture 1' : ou === 'quai' || ou === 'rampe' ? 'Gare · ' + ou : ou === 'portail et allée' ? 'Devant le portail' : d ? 'Dans le domaine' : 'À pied'; void d; }
 }
-const HDF_VERSION = 'HDF : ENCLOS 1.0';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
-self.HDF = { RESERVE, SURV, AMOUR, POUVOIR, RS, RSP, descendreReserve: () => descendreReserve(), remonterReserve: () => remonterReserve(), validerCode: () => validerCode(), toucheClavier: k => toucheClavier(k), entrerSurveillance: i => entrerSurveillance(i), quitterSurveillance: () => quitterSurveillance(), aparte: id => aparte(id), lireChronique: i => lireChronique(i), lireLettreCode: () => lireLettreCode(), tirerScientifique: s => tirerScientifique(s), mortParJoueur: (a, w) => mortParJoueur(a, w), convoitise: v => convoitise(v), conseil: () => conseil(), soirAmour: L => soirAmour(L || vivants()), complotDuSoir: () => complotDuSoir(), renversement: () => renversement(), effetsChef: () => effetsChef(), attirance: (a, b) => attirance(a, b), reponseSocial: (a, k) => reponseSocial(a, k), sujetsSocial: a => sujetsSocial(a), reponseArme: (a, k) => reponseArme(a, k), revelerLiaison: (l, c) => revelerLiaison(l, c), actionsReserve: () => actionsReserve(), vivants: () => vivants(), VIE, SAC, OBJETS, QUETES, RECETTES, FRAGMENTS, ST, ajouter: (i, n, s) => ajouter(i, n, s), nb: i => nb(i), actionsVie: () => actionsVie(), actionsStations: () => actionsStations(), lancerQuete: i => lancerQuete(i), avancerQuete: i => avancerQuete(i), basculerSac: (o, g) => basculerSac(o, g), fabriquer: r => fabriquer(r), utiliser: i => utiliser(i), sujetsQuetes: a => sujetsQuetes(a), sujetsVie: a => sujetsVie(a), reponseVie: (a, k) => reponseVie(a, k), reponseQuete: (a, k) => reponseQuete(a, k), objectifs: () => objectifs(), majVieHameau: d => majVieHameau(d), LQ: (k, q) => LQ(k, q), fouiller: (a, b, c) => fouiller(a, b, c), trouverFragment: i => trouverFragment(i), majQuetesLieux: () => majQuetesLieux(), A, Cm, SECRET, JOUEUR, ROUE, entrerSecret: () => entrerSecret(), tenterDescendre: () => tenterDescendre(), sauter: () => sauter(), accroupir: v => accroupir(v), ouvrirRoue: () => ouvrirRoue(), fermerRoue: v => fermerRoue(v), choixRoue: () => choixRoue(), SON, GP, OBJ, sonReveil: () => sonReveil(), sonEvt: t => sonEvt(t), gresillement: g => gresillement(g), lireRecit: i => lireRecit(i), boutonManette: i => boutonManette(i), basculerMenu: o => basculerMenu(o), quitterAccueil: () => quitterAccueil(), EVASION, monterDansLeTrain: () => monterDansLeTrain(), ramasserCarte: () => ramasserCarte(), finEvasion: () => finEvasion(), LETTRES, BOITE, ouvrirBoite: () => ouvrirBoite(), lireLettre: i => lireLettre(i), prochaineLettre: () => prochaineLettre(), VIOL, bagarre: (a, b, m) => bagarre(a, b, m), volDeNuit: () => volDeNuit(), meurtreDeNuit: () => meurtreDeNuit(), decouvrirCorps: () => decouvrirCorps(), enterrer: () => enterrer(), repondreNuit: a => repondreNuit(a), accuser: a => accuser(a), nouvelleBoucle: t => nouvelleBoucle(t), capturerJoueur: t => capturerJoueur(t), reconnaitre: a => reconnaitre(a), RAID, CACHE, MEMOIRE, annoncerRaid: () => annoncerRaid(), lancerFouille: () => lancerFouille(), seCacher: (a, b, c, d, e) => seCacher(a, b, c, d, e), sortirCachette: () => sortirCachette(), actionCachette: (x, z) => actionCachette(x, z), majRaid: dt => majRaid(dt), ORGA, organiserJournee: () => organiserJournee(), partageDuSoir: () => partageDuSoir(), majSommeil: dt => majSommeil(dt), actionTravail: (x, z) => actionTravail(x, z), occuper: (a, b, c, d) => occuper(a, b, c, d), finirOccupation: i => finirOccupation(i), CULTURE, BOIS, FRAIS, AUTARCIE, culture, bois, rations, recolter: (i, q) => recolter(i, q), majCultures: dm => majCultures(dm), HIST, majSaluts: () => majSaluts(), basculerCarnet: o => basculerCarnet(o), donnerRation: a => donnerRation(a), angleVeillee: (a, k) => angleVeillee(a, k), assurerHistory: () => assurerHistory(), rencontre: (a, b) => rencontre(a, b), avisSurLesAutres: a => avisSurLesAutres(a), itineraire: (a, b, c, d) => itineraire(a, b, c, d), PORTAIL_ : PORTAIL, fermerPortail, ouvrirPortail, majPortail: dt => majPortail(dt), FEU, majMeteo, meteo: () => METEO_J, tirerMeteo, evanouir, allumerFeu, BESOINS, majBesoins, TEMPS, MALADIE, GARDE_MANGER, EAU, seaux, phraseBesoin, etatMaison, majJournee: dt => majJournee(dt), sujets: a => sujets(a), reponse: (a, k) => reponse(a, k), rations, actionDispo, agir: () => agir(), dormir, reveiller, pasSimulation, FOYERS_J: FOYERS, DIALOGUE, ouvrirDialogue, choisir, fermerDialogue, voyageurEnFace, HORLOGE, activite, LIBELLE_ACT, FOYERS, RESEAU, itineraire, VOYAGEURS, PASSAGERS, ARR, HOMME, lancerDescente, resetArrivee, majPassagers, CINE, lancerCinematique, finCinematique, COLL, deplacer, ouSuisJe, GARE, TRAIN, hauteurSol, ZONES_MARCHE, zoneMarche, SIEGE0, CHEMINS, OCCUPE, PUITS, PORTAIL, ENCEINTE, MAISONS, LOGIS, INTERIEURS, TABLEAUX, LIBRES, VEG, profondeurForet };
+const HDF_VERSION = 'HDF : ENCLOS 1.1';   /* HDF BASE : le jeu s'appelle HDF : ENCLOS ; le numéro monte à chaque livraison (titre, menu, accueil, nom des fichiers) */ self.HDF_VERSION = HDF_VERSION;
+self.HDF = { vueDegagee: a => vueDegagee(a), RADAR, VOYAGE, VOIXP, MUS, COUCH, majVoyage: dt => majVoyage(dt), lancerVoyage: () => lancerVoyage(), parole: (a, b, c, d, e) => parole(a, b, c, d, e), profil: a => profil(a), couchages: id => couchages(id), coucher: (a, id) => coucher(a, id), entrer: (a, r, c) => entrer(a, r, c), maisonDe: id => maisonDe(id), INTERIEURS, quelleMusique: () => quelleMusique(), ancreAction: t => ancreAction(t), JEU, RASS, JEUX, majJeu: dt => majJeu(dt), majRassemblement: dt => majRassemblement(dt), lancerJeu: (d, t, f) => lancerJeu(d, t, f), terminerJeu: a => terminerJeu(a), jeuPour: t => jeuPour(t), occuperDirect: (a, b, c, d) => occuperDirect(a, b, c, d), clipTrajet: (a, b, c) => clipTrajet(a, b, c), sursaut: (x, z, r) => sursaut(x, z, r), sautPNJ: (a, j) => sautPNJ(a, j), lancerRassemblement: () => lancerRassemblement(), repartitionMaisons: () => repartitionMaisons(), installerJoueur: (i, d) => installerJoueur(i, d), RESERVE, SURV, AMOUR, POUVOIR, RS, RSP, descendreReserve: () => descendreReserve(), remonterReserve: () => remonterReserve(), validerCode: () => validerCode(), toucheClavier: k => toucheClavier(k), entrerSurveillance: i => entrerSurveillance(i), quitterSurveillance: () => quitterSurveillance(), aparte: id => aparte(id), lireChronique: i => lireChronique(i), lireLettreCode: () => lireLettreCode(), tirerScientifique: s => tirerScientifique(s), mortParJoueur: (a, w) => mortParJoueur(a, w), convoitise: v => convoitise(v), conseil: () => conseil(), soirAmour: L => soirAmour(L || vivants()), complotDuSoir: () => complotDuSoir(), renversement: () => renversement(), effetsChef: () => effetsChef(), attirance: (a, b) => attirance(a, b), reponseSocial: (a, k) => reponseSocial(a, k), sujetsSocial: a => sujetsSocial(a), reponseArme: (a, k) => reponseArme(a, k), revelerLiaison: (l, c) => revelerLiaison(l, c), actionsReserve: () => actionsReserve(), vivants: () => vivants(), VIE, SAC, OBJETS, QUETES, RECETTES, FRAGMENTS, ST, ajouter: (i, n, s) => ajouter(i, n, s), nb: i => nb(i), actionsVie: () => actionsVie(), actionsStations: () => actionsStations(), lancerQuete: i => lancerQuete(i), avancerQuete: i => avancerQuete(i), basculerSac: (o, g) => basculerSac(o, g), fabriquer: r => fabriquer(r), utiliser: i => utiliser(i), sujetsQuetes: a => sujetsQuetes(a), sujetsVie: a => sujetsVie(a), reponseVie: (a, k) => reponseVie(a, k), reponseQuete: (a, k) => reponseQuete(a, k), objectifs: () => objectifs(), majVieHameau: d => majVieHameau(d), LQ: (k, q) => LQ(k, q), fouiller: (a, b, c) => fouiller(a, b, c), trouverFragment: i => trouverFragment(i), majQuetesLieux: () => majQuetesLieux(), A, Cm, SECRET, JOUEUR, ROUE, entrerSecret: () => entrerSecret(), tenterDescendre: () => tenterDescendre(), sauter: () => sauter(), accroupir: v => accroupir(v), ouvrirRoue: () => ouvrirRoue(), fermerRoue: v => fermerRoue(v), choixRoue: () => choixRoue(), SON, GP, OBJ, sonReveil: () => sonReveil(), sonEvt: t => sonEvt(t), gresillement: g => gresillement(g), lireRecit: i => lireRecit(i), boutonManette: i => boutonManette(i), basculerMenu: o => basculerMenu(o), quitterAccueil: () => quitterAccueil(), EVASION, monterDansLeTrain: () => monterDansLeTrain(), ramasserCarte: () => ramasserCarte(), finEvasion: () => finEvasion(), LETTRES, BOITE, ouvrirBoite: () => ouvrirBoite(), lireLettre: i => lireLettre(i), prochaineLettre: () => prochaineLettre(), VIOL, bagarre: (a, b, m) => bagarre(a, b, m), volDeNuit: () => volDeNuit(), meurtreDeNuit: () => meurtreDeNuit(), decouvrirCorps: () => decouvrirCorps(), enterrer: () => enterrer(), repondreNuit: a => repondreNuit(a), accuser: a => accuser(a), nouvelleBoucle: t => nouvelleBoucle(t), capturerJoueur: t => capturerJoueur(t), reconnaitre: a => reconnaitre(a), RAID, CACHE, MEMOIRE, annoncerRaid: () => annoncerRaid(), lancerFouille: () => lancerFouille(), seCacher: (a, b, c, d, e) => seCacher(a, b, c, d, e), sortirCachette: () => sortirCachette(), actionCachette: (x, z) => actionCachette(x, z), majRaid: dt => majRaid(dt), ORGA, organiserJournee: () => organiserJournee(), partageDuSoir: () => partageDuSoir(), majSommeil: dt => majSommeil(dt), actionTravail: (x, z) => actionTravail(x, z), occuper: (a, b, c, d) => occuper(a, b, c, d), finirOccupation: i => finirOccupation(i), CULTURE, BOIS, FRAIS, AUTARCIE, culture, bois, rations, recolter: (i, q) => recolter(i, q), majCultures: dm => majCultures(dm), HIST, majSaluts: () => majSaluts(), basculerCarnet: o => basculerCarnet(o), donnerRation: a => donnerRation(a), angleVeillee: (a, k) => angleVeillee(a, k), assurerHistory: () => assurerHistory(), rencontre: (a, b) => rencontre(a, b), avisSurLesAutres: a => avisSurLesAutres(a), itineraire: (a, b, c, d) => itineraire(a, b, c, d), PORTAIL_ : PORTAIL, fermerPortail, ouvrirPortail, majPortail: dt => majPortail(dt), FEU, majMeteo, meteo: () => METEO_J, tirerMeteo, evanouir, allumerFeu, BESOINS, majBesoins, TEMPS, MALADIE, GARDE_MANGER, EAU, seaux, phraseBesoin, etatMaison, majJournee: dt => majJournee(dt), sujets: a => sujets(a), reponse: (a, k) => reponse(a, k), rations, actionDispo, agir: () => agir(), dormir, reveiller, pasSimulation, FOYERS_J: FOYERS, DIALOGUE, ouvrirDialogue, choisir, fermerDialogue, voyageurEnFace, HORLOGE, activite, LIBELLE_ACT, FOYERS, RESEAU, itineraire, VOYAGEURS, PASSAGERS, ARR, HOMME, lancerDescente, resetArrivee, majPassagers, CINE, lancerCinematique, finCinematique, COLL, deplacer, ouSuisJe, GARE, TRAIN, hauteurSol, ZONES_MARCHE, zoneMarche, SIEGE0, CHEMINS, OCCUPE, PUITS, PORTAIL, ENCEINTE, MAISONS, LOGIS, INTERIEURS, TABLEAUX, LIBRES, VEG, profondeurForet };
 })();
 </script>
 <!-- NOTE-INTERNE — HDF BASE 1.0 KIT (issu de HDF WALL v1.0) · 2026-10-28
