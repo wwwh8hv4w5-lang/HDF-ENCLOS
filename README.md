@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.5.1
+# HDF ENCLOS 1.4.0
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,21 +7,6 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
-
-## 1.5.1 : la panique au village, fin de partie corrigée
-
-- **La panique :** quand vous révélez la salle sous le mur, le village l'apprend. Une scène éclate la première fois que vous retrouvez des habitants, puis ils réagissent selon leur caractère (premiers mots, saluts, conversations surprises pendant quelques jours). Les habitants oublient à chaque boucle, vous seul vous souvenez.
-- **Fin de partie :** le récit de la mère s'affiche enfin au-dessus de l'écran de fin, et une blouse blanche en poursuite ne peut plus relancer une boucle une fois que vous êtes évadé.
-- Le mot « boucle » reste caché avant la première capture (menu, options, carnet).
-
-## 1.5.0 : plus fluide, plus léger, plus autonome
-
-- **Horloge à pas fixe :** le temps réel écoulé est rattrapé par petits pas de 50 ms au plus ; sous 20 images par seconde, le jeu ne ralentit plus.
-- **Bouton Options réparé** sur l'écran d'accueil.
-- **Notifications empilées :** jusqu'à 3 messages à la fois, durée selon la longueur du texte.
-- **Plus aucune ressource distante :** les polices Google sont retirées (polices installées ou équivalents système).
-- Le paquet de véhicules, jamais utilisé, est retiré (−222 Ko).
-- Les sauvegardes ne changent pas.
 
 ## 1.4.0 : l'atelier défile, le sac à dos est refait
 
