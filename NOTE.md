@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.4.0 — note technique
+# HDF : ENCLOS 1.5.1 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -600,7 +600,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.4.0**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.5.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
