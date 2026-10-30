@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.3.1 — note technique
+# HDF : ENCLOS 1.3.2 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,20 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.3.2 — pas de sommeil quand les scientifiques sont dans l'enceinte
+- **Cause.** Rien ne liait le sommeil au raid. `dormir()` (lit de la maison, aussi appelé par `nuitAvec()`) et `dormirReserve()` (lit de camp) ne vérifiaient que l'heure et l'énergie. Pendant la fouille, on pouvait donc se coucher et laisser passer le raid en temps ×60. Et `annoncerRaid()` ne réveillait le dormeur que 7 fois sur 10 (`Math.random() < .7`) : 3 fois sur 10, on dormait toute la fouille.
+- **Règle choisie.** Les scientifiques sont « là » tant que `RAID.etat !== 'aucun'`, c'est-à-dire pendant `annonce` (le train entre en gare), `fouille` et `depart` (jusqu'à ce que le train ait quitté la gare, `RAID.x < -500`).
+- **Correctif.**
+  - `scientifiquesLa()`, `peutDormir()` et `refusSommeil()` sont centralisées juste avant `dormir()`. `refusSommeil()` affiche `MSG_PAS_DORMIR` : « Impossible de dormir : les scientifiques sont dans l'enceinte. »
+  - `dormir()` et `dormirReserve()` commencent par `refusSommeil()`.
+  - Les actions de lit (`actionMeuble` case 'dormir', `actionsReserve` lit de camp) deviennent « Impossible de dormir · scientifiques ici », avec `off: true`. `majAction()` pose la classe `#act.off` (bouton grisé) et l'appui donne le message.
+  - L'objectif « Dormir · votre lit » est masqué pendant la présence.
+  - `annoncerRaid()` réveille toujours le dormeur (`reveiller('train')`).
+  - Filet de sécurité dans `majSommeil()` : si l'on dort alors que `peutDormir()` est faux, réveil immédiat.
+  - `pasSimulation()` arrête la boucle accélérée dès que le joueur est réveillé en route, ce qui évite quelques secondes ×60 de train après le réveil.
+  - L'évanouissement (`evanouir`, santé à 0) n'est pas bloqué : c'est une mécanique de santé, pas un sommeil volontaire.
+- **Tests** (Chromium sans écran, SwiftShader) : ils sont décrits dans `/workspace/enclos-sommeil/` du banc. Le sommeil reste possible sans scientifiques ; il est refusé avec le message pendant l'annonce, la fouille et le départ ; le réveil est propre si le train arrive pendant le sommeil ; on peut redormir après le départ. Aucune erreur dans la console. Rien n'a été testé sur un vrai iPad/Safari ni avec une vraie manette.
 
 ## HDF : ENCLOS 1.3.1 — correctif du défilement des choix de dialogue
 - **Cause.** `#dlChoix` (CSS, bloc dialogue « façon Skyrim ») ne montre qu'environ 5 lignes (`max-height:calc(5 * 42px + 18px)`, `overflow-y:auto`) alors que `sujets()` propose jusqu'à 8 phrases. (1) `surligner()` (manette, croix haut/bas) et les flèches du clavier déplaçaient la sélection `gpSel` sans jamais faire défiler la liste : les phrases 6 à 8 étaient sélectionnées hors de vue. (2) Les boutons, dans une colonne flex limitée en hauteur, étaient comprimés (`flex-shrink` par défaut) : les phrases longues se tassaient et débordaient les unes sur les autres. (3) `ecrireDialogue()` ne remettait pas `scrollTop` à zéro. (4) Rien n'indiquait qu'il restait des phrases plus bas (barres de défilement masquées sur iPad).
@@ -559,7 +573,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3.2**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;

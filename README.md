@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.3.1
+# HDF ENCLOS 1.3.2
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,12 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.3.2 : pas de sommeil pendant la fouille
+
+- Impossible de dormir tant que les scientifiques sont là, de l'arrivée du train en gare à son départ complet : lit de la maison, nuit à deux et lit de camp de la réserve. Le bouton passe en gris, « Impossible de dormir · scientifiques ici », et le jeu l'explique : « Impossible de dormir : les scientifiques sont dans l'enceinte. »
+- Si vous dormez quand le train arrive, vous êtes toujours réveillé (avant : 7 fois sur 10), et le temps repasse aussitôt à la vitesse normale.
+- L'évanouissement (santé à 0) n'est pas concerné.
 
 ## 1.3.1 : correctif du dialogue
 
