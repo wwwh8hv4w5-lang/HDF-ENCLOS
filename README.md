@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.1.3
+# HDF ENCLOS 1.3
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -8,11 +8,11 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
 
-## 1.1.3 : voix
+## 1.3 : l'action et le texte
 
-- Les voix de synthèse ne se perdent plus après « Continuer » ou « Charger ». Une réplique que le navigateur refuse faute de geste est gardée, puis dite au premier toucher, clic ou touche.
-- Après un rechargement, un écran « Reprendre la partie » attend ce geste.
-- Vérifié avec une synthèse simulée. Pas vérifié avec les vraies voix, sur iPad ou Safari, ni à la manette. Le détail est dans NOTE.md.
+- Infiltration pendant les fouilles, poursuites (voleur, provocateur), évasion chronométrée, corps à corps, épreuves (porter, grimper, soulever).
+- Le texte va à l'essentiel ; les révélations se jouent en scènes.
+- Voix : après un rechargement (Continuer, Charger) ou une partie lancée à la manette, un écran « Touchez l'écran pour reprendre » demande un geste pour le son et les voix. Le détail est dans NOTE.md.
 
 ## Contenu
 - `index.html` : le jeu complet, un seul fichier.

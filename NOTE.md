@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.1.3 — note technique
+# HDF : ENCLOS 1.3 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -22,6 +22,7 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 7. **Le train scientifique** (lot 20) : certaines nuits, la fouille. On se cache ou l'on est emmené.
 8. **La boucle** (lot 21) : capturé, tout recommence dans le train. Vous seul vous souvenez : la mémoire est gardée dans `localStorage`.
 9. **L'évasion** (lot 24) : connaître la porte du milieu, ramasser la carte à ruban au puits pendant un raid, monter dans le train au bon moment. Le train vous emmène au vrai Feral.
+10. **L'action** (1.3) : se faufiler pendant les fouilles, rattraper un voleur, semer un provocateur, se battre au corps à corps (esquiver, riposter), porter l'eau, grimper aux tours, dégager un blessé. Les révélations se jouent en scènes ; les longs textes vont à l'essentiel.
 
 **Commandes :**
 - **clavier :** ZQSD ou flèches pour marcher, Maj pour courir, E pour agir, Tab pour la roue, B pour l'état, J pour le carnet, I pour le sac, Q et D (ou les flèches) pour changer de caméra au terminal, Échap pour le menu ou pour passer l'ouverture ;
@@ -37,28 +38,261 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 
 La cible était d'environ 500 000 triangles.
 
-## HDF : ENCLOS 1.1.3 — voix
+## HDF : ENCLOS 1.3 — l'équilibre entre l'action et le texte (lots A et B)
+Le hameau ne se raconte plus seulement par le texte : il se vit aussi avec les mains et les jambes. Le texte reste là, mais il va à l'essentiel, et les révélations se jouent en scènes.
 
-**Le problème.** Les voix de synthèse se taisaient parfois, surtout après « Continuer » ou « Charger ». Ces deux boutons rechargent la page. Après un rechargement, le navigateur n'a encore reçu aucun geste, et Chrome comme Safari refusent alors de parler (erreur `not-allowed`).
+### Lot A · L'action (bloc « 1.3 (phase 2) — L'ACTION »)
+**Infiltration et cache-cache, pendant les fouilles.** Chaque blouse a une jauge de soupçon (`infiltration`). On n'est plus repéré à l'instant où l'on entre dans la lampe.
+- La lampe porte à 12 m devant, 15 m si vous courez, 7 m si vous êtes accroupi (une fois et demie plus loin quand il fait encore clair).
+- Une maison entre la lampe et vous vous cache (`cacheParMaison`).
+- La course s'entend, même dans le dos de la blouse.
+- À mi-jauge, la blouse s'arrête, se tourne vers vous et fouille du regard : « Il y a quelqu'un ? ». C'est le moment de vous baisser ou de vous glisser derrière un mur.
+- Jauge pleine, elle court. Pour lui échapper : une cachette, une porte, ou de la distance.
+- À l'écran, un œil se remplit (ambre) et une flèche indique d'où vient le regard. Repéré, l'œil passe au rouge.
+- Le faisceau s'allonge au sol : une seconde lumière, plus loin devant, montre où la lampe porte.
 
-**Cause trouvée dans le code 1.1.2.** Une réplique refusée était jetée. Le déblocage au geste suivant ne prononçait qu'une espace muette, donc la réplique en cours n'était jamais dite.
+**Poursuites et fuites.**
+- **Le voleur.** Un habitant affamé, de penchant voleur, file avec deux ou trois rations d'une maison, en plein jour. La nuit, si vous veillez dehors, le vol de nuit se joue aussi sous vos yeux (`volEnDirect`). Il court vers chez lui, avec un détour pour vous semer si sa maison est trop proche. Rattrapez-le en gérant votre souffle : en courant, vous le plaquez au sol ; sinon, Carré « Attraper ». Il rend les rations, ou il se bat (selon son tempérament). S'il referme sa porte, les rations sont perdues, mais vous savez qui c'est (`VIE.flags.voleurVu`).
+- **Le provocateur.** Un habitant qui vous hait vient vous barrer la route. Trois choix : calmer le jeu (selon votre calme et son tempérament), se battre, ou partir en courant. Il vous court alors après ; une porte, un détour ou de la distance, et il abandonne.
+- **L'évasion chronométrée.** Dès que vous tenez la carte à ruban pendant une fouille, le train n'attend plus : moins de deux minutes, avec le compte à rebours dans les objectifs. Ensuite, un coup de sifflet, et les blouses regagnent le train.
 
-**Ce qui a changé (bloc « VOIX DE SYNTHÈSE »).**
-- Une réplique refusée (`not-allowed`) est remise en tête de file. Le jeu note que les voix sont bloquées, puis retente toutes les 2 s, et au plus tard au premier geste. Un refus ne compte pas comme une coupure du son.
-- Une réplique interrompue par l'appareil (`interrupted` ou `canceled` qui ne vient pas du jeu) est redite une fois. Une réplique que le jeu annule lui-même, par exemple quand une nouvelle réplique de dialogue la remplace, n'est pas redite.
-- Au premier toucher, clic ou touche, la réplique en attente est dite tout de suite, dans le geste même, ce qui est le plus sûr sur iOS. S'il n'y a rien en attente, le jeu dit un « . » à volume 0 : une espace seule est ignorée par certains moteurs.
-- Après trois refus de suite, le jeu affiche « Touchez l'écran pour activer les voix », au plus une fois toutes les 30 s.
-- **Écran « Reprendre la partie » (`#reprise`) après un rechargement venant de Continuer ou Charger.** La partie se prépare derrière l'écran, puis attend un toucher, un clic ou une touche pour démarrer. Ce geste débloque les voix et le son avant la première réplique. Nous avons gardé le rechargement de page, déjà éprouvé en 1.1.2, plutôt que de charger la partie sans recharger. C'est le changement le moins risqué. La manette ne compte pas comme un geste pour le navigateur : Croix ou Options ferment l'écran, mais les voix attendront alors un toucher, un clic ou une touche.
+**Le corps à corps.** Il remplace les dégâts instantanés de l'agression de nuit et de la jalousie (avant : 30 points de santé perdus d'un coup, puis un bouton « Se défendre »).
+1. L'adversaire se met en garde (Combat_Idle).
+2. Il arme son coup : un signal rouge, un cercle qui se resserre. Direct (0,5 s), crochet (0,62 s) ou coup de pied (0,78 s).
+3. **Rond** au bon moment : vous esquivez d'un pas de côté, et il est découvert pendant près d'une seconde.
+4. **Carré** pendant qu'il est découvert : vous frappez (20 points, 26 tôt dans la fenêtre, 32 avec le couteau). Frapper dans sa garde, c'est se faire parer (Block) plus d'une fois sur deux.
+- Deux barres : la vôtre (votre santé) et la sienne.
+- **Victoire :** il demande grâce et s'enfuit. Sa relation baisse ; les témoins s'en souviennent (en bien si vous vous défendiez). Avec le couteau, il est blessé et le hameau le sait.
+- **Défaite :** il vous laisse à terre, prend deux rations chez vous, et vous vous évanouissez.
+- **Fuir :** à plus de 9 m, le combat s'arrête, et il vous traite de lâche.
+- **Victor apprend à se battre.** Le premier moment d'action est un entraînement (Victor, sinon Julien ou Karim) : coups lents, dégâts faibles, et l'on apprend à attendre qu'il se découvre.
+- Commandes : manette Rond ou Croix pour esquiver, Carré pour frapper ; clavier Espace ou C pour esquiver, E ou F pour frapper ; sur l'écran tactile, deux grands boutons.
 
-**Ce qui a été vérifié (Chromium sans écran, synthèse vocale simulée).**
-- En 1.1.2, une réplique dite avant tout geste est perdue. En 1.1.3, elle est redite au premier clic.
-- Le déroulé normal fonctionne : une voix de femme ou d'homme selon le personnage, une réplique à la fois.
-- Une annulation volontaire n'est pas redite. Une interruption par l'appareil est redite une fois.
-- Après des refus répétés, la notification s'affiche.
-- Après un rechargement « Charger », l'écran de reprise s'affiche, la réplique refusée est dite au clic et la partie reprend sur le bon emplacement.
-- Aucune erreur JavaScript.
+**Les épreuves physiques.**
+- **Porter.** Au puits : « Puiser et porter deux seaux chez vous ». Avant, douze seaux se remplissaient d'un geste. Une jauge « Bras » se vide quand on marche (plus vite si l'on est fatigué, blessé, ou sous la pluie) et se recharge à l'arrêt.
+  - Si les bras lâchent, les seaux cognent le sol et l'eau se répand.
+  - Si l'on saute, l'eau gicle.
+  - On ne peut pas courir avec les seaux, et l'on marche à 62 % de sa vitesse.
+  - Arrivé à la porte, l'eau qui reste rejoint les bacs : jusqu'à 6 seaux par voyage.
+  - On voit les deux seaux au bas de l'écran.
+  - Les anciens et les blessés vous demandent aussi de leur porter de l'eau.
+- **Grimper.** Des crampons ont été posés sur la tour nord-est et la tour sud-ouest.
+  - Main gauche, main droite : Carré puis Croix, ou les boutons à l'écran.
+  - Deux fois la même main, ou trop vite, et l'on glisse.
+  - La prise s'use pendant l'ascension, plus vite si l'on est fatigué ou s'il pleut.
+  - À mi-hauteur, une prise peut céder : Rond pour se rattraper, sinon c'est la chute et la santé baisse selon la hauteur.
+  - En haut, une niche. Tour nord-est : trois clous, une corde, et « ILS NOUS COMPTENT ». Tour sud-ouest : deux bougies, des allumettes, et le mot de Paul.
+  - Élodie ou Bastien peuvent vous y envoyer.
+- **Soulever.** La pile de bûches s'effondre sur un habitant ; un cri, un objectif urgent. Il faut soulever (appuyer vite), puis tenir. Deux essais. Si vous échouez, ou si vous arrivez trop tard (75 s), il est blessé ; si vous réussissez, il vous en est reconnaissant (+15).
 
-**Ce qui n'a pas été vérifié.** Les vraies voix, l'iPad et Safari, et la manette. Que cette cause soit bien celle des silences observés sur l'appareil reste une hypothèse : elle est confirmée par la simulation, pas sur un vrai appareil.
+**La musique d'action.** Une nouvelle ambiance, rapide, avec un pouls, joue pendant les combats, les poursuites et quand une prise cède.
+
+### Lot B · L'équilibre (bloc « 1.3 (phase 2) — L'ÉQUILIBRE »)
+**La phrase-clé.** Les découvertes de quête, les trouvailles et les traces de ceux d'avant s'affichent dans un cadre, en une phrase-clé lue à voix haute.
+- « Lire en entier » (Triangle, ou L au clavier) déplie le texte complet.
+- Avant, 300 caractères défilaient en sous-titre pendant 6 s, ou dans une notification effacée au bout de 3,8 s.
+- Les phrases-clés de la trame sont écrites à la main (`CLES`) ; les autres sont extraites automatiquement (`phraseCle`), jamais un titre en capitales ni un mot coupé.
+
+**Les lettres et la chronique.** Elles commencent par « L'essentiel », en une phrase ; la lettre entière se déplie sur demande. La lettre codée et le récit de la mère restent entiers, car ce sont des énigmes ou des scènes.
+
+**Les scènes jouées.** Les révélations de la trame se jouent (`SCENES`) : encoches, première lettre, lampe, chaussures, lendemain de raid, conseil.
+- Les habitants concernés arrivent et se placent.
+- Ils montrent, se répondent, et la caméra cadre celui qui parle, entre deux bandes de cinéma.
+- On peut passer la scène (Rond). Elle s'inscrit au journal.
+
+**Le rythme.** Le metteur en scène compte le temps passé à lire et à parler (dialogues, lettres, carnet, révélations, scènes).
+- Au-delà d'environ 75 s de lecture, ou après 2 min sans rien de neuf, vient un moment physique : entraînement, accident au bûcher, vol, eau à porter, tour à grimper ou provocation.
+- Après la tension, 100 s de calme ; un habitant vient vous parler d'ici une demi-minute.
+- Au plus une action toutes les 2 min 30, et un plafond par jour pour chaque sorte (pas d'accident au bûcher toutes les cinq minutes).
+
+**Les gestes justes** (`GESTES`). Chaque activité joue sa suite de gestes au lieu d'un seul geste figé.
+- La pêche : lancer, attendre, mouliner, ramasser, dans l'ordre.
+- Le four : pétrir, étaler, enfourner.
+- Le lavoir : frotter, tordre.
+- Le potager : biner, ratisser, arroser, semer.
+- Le bois : fendre, ramasser.
+- L'atelier : marteler, scier.
+- La cuisine : couper, fouetter, poêle.
+- La vaisselle : frotter, rincer. Avant : « fouetter dans un saladier », en boucle.
+- La veillée : parler, écouter, applaudir.
+- Les boules : regarder, lancer, applaudir.
+
+Deux autres gestes ont été corrigés :
+- la blouse qui fouille une cabane balaie de sa lampe (avant : un geste d'auscultation au stéthoscope) ;
+- se recueillir se fait accroupi (avant : un massage cardiaque).
+
+**Le cri a enfin un son.** `sonEvt('cri')` ne jouait rien.
+
+### Banc de tests : 100/100 (90 tests)
+Les 57 tests de la 1.2.2, plus 33 pour l'action et l'équilibre :
+- **infiltration :** jauge progressive, puis course ; accroupi hors de portée ; course qui s'entend dans le dos ; une maison qui cache ;
+- **voleur :** fuite avec les rations, plaqué au sol, vol consommé s'il rentre chez lui ;
+- **combat :** signal à l'écran et musique d'action, coup qui porte sans esquive, esquive au bon moment, riposte, victoire et ses suites, agression de nuit devenue un vrai combat ;
+- **épreuves :** porter (ralentir, bras qui lâchent, eau renversée, eau versée dans les bacs), grimper (même main qui glisse, niche, descente), soulever les bûches ;
+- **fuites :** semer le provocateur, évasion chronométrée, vol de nuit sous vos yeux, entraînement de Victor ;
+- **équilibre :** phrase-clé et texte entier, phrase-clé automatique, traces, lettre résumée, scène jouée (arrivée, répliques, fin propre, passer), rythme (action après la lecture, calme après l'action), pêche dans l'ordre, vaisselle, audit des clips (chaque geste utilisé existe).
+
+Trois tests anciens ont été rendus indépendants de l'heure et du temps écoulé depuis l'ouverture de la page : la rumeur, l'acte V et l'esquive (une régénération infime de la santé faisait échouer une comparaison stricte).
+
+## HDF : ENCLOS 1.2.2 — livraison 3 (lots 5 et 6) : la vie de la maison, audit final
+### Lot 5 · La vie de la maison (bloc « LOT 17 (phase 2) »)
+**Les repas se prennent ensemble,** à heure fixe : 7 h, 12 h 30, 19 h 45.
+- Tout le monde rentre et se met à table. L'heure du repas interrompt la marche ; avant, chacun mangeait à son heure.
+- Pendant le repas, la table est mise : assiette, couteau, fourchette et verre à chaque place.
+
+**Les corvées tournent chaque jour** entre les habitants (`roleDuJour`) :
+- **la cuisine :** 40 min avant chaque repas, au fourneau (Cook_Pan). Si personne ne la fait, on mange froid et le moral baisse ;
+- **la vaisselle :** après chaque repas, à l'évier. Tant qu'elle n'est pas faite, la vaisselle sale reste sur la table, jusqu'au lendemain s'il le faut ;
+- **le ménage :** le matin, si la maison est sale. La propreté baisse chaque jour.
+
+**Les rancœurs.** À 23 h, si la vaisselle traîne, celui dont c'était le tour est noté par ses colocataires (mémoire History Sens, regard négatif). On l'entend dans leurs répliques : « Devinez qui devait la faire », « Ne commencez pas », « Une porcherie ».
+
+**Chez vous, vous pouvez tout faire :**
+- faire la vaisselle (mini-jeu « frotter, rincer », un seau d'eau) ;
+- préparer le repas de la maison (éplucher dans l'ordre, puis retirer la casserole à temps ; une ration) ;
+- faire le ménage.
+
+Vos colocataires s'en souviennent et vous remercient (« Merci pour le repas… »).
+
+**Nouveau besoin : le confort** (les toilettes).
+- Il baisse avec le temps, et plus vite quand on boit. Les alertes suivent celles des autres besoins.
+- On y va dans la salle de bain de sa maison, ou à la cabane.
+- Si l'on se retient trop longtemps, l'hygiène, le calme et le moral en pâtissent.
+
+### Lot 6 · Audit final : cohérence et embranchements
+**Défauts trouvés et corrigés :**
+- **La trame pouvait se bloquer.** Un habitant ne montrait que deux sujets de quête ; si les siens étaient proposés, l'étape de la trame qui passait par lui (Simone, acte III) disparaissait. Désormais, les étapes en cours passent avant les nouvelles demandes (trois sujets au plus).
+- **La trame et le monde ne disaient pas la même chose.** Paul et la trame affirment que le train arrive à l'heure ronde et jamais sous la pluie ; il arrivait à n'importe quelle minute, même sous la pluie. Il arrive maintenant à 1 h, 2 h ou 3 h, et une nuit de pluie le reporte au lendemain.
+- **Qui dit son prénom est nommé** dans le sous-titre (avant : « Un voyageur : Moi, c'est Bastien »).
+- **Les assiettes de la table étaient invisibles :** le couvercle des cylindres du moteur est orienté à l'envers, et le mobilier est posé à +3 cm. Elles sont maintenant en boîtes arrondies, à la bonne hauteur.
+
+**Audit automatique** (dans le banc) :
+- **les 37 quêtes,** étape par étape : type, lieu résolu, meuble présent dans la maison visée, objets, personnes, conditions et repères calculables, récompenses (objets, fragments, recettes) ;
+- **les données liées :** fragments (doublons, meubles), recettes, lettres (conditions), rumeurs (quête et donneur), savoirs (personnes), confidences (3 × 19), mini-jeux (types de phases) ;
+- **les dialogues :** chaque sujet de chaque habitant répond sans erreur (plus de 150 réponses) ;
+- **les sons :** un bruitage trop ancien n'est jamais joué, la file est bornée ;
+- **le budget :** moins de 500 000 triangles, dehors comme dedans.
+
+### Banc de tests : 100/100 (57 tests)
+Les 46 tests de la 1.2.1, plus onze :
+- le cuisinier du jour au fourneau ;
+- le repas pris ensemble ;
+- une chaise chacun ;
+- la vaisselle sale qui reste, puis faite par le plongeur ;
+- la vaisselle faite par le joueur ;
+- les assiettes sur la table ;
+- les toilettes ;
+- l'audit des quêtes ;
+- l'audit des dialogues ;
+- les sons ;
+- le budget.
+
+## HDF : ENCLOS 1.2.1 — livraison 2 (lots 3 et 4) : chaque recoin, actes II à V vérifiés, choix qui changent le monde
+### Lot 3 · Les traces de ceux d'avant (bloc « LOT 16 (phase 2) »)
+Quinze traces laissées par les convois précédents, une dans chaque coin de l'enclos. Une petite lueur les signale de près, et le Carré propose de les examiner. Chacune est un fragment de récit :
+
+| Lieu | Ce qu'on trouve |
+|---|---|
+| Four | un coin de lettre dans les cendres, de votre écriture |
+| Lavoir | « 6e convoi — on a lavé le sang ici » |
+| Poulailler | un œuf de bois peint : une date, « train » |
+| Poterie | un tesson : une table ronde, sept chaises, une renversée, une enfant dans une porte |
+| Mare | dix-neuf alliances sur un fil rouge, dont une à vos initiales |
+| Boules | une boule creuse : « Ne faites pas confiance à celui qui organise » |
+| Enclos | la cloche qui sonne seule quand ils arrivent |
+| Cimetière | une croix sans nom, des roses de jardin fraîches |
+| Borne | « FERAL 40 — à pied : jamais — en train : une fois » |
+| Tour nord-est | un calendrier de trente-trois jours |
+| Tour nord-ouest | « Jeanne », et « pardon Odile » |
+| Tour sud-est | une cachette de guetteur, vue sur le portail |
+| Tour sud-ouest | « 39… 55 », une flèche vers le mur ouest |
+| Puits | des traces d'ongles, de l'intérieur |
+| Cabane des Delorme | dix-neuf manteaux, un billet à votre nom |
+
+- **La quête « Les traces de ceux d'avant »** s'ouvre après le carnet de l'acte I. Elle a trois paliers : 5 traces (bougies, bandage, un souvenir), 10 (rations, corde), 15 (un fragment, et un secret : à plusieurs, la porte du milieu se referme ; il faut y aller seul ou à deux). Son repère vise la trace la plus proche qui reste à trouver.
+- **Nouveau sujet de dialogue,** dès trois traces : « Les traces des convois d'avant », avec des réponses propres à Paul, Odile, Simone, Victor et Clara.
+
+### Lot 4 · Des choix qui changent le monde
+- **Fin de l'acte III — la réserve :**
+  - *la révéler à tous* : chaque maison reçoit trois rations, tout le monde vous en sait gré (relations +6, moral +10), et les habitants en reparlent ;
+  - *la garder* : votre calme baisse, et les plus perspicaces remarquent que vous mangez mieux qu'eux.
+- **Fin de l'acte IV — les nuits :**
+  - *organiser des tours de garde* : deux veilleurs par nuit au portail, de 22 h à 2 h, à tour de rôle (Victor, Julien, Bastien, Karim, Gérard, Margaux). Quand le train arrive, le veilleur crie « Le train ! Cachez-vous ! » et tout le monde court se mettre à l'abri ;
+  - *chacun pour soi*.
+- **L'épilogue de l'évasion** raconte vos choix : la réserve partagée ou gardée, les veilleurs, le billet de la cabane.
+- **Les habitants y réagissent** dans leur premier mot (« Grâce à vous, on mange… », « C'est mon tour de garde… »).
+
+### Actes II à V vérifiés de bout en bout
+Le banc joue chaque étape :
+- **acte II :** lettre, lampe la nuit, photographie dans le buffet, Sophie, chaussures du mur nord ;
+- **acte III :** Simone, code, réserve, chronique, terminal, puis le choix ;
+- **acte IV :** fouille, Paul et son relevé, Thomas, le puits, la lettre, puis le choix ;
+- **acte V :** lettres, Victor, conseil, carte à ruban, jusqu'à la dernière étape (la porte du milieu, avec son repère).
+
+### Banc de tests : 100/100 (46 tests)
+Treize tests s'ajoutent aux 33 de la 1.2 : traces (accessibles, proposées sur place, quête complète, secret), dialogue des traces, actes II à V, les deux choix et leurs effets, les deux veilleurs, l'épilogue.
+
+## HDF : ENCLOS 1.2 — livraison 1 (lots 1 et 2) : corrections, trame en cinq actes, metteur en scène, dialogues
+### Lot 1 · Corrections
+**Voix de synthèse qui ne démarraient plus (régression 1.1.2).**
+- **Cause :** « Continuer » recharge la page, et une partie commencée à la manette n'a jamais reçu de vrai geste. Or Safari n'autorise le son et la synthèse vocale qu'après un toucher, un clic ou une touche ; la manette ne compte pas.
+- **Correctif :** un écran « Touchez l'écran pour reprendre » (`#toucher`) apparaît après un chargement, ou quand la partie a été lancée sans toucher.
+- **Contrôle à chaque réplique :** si elle ne démarre pas en 4 s (pas d'`onstart`), le jeu redemande un toucher. Si c'est la voix qui ne répond pas, il en change (`VOIXP.mauvaises`). Une synthèse restée en pause est relancée (`resume`).
+
+**Places pendant les activités** (bloc « LOT 14 (phase 2) »).
+- **Avant :** la place venait du numéro de la personne (`k % 3`). Deux habitants pouvaient tomber exactement au même point : four, lavoir, poulailler, bûcher des colocataires, potager tiré au hasard, mât.
+- **Maintenant :** chaque habitant réserve sa place (`RESA`). Si elle est prise ou bloquée, il prend la plus proche sur un arc autour de ce qu'il regarde, en terrain praticable et hors des obstacles.
+- **Mesuré :** 98 cm au plus près.
+
+**Sons.** Les bruitages mis en file pendant une coupure ne sont plus joués en retard : ils sont abandonnés après 1,2 s.
+
+**Robustesse.** Si une voix se bloque, la discussion du mât n'attend pas plus de 6 s par réplique, et les conversations entendues pas plus de 8 s.
+
+### Lot 2 · La trame : « La princesse et le hameau » (bloc « LOT 15 (phase 2) »)
+**Le principe.**
+- **La structure :** celle d'une quête de Skyrim — amorce, suivi, corps, point d'orgue, résolution.
+- **Le suivi :** l'objectif de la trame est toujours affiché en tête (★), avec son repère sur la boussole.
+- **L'ouverture des actes :** chacun commence par un bandeau (« Acte I · Tout le monde descend »).
+- **Au carnet :** la trame figure en tête de l'onglet Quêtes.
+- **D'une boucle à l'autre :** ce que l'on sait déjà se coche tout seul (« Vous vous souvenez… », `MEMOIRE.trame`), sauf ce qui doit être revécu (lettres, nuits, réserve, conseil, carte).
+
+| Acte | Titre | Étapes |
+|---|---|---|
+| I | Tout le monde descend | le règlement cloué au mât (7 règles, signé I.) · le carnet de l'ancien occupant, dans l'armoire de votre maison · les encoches du portail (six rangées de dix-neuf, la dernière fraîche) · Paul, qui compte tout · la lettre du matin |
+| II | La princesse | la deuxième lettre · la lampe qui s'allume seule à l'étage de la Maison du centre (21 h – 1 h) · la photographie d'Ilona enfant, dans le buffet · Sophie la lit · les chaussures alignées au pied du mur nord |
+| III | Sous le mur | Simone entend des pas sous le mur ouest · la boîte des Collet (code) · l'escalier de nuit et la porte de métal · la Chronique d'Ilona · le terminal |
+| IV | Le train de la nuit | survivre à une fouille · le relevé des trains de Paul · la porteuse radio de Thomas · le blouse qui boit au puits · la lettre « Les visiteurs de la nuit » |
+| V | Feral | les lettres jusqu'à « L'homme du portail » · l'ordre de mission de Victor · le conseil au mât · la carte à ruban · la porte du milieu |
+
+- **Nouveaux types d'étape :** « si » (une condition du monde) et « lettre » (le nombre de lettres lues dans la boucle). On peut aussi fouiller « votre maison » (`maison: 'joueur'`).
+- **Nouveaux décors :** le panneau du mât ; les chaussures, une vingtaine de paires, au pied du mur nord.
+- **La première nuit,** on frappe trois fois à votre porte. Personne, et de la terre fraîche sur le seuil.
+
+### Le metteur en scène : jamais de temps mort
+- **Quand rien n'avance** (environ une minute) : un habitant qui a besoin de vous vient vous chercher, même depuis sa maison et même sans s'être présenté. Il marche ou court jusqu'à vous, vous interpelle (« Vous ! Vous avez une minute ? », selon son caractère), se présente, puis le dialogue s'ouvre avec sa quête en premier choix.
+- **Les rumeurs :** dites à voix haute près de vous (douze rumeurs, chacune liée à une quête), elles s'inscrivent au journal et rendent la quête disponible.
+- **Huit quêtes s'ouvrent dès le premier jour,** au lieu du jour 2.
+
+### Dialogues élargis
+- **Huit sujets de la trame,** qui s'ouvrent au fil de l'histoire : le règlement, les encoches, les lettres, la lampe, le mur, la réserve, le train, Feral.
+  - Chacun a des réponses propres à certaines personnes, selon leur métier ou leur passé : Paul compte, Clara connaît la pierre, Thomas la radio, Victor l'ordre de mission…
+  - Pour les autres, la réponse suit leur caractère.
+- **« Qu'est-ce que je pourrais faire, ici ? »** donne toujours une piste concrète : sa propre demande, quelqu'un qui a besoin d'aide, ou l'étape de la trame dite avec ses mots.
+- **Trois confidences par habitant** (57 en tout), qui se débloquent avec la confiance (10, 25, 45). Elles restent cohérentes avec sa raison de venir, son métier et son caractère, et relient chacun aux sept familles du vrai Feral. La dernière attend qu'on connaisse le nom d'Ilona.
+- **Le premier mot tient compte du moment :** un meurtre récent, une fouille cette nuit, son travail en cours, la pluie, la nuit, la confiance.
+
+### Banc de tests (`shot/banc.js`) : 100/100
+33 tests :
+- démarrage, menu, emplacements ;
+- voyage, annonce, arrêt à quai, porte du train, distances à la descente ;
+- rassemblement, installation, acte I étape par étape, dialogues de la trame, « que faire ? » ;
+- lits, lettre du matin, places pendant les activités, acte II ;
+- metteur en scène (l'appel, puis le dialogue avec la quête), rumeur ;
+- sauvegarde, rechargement, chargement, « Touchez pour reprendre » ;
+- voix prononcée, voix bloquée détectée ;
+- aucune erreur JavaScript.
+
+**Contrôles au build :** syntaxe, doublons de noms, et un contrôle du code caché derrière un `//` en milieu de ligne (`py/lint.py`).
 
 ## HDF : ENCLOS 1.1.2 — menu principal, trois sauvegardes, quitter, habitants qui gardent leurs distances
 ### Menu principal (bloc « LOT 13 (phase 2) »)
@@ -320,7 +554,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.1.3**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
@@ -900,6 +1134,36 @@ Chaque correction faite dans le code porte un commentaire qui commence par `HDF 
 | Scène, menu de pause | Sauvegarder, Charger, Menu principal, Quitter le jeu. | — |
 | Scène, `avancer` | Les habitants gardent 80 cm, ralentissent, contournent (`espaceDevant`). Avant : ils se traversaient et se bloquaient au départ. | — |
 | Scène, `lancerDescente` | Départs espacés de 1,3 s. Avant : 0,9 s. | — |
+| Scène, `parlerSuivant` (voix) | Détection du démarrage (`onstart`), changement de voix muette, reprise de la synthèse en pause, « Touchez pour reprendre ». Avant : voix muettes après un rechargement ou à la manette. | — |
+| Scène, `planifier` | Places réservées (`placeLibre`). Avant : superpositions pendant les activités. | — |
+| Scène, `enFile`, `majFiles` | Les sons trop anciens (1,2 s) ne sont plus joués. Avant : rafale de sons en retard. | — |
+| Scène, `objectifsQuete` | L'objectif de la trame (★) d'abord, puis la quête suivie. | — |
+| Scène, `queteDispo` | Une rumeur entendue rend la quête disponible, même sans s'être présentés. | — |
+| Scène, `ouvrirDialogue` | Premier mot selon le moment (`introContexte`), appel du metteur en scène. | — |
+| Scène, `actionsVie` | Les traces de ceux d'avant (quinze recoins). | — |
+| Scène, `terminerQuete` | Choix de fin des actes III (réserve) et IV (gardes). | — |
+| Scène, `butPour` | Veilleurs au portail la nuit, quand les gardes sont organisées. | — |
+| Scène, `finEvasion` | L'épilogue raconte vos choix. | — |
+| Scène, boucle des activités | Emploi du temps de la maison (`activiteVie`) : repas ensemble, cuisine, vaisselle, ménage ; l'heure du repas interrompt la marche. | — |
+| Scène, `actionMeuble` | Vaisselle, repas de la maison, ménage, toilettes (chez soi). | — |
+| Scène, `sujetsQuetes` | Les étapes en cours passent avant les nouvelles demandes, trois sujets au plus. Avant : deux sujets, la trame pouvait être coupée. | — |
+| Scène, `planifierRaid` | Le train arrive à l'heure ronde, jamais les nuits de pluie. Avant : n'importe quelle minute, par tous les temps. | — |
+| Scène, `majFileParoles` | Qui dit son prénom est nommé dans le sous-titre. | — |
+| Scène, `BESOINS` | Nouveau besoin : confort (toilettes). | — |
+| Scène, `majScientifique` | Jauge de soupçon (`infiltration`) : la lampe porte, une maison cache, la blouse s'arrête et fouille du regard avant de courir. Avant : repéré à l'instant où l'on entrait dans le faisceau. | — |
+| Scène, lampes des blouses | Une seconde lumière, plus loin devant : on voit au sol où porte la lampe. | — |
+| Scène, `attaqueJoueur`, jalousie | L'agression se joue au corps à corps (esquiver, riposter). Avant : 30 points de santé perdus d'un coup, puis un bouton « Se défendre ». | — |
+| Scène, `volDeNuit` | Si vous veillez dehors, le vol se joue sous vos yeux : poursuite. | — |
+| Scène, `actionPuits` | L'eau se porte, deux seaux à la fois, jusqu'à sa porte (jauge de bras, eau renversée). Avant : douze seaux remplis d'un geste. | — |
+| Scène, `facteurVitesse`, `peutCourir` | Deux seaux pleins ralentissent (62 %) et empêchent de courir. | — |
+| Scène, `sonEvt` | Le cri a un son. Avant : `sonEvt('cri')` ne jouait rien. | — |
+| Scène, `majQuetesLieux`, `fouiller`, `examinerTrace` | Une phrase-clé lue, le texte entier au choix. Avant : 300 caractères en sous-titre pendant 6 s, ou une notification effacée au bout de 3,8 s. | — |
+| Scène, `lireLettre`, chronique | L'essentiel d'abord, la lettre entière sur demande. | — |
+| Scène, `memoTrame` | Les révélations de la trame se jouent en scènes. | — |
+| Scène, `majMetteurEnScene` | Pas d'appel d'un habitant pendant une action ou une scène. | — |
+| Scène, blouse à la cabane | Elle balaie la cabane de sa lampe. Avant : un geste d'auscultation au stéthoscope. | — |
+| Scène, mini-jeu « Se recueillir » | Accroupi. Avant : un massage cardiaque. | — |
+| Scène, activités des habitants | Suites de gestes par activité (`GESTES`) : pêche dans l'ordre, vaisselle frottée et rincée… Avant : un seul geste figé, parfois approximatif. | — |
 
 **Règle pour la suite :** toute nouvelle correction reçoit un commentaire `/* HDF BASE : … (avant : …) */` à l'endroit modifié, et une ligne dans ce tableau.
 
