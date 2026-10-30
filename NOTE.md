@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.3 — note technique
+# HDF : ENCLOS 1.3.1 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,11 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.3.1 — correctif du défilement des choix de dialogue
+- **Cause.** `#dlChoix` (CSS, bloc dialogue « façon Skyrim ») ne montre qu'environ 5 lignes (`max-height:calc(5 * 42px + 18px)`, `overflow-y:auto`) alors que `sujets()` propose jusqu'à 8 phrases. (1) `surligner()` (manette, croix haut/bas) et les flèches du clavier déplaçaient la sélection `gpSel` sans jamais faire défiler la liste : les phrases 6 à 8 étaient sélectionnées hors de vue. (2) Les boutons, dans une colonne flex limitée en hauteur, étaient comprimés (`flex-shrink` par défaut) : les phrases longues se tassaient et débordaient les unes sur les autres. (3) `ecrireDialogue()` ne remettait pas `scrollTop` à zéro. (4) Rien n'indiquait qu'il restait des phrases plus bas (barres de défilement masquées sur iPad).
+- **Correctif.** `#dlChoix button{flex:none}` ; `touch-action:pan-y` explicite sur la liste et ses boutons ; nouvelle `suivreChoix()` (fait défiler la liste seule, sans `scrollIntoView`, pour amener la phrase sélectionnée à l'écran) appelée par `surligner()`, les flèches et au redimensionnement ; `indicateurChoix()` pose `.plusBas` / `.plusHaut` (fondu par `mask-image`) ; `scrollTop = 0` à chaque réécriture.
+- **Tests** (Chromium sans écran, 4 formats iPad/téléphone) : manette et flèches, la phrase choisie reste visible ; défilement au doigt et toucher d'une phrase du bas OK. Non testé sur un vrai iPad/Safari ni avec une vraie manette.
 
 ## HDF : ENCLOS 1.3 — l'équilibre entre l'action et le texte (lots A et B)
 Le hameau ne se raconte plus seulement par le texte : il se vit aussi avec les mains et les jambes. Le texte reste là, mais il va à l'essentiel, et les révélations se jouent en scènes.
@@ -554,7 +559,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;

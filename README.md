@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.3
+# HDF ENCLOS 1.3.1
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,10 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.3.1 : correctif du dialogue
+
+- La liste des phrases du dialogue défile enfin jusqu'à la phrase choisie (manette, flèches du clavier) ; elle revient en haut à chaque nouvelle réplique ; un léger fondu signale qu'il reste des phrases plus bas (ou plus haut) ; les phrases ne sont plus écrasées les unes sur les autres ; le défilement au doigt est explicitement autorisé.
 
 ## 1.3 : l'action et le texte
 
