@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.3.2 — note technique
+# HDF : ENCLOS 1.4.0 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,33 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.4.0 — défilement de l'atelier, refonte du sac à dos
+- **Cause du blocage de l'atelier.**
+  - `#sac` défilait d'un seul bloc (`overflow-y:auto` avec un `max-height` en `100vh`). Sur iPad/Safari, le bas du panneau passait sous la barre du navigateur.
+  - Aucun `touch-action:pan-y` n'était posé, alors que `body` est en `touch-action:none`.
+  - `majSac()` réécrivait tout le `innerHTML` toutes les 0,5 s, ce qui cassait le glissé en cours.
+  - La sélection manette `.gpSel` bougeait sans faire défiler la liste.
+  - Il n'y avait ni navigation au clavier ni indicateur.
+- **Correctif.** Même approche qu'en 1.3.1 pour le dialogue :
+  - Le panneau a une hauteur fixe calée sur la vraie fenêtre (`--sacH`, tirée de `visualViewport`, et les marges sûres).
+  - Seules les zones `.sDefile` défilent (`#sacZone`, `#sacDetail`), avec `overflow-y:auto`, `touch-action:pan-y` et `overscroll-behavior:contain`.
+  - `poserSac()` ne réécrit un bloc que si son contenu a changé.
+  - La navigation spatiale (`sacBouger`) passe par `suivreSac()`, qui amène l'élément choisi à l'écran.
+  - `indicateursSac()` pose `.plusBas`/`.plusHaut` (fondu `mask-image`) et le badge `#sacPlus`.
+- **Sac.**
+  - L'état d'interface (`SACUI` : filtre, élément focalisé, mode tactile/clavier/manette) n'est jamais sauvegardé. `VIE.sacOnglet` et `VIE.sacSel` sont repris tels quels : le format de sauvegarde est inchangé.
+  - Les dessins sont des SVG intégrés : `ICONES_OBJ` (60 objets), `ICONES_CAT` (6 dessins de repli par catégorie) et `ICONES_SAC`.
+  - `actionPrincipale()` garde les libellés et les effets d'avant.
+  - Manette : `sacManette()` est appelée en tête de `boutonManette()` quand le sac est ouvert (12 à 15 pour se déplacer, 0 pour valider, 4/5 pour changer de rubrique, 1 pour fermer). Le clavier est capté en phase de capture pendant que le sac est ouvert.
+- **Tests** (Chromium sans écran, SwiftShader ; iPad paysage et portrait, téléphone portrait et paysage) :
+  - sac plein et sac vide, filtres ;
+  - manger une ration, boire à la gourde, jeter ;
+  - au clavier et à la manette, la sélection reste visible ;
+  - les 13 recettes se parcourent à la manette jusqu'en bas ;
+  - défilement au doigt et à la molette ;
+  - aucune erreur dans la console.
+  - Rien n'a été testé sur un vrai iPad/Safari ni avec une vraie manette.
 
 ## HDF : ENCLOS 1.3.2 — pas de sommeil quand les scientifiques sont dans l'enceinte
 - **Cause.** Rien ne liait le sommeil au raid. `dormir()` (lit de la maison, aussi appelé par `nuitAvec()`) et `dormirReserve()` (lit de camp) ne vérifiaient que l'heure et l'énergie. Pendant la fouille, on pouvait donc se coucher et laisser passer le raid en temps ×60. Et `annoncerRaid()` ne réveillait le dormeur que 7 fois sur 10 (`Math.random() < .7`) : 3 fois sur 10, on dormait toute la fouille.
@@ -573,7 +600,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.3.2**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.4.0**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;

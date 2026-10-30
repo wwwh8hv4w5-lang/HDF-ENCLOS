@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.3.2
+# HDF ENCLOS 1.4.0
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,20 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.4.0 : l'atelier défile, le sac à dos est refait
+
+- **Atelier (onglet Fabriquer) :** toutes les recettes se voient enfin, au doigt, à la souris, aux flèches du clavier et à la manette. La recette choisie reste toujours à l'écran, et un fondu avec « ▾ Plus bas » montre qu'il en reste.
+- **Nouveau sac à dos :**
+  - un panneau de cuir et de toile, qui s'ouvre avec une petite animation ;
+  - une grille avec les places libres visibles (8, 12 ou 16), un dessin pour chacun des 60 objets et un badge de quantité ;
+  - une fiche détaillée avec un grand dessin, la description, les effets (satiété, soif, santé…) et les boutons Manger, Boire, Soigner ou Jeter ;
+  - des filtres par catégorie, avec le compte des places libres ;
+  - les objets de quête sont rangés à part, dans les poches.
+- **Commandes du sac :**
+  - clavier : flèches, Entrée pour utiliser, Suppr pour jeter, Tab pour changer de rubrique, I ou Échap pour fermer ;
+  - manette : croix directionnelle, ✕ pour utiliser, L1/R1 pour changer de rubrique, ○ pour fermer.
+- Les sauvegardes ne changent pas.
 
 ## 1.3.2 : pas de sommeil pendant la fouille
 
