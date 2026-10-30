@@ -1,0 +1,15 @@
+--- FSM3D 2.10 (HDF WALL v1.0) — G.roundBox
++++ FSM3D 2.10 + correctif HDF BASE 1.0 KIT — G.roundBox
+@@ -1,10 +1,10 @@
+ G.roundBox=function(sx,sy,sz,r,unit){const h=[sx/2,sy/2,sz/2];r=Math.max(0,Math.min(r,h[0]*.98,h[1]*.98,h[2]*.98));const inr=[h[0]-r,h[1]-r,h[2]-r],out=[];
+   const coords=k=>[-h[k],-inr[k],inr[k],h[k]];
+-  const vert=(p)=>{const q=[Math.max(-inr[0],Math.min(inr[0],p[0])),Math.max(-inr[1],Math.min(inr[1],p[1])),Math.max(-inr[2],Math.min(inr[2],p[2]))];let d=[p[0]-q[0],p[1]-q[1],p[2]-q[2]];const l=Math.hypot(d[0],d[1],d[2])||1;d=[d[0]/l,d[1]/l,d[2]/l];
++  const vert=(p,fn)=>{const q=[Math.max(-inr[0],Math.min(inr[0],p[0])),Math.max(-inr[1],Math.min(inr[1],p[1])),Math.max(-inr[2],Math.min(inr[2],p[2]))];let d=[p[0]-q[0],p[1]-q[1],p[2]-q[2]];const l=Math.hypot(d[0],d[1],d[2]);d=l>1e-9?[d[0]/l,d[1]/l,d[2]/l]:fn;/* HDF BASE : correctif roundBox — r = 0 → normale de la face (avant : normale nulle, faces noires) */
+     const P=[q[0]+d[0]*r,q[1]+d[1]*r,q[2]+d[2]*r];if(!unit)return [P[0],P[1],P[2],d[0],d[1],d[2]];
+     let n=[d[0]*sx,d[1]*sy,d[2]*sz];const nl=Math.hypot(n[0],n[1],n[2])||1;return [P[0]/sx,P[1]/sy,P[2]/sz,n[0]/nl,n[1]/nl,n[2]/nl];};
+   // 6 faces : axe normal a, axes de grille u,v (orientés pour un sens direct)
+   for(const [a,u,v,s] of [[0,1,2,1],[1,2,0,1],[2,0,1,1]])for(const sg of [1,-1]){const U=coords(u),V=coords(v);
+-    for(let i=0;i<3;i++)for(let j=0;j<3;j++){if(U[i]===U[i+1]||V[j]===V[j+1])continue;const g=(ii,jj)=>{const p=[0,0,0];p[a]=sg*h[a];p[u]=U[ii];p[v]=V[jj];return vert(p);};
++    for(let i=0;i<3;i++)for(let j=0;j<3;j++){if(U[i]===U[i+1]||V[j]===V[j+1])continue;const g=(ii,jj)=>{const p=[0,0,0];p[a]=sg*h[a];p[u]=U[ii];p[v]=V[jj];const fn=[0,0,0];fn[a]=sg;return vert(p,fn);};
+       const A=g(i,j),B=g(i+1,j),C=g(i+1,j+1),D=g(i,j+1);if(s*sg>0)out.push(...A,...B,...C,...A,...C,...D);else out.push(...A,...C,...B,...A,...D,...C);}}
+   return new Float32Array(out);};

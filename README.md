@@ -18,6 +18,7 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 - `index.html` : le jeu complet, un seul fichier.
 - `NOTE.md` : note technique détaillée (contenu, lots, comment ajouter une maison).
 - `images/` : tableaux, affiches et drapeau du jeu.
-- `captures/` : quelques captures d'écran.
+- `captures/` : les captures d'écran du banc de test de la 1.3 (114 images).
+- `outils/` : fichiers de développement pour les mises à jour rapides : `correctif-roundBox.diff` (correctif roundBox), `banc.js` (banc de test automatisé) et `banc_resultat.json` (résultats du dernier passage du banc).
 
 © FERAL SYSTEM MEDIA

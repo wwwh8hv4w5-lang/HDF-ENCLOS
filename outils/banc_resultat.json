@@ -1,0 +1,456 @@
+{
+ "score": 100,
+ "R": [
+  {
+   "nom": "Démarrage sans erreur",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Menu principal affiché",
+   "ok": true,
+   "detail": "{\"accueil\":true,\"nouvelle\":true,\"cont\":true,\"ver\":\"HDF : ENCLOS 1.3\"}"
+  },
+  {
+   "nom": "Titre et version",
+   "ok": true,
+   "detail": "HDF : ENCLOS 1.3"
+  },
+  {
+   "nom": "Trois emplacements proposés",
+   "ok": true,
+   "detail": "Emplacement 1Vide | Emplacement 2Vide | Emplacement 3Vide"
+  },
+  {
+   "nom": "Nouvelle partie dans l’emplacement 1",
+   "ok": true,
+   "detail": "{\"slot\":1,\"accueil\":true}"
+  },
+  {
+   "nom": "Le jeu commence dans le train qui roule",
+   "ok": true,
+   "detail": "{\"voy\":true,\"o\":-675,\"assis\":true}"
+  },
+  {
+   "nom": "Annonce à 30 s : « Le Hameau de Feral, tout le monde descend »",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Le train s’arrête à quai à 60 s",
+   "ok": true,
+   "detail": "{\"voy\":false,\"dx\":0}"
+  },
+  {
+   "nom": "L’homme ne disparaît qu’une fois la porte fermée",
+   "ok": true,
+   "detail": "{\"cache\":true,\"porte\":0,\"minD\":0.6805344105689666}"
+  },
+  {
+   "nom": "Descente : les habitants gardent leurs distances (≥ 45 cm)",
+   "ok": true,
+   "detail": "mini 0.68 m"
+  },
+  {
+   "nom": "Rassemblement au mât puis répartition",
+   "ok": true,
+   "detail": "repartition"
+  },
+  {
+   "nom": "Installation, puis acte I lancé avec son bandeau",
+   "ok": true,
+   "detail": "{\"install\":true,\"m1\":true,\"ban\":true,\"obj\":\"★ Lire le panneau cloué au grand mât · Acte I\",\"cible\":true}"
+  },
+  {
+   "nom": "Objectif de la trame toujours affiché (★) avec repère",
+   "ok": true,
+   "detail": "★ Lire le panneau cloué au grand mât · Acte I"
+  },
+  {
+   "nom": "Étape « lire le panneau du mât » accomplie sur place",
+   "ok": true,
+   "detail": "{\"etape\":1,\"st\":\"VictorBien. Chacun chez soi. Demain, on y verra plus clair. \"}"
+  },
+  {
+   "nom": "Fouiller sa maison : le carnet de l’ancien occupant",
+   "ok": true,
+   "detail": "{\"etape\":2,\"carnet\":true}"
+  },
+  {
+   "nom": "Les encoches du portail",
+   "ok": true,
+   "detail": "étape 3"
+  },
+  {
+   "nom": "Parler à Paul des encoches (sujet de quête, réponse)",
+   "ok": true,
+   "detail": "{\"k\":\"q:m1:e\",\"etape\":4,\"rep\":\"Par dix-neuf… Nous sommes dix-neuf. Six rangées pleines, vou\"}"
+  },
+  {
+   "nom": "Dialogues de la trame : sujet ouvert et réponse propre au personnage",
+   "ok": true,
+   "detail": "Les encoches du portail / Qu’est-ce que je pourrais faire, ici ? → Arrêtez. Je ne veux pas savoir ce qu’elles compten"
+  },
+  {
+   "nom": "« Qu’est-ce que je pourrais faire ? » donne une piste concrète",
+   "ok": true,
+   "detail": "Si j’étais vous, relever la boîte aux lettres, au pied du mât, au mati"
+  },
+  {
+   "nom": "La nuit, chacun dans son lit (aucune place partagée)",
+   "ok": true,
+   "detail": "{\"n\":19,\"uniques\":19,\"total\":19}"
+  },
+  {
+   "nom": "Lettre du matin : l’acte I se conclut",
+   "ok": true,
+   "detail": "{\"plein\":true,\"fini\":true}"
+  },
+  {
+   "nom": "Activités : jamais deux habitants au même endroit (≥ 80 cm)",
+   "ok": true,
+   "detail": "mini 1.00 m Victor/Karim bois"
+  },
+  {
+   "nom": "L’acte II s’ouvre après l’acte I",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Metteur en scène : quelqu’un vient vous chercher quand rien n’avance",
+   "ok": true,
+   "detail": "{\"qui\":\"Élodie\",\"q\":\"q15\"}"
+  },
+  {
+   "nom": "… il vous rejoint, vous interpelle et propose sa quête",
+   "ok": true,
+   "detail": "{\"ouvert\":true,\"quete\":true,\"texte\":\"Vous ! Attendez, vous avez une minute ? Je suis Élodie, au fait.\"}"
+  },
+  {
+   "nom": "Rumeur entendue : notée au journal et rend la quête disponible",
+   "ok": true,
+   "detail": "{\"rum\":[\"q15\",\"q27\"],\"file\":1,\"journal\":\"J2 11 h 13 · Rumeur : Au cimetière, il y a des croix plus vieilles que\",\"diag\":{\"ea\":false,\"sc\":false,\"cb\":false,\"ch\":false,\"po\":false,\"gr\":false,\"tr\":false,\"co\":false,\"dlg\":false,\"dort\":false,\"occ\":false,\"jeu\":false,\"raid\":\"aucun\",\"st\":{\"repere\":0,\"vols\":0,\"voleursPris\":0,\"voleursPerdus\":0,\"semes\":0,\"combats\":0,\"esquives\":0,\"coups\":0,\"victoires\":0,\"defaites\":0,\"fuites\":0,\"ports\":0,\"chutes\":0,\"grimpes\":0,\"chutesGrimpe\":0,\"rattrapes\":0,\"degages\":0},\"j\":[\"J2 7 h 55 · Trame · acte II : La princesse.\",\"J2 7 h 24 · Quête accomplie : Tout le monde descend (Paul).\",\"J2 6 h 30 · Travail du jour : 10 au potager, 9 au bois.\",\"J1 21 h 28 · Trame · acte I : Tout le monde descend.\",\"J1 21 h 27 · Au grand mât, les voyageurs se sont réparti les maisons. Vous vivez dans la grande maison, avec Victor, Agathe et Karim.\"]}}"
+  },
+  {
+   "nom": "Quinze traces de ceux d’avant, chacune accessible et proposée sur place",
+   "ok": true,
+   "detail": "{\"n\":15,\"bad\":[],\"sol\":[],\"q40\":true}"
+  },
+  {
+   "nom": "La quête « Les traces de ceux d’avant » s’ouvre après le carnet",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Toutes les traces : quête accomplie et secret de la porte du milieu",
+   "ok": true,
+   "detail": "{\"vues\":15,\"fini\":true,\"secret\":true,\"sujet\":\"t:traces,t:aide\",\"rep\":\"Jeanne… dans la tour. Elle a écrit mon nom. Elle savait que \"}"
+  },
+  {
+   "nom": "Dialogue : « Les traces des convois d’avant », réponse propre à Odile",
+   "ok": true,
+   "detail": "Jeanne… dans la tour. Elle a écrit mon nom. Elle savait que "
+  },
+  {
+   "nom": "Acte II joué de bout en bout (lettre, lampe, photo, Sophie, chaussures)",
+   "ok": true,
+   "detail": "{\"out\":[\"lettre\",\"lampe:2\",\"photo:3\",\"sophie:4\",\"chaussures:fini\"],\"m2\":true,\"m3\":true,\"solC\":true}"
+  },
+  {
+   "nom": "Les chaussures du mur nord sont accessibles",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "L’acte III s’ouvre après l’acte II",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Acte III : Simone, le code, la réserve, la chronique, le terminal",
+   "ok": true,
+   "detail": "{\"fini\":true,\"choix\":false}"
+  },
+  {
+   "nom": "Fin de l’acte III : choisir de révéler la réserve (le hameau change)",
+   "ok": true,
+   "detail": "{\"ch\":true,\"t\":\"La réserve\",\"revele\":true,\"choixFerme\":true}"
+  },
+  {
+   "nom": "Acte IV : la fouille, Paul, Thomas, le puits, la lettre",
+   "ok": true,
+   "detail": "{\"m4\":true,\"fini\":true,\"horaire\":true}"
+  },
+  {
+   "nom": "Fin de l’acte IV : tours de garde, deux veilleurs au portail la nuit",
+   "ok": true,
+   "detail": "{\"gardes\":true,\"n\":2,\"qui\":[\"Margaux\",\"Gérard\"]}"
+  },
+  {
+   "nom": "Acte V : lettres, Victor, conseil, carte à ruban → dernière étape, la porte du milieu",
+   "ok": true,
+   "detail": "{\"m5\":true,\"etape\":4,\"derniere\":\"La nuit d’une fouille, monter dans le train par la porte du milieu\",\"cible\":true,\"epi\":[\"Au hameau, la réserve partagée tiendra une semaine de plus. Odile fera les parts, au gramme près, devant tout le monde.\",\"Cette nuit encore, deux silhouettes veilleront au portail. Julien a promis de ne pas se cacher.\",\"Dans votre poche, le billet trouvé dans la cabane des Delorme. Daté de l’an dernier. À votre nom. Vous le gardez.\"]}"
+  },
+  {
+   "nom": "Épilogue : il raconte vos choix (réserve, gardes, traces)",
+   "ok": true,
+   "detail": "[\"Au hameau, la réserve partagée tiendra une semaine de plus. Odile fera les parts, au gramme près, devant tout le monde.\",\"Cette nuit encore, deux silhouettes veilleront au portail. Julien a promis de ne pas se cacher.\",\"Dans votre poche, le billet trouvé dans la cabane des Delorme. Daté de l’an dernier. À votre nom. Vous le gardez.\"]"
+  },
+  {
+   "nom": "Avant le repas, le cuisinier du jour est au fourneau",
+   "ok": true,
+   "detail": "{\"cuisiniers\":6,\"auFourneau\":6,\"total\":19,\"aTable\":19,\"postesUniques\":true}"
+  },
+  {
+   "nom": "Le repas se prend ensemble : tout le monde à table en même temps",
+   "ok": true,
+   "detail": "{\"cuisiniers\":6,\"auFourneau\":6,\"total\":19,\"aTable\":19,\"postesUniques\":true}"
+  },
+  {
+   "nom": "À table, chacun sa chaise (aucune place partagée)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Après le repas, la vaisselle sale reste ; le plongeur du jour la fait",
+   "ok": true,
+   "detail": "{\"sales\":[2.6,2.6,4,0,1.6,3.6,2.6],\"apres\":[0,0,0,0,0,0,0]}"
+  },
+  {
+   "nom": "Le joueur peut faire la vaisselle chez lui (mini-jeu, colocataires reconnaissants)",
+   "ok": true,
+   "detail": "{\"action\":\"Faire la vaisselle (4 assiettes)\",\"ok2\":true,\"assiettes\":true}"
+  },
+  {
+   "nom": "Les assiettes et les couverts existent sur la table de la maison",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Besoin « confort » : aller aux toilettes",
+   "ok": true,
+   "detail": "{\"action\":\"Aller aux toilettes\",\"apres\":30,\"info\":true,\"msg\":true}"
+  },
+  {
+   "nom": "Audit des quêtes : étapes, lieux, meubles, objets, personnes, récompenses",
+   "ok": true,
+   "detail": "{\"err\":[],\"n\":0,\"quetes\":37,\"frag\":20,\"lettres\":13,\"jeux\":44}"
+  },
+  {
+   "nom": "Audit des dialogues : chaque sujet de chaque habitant répond sans erreur",
+   "ok": true,
+   "detail": "{\"n\":223,\"err\":[],\"nerr\":0}"
+  },
+  {
+   "nom": "Sons : un bruitage trop ancien n’est jamais joué en retard ; file bornée",
+   "ok": true,
+   "detail": "{\"joue\":0,\"reste\":0,\"max\":4}"
+  },
+  {
+   "nom": "Budget : moins de 500 000 triangles dehors comme dedans",
+   "ok": true,
+   "detail": "{\"dehors\":292928,\"dedans\":115964}"
+  },
+  {
+   "nom": "Infiltration : la jauge de soupçon monte peu à peu, puis la blouse court",
+   "ok": true,
+   "detail": "{\"T\":[0.14,0.72],\"pours\":1,\"n\":7,\"mef\":2}"
+  },
+  {
+   "nom": "Infiltration : accroupi hors de portée, invisible ; en courant, on s’entend dans le dos",
+   "ok": true,
+   "detail": "{\"loin\":0,\"bruit\":0.26999999999999996,\"mef\":true}"
+  },
+  {
+   "nom": "Infiltration : une maison entre la lampe et vous, on ne vous voit pas",
+   "ok": true,
+   "detail": "{\"vue\":0,\"d\":16.5}"
+  },
+  {
+   "nom": "Poursuite : le voleur s’enfuit en courant avec les rations",
+   "ok": true,
+   "detail": "{\"ok\":true,\"r0\":40,\"r1\":38,\"r2\":40,\"fuit\":true,\"combat\":false,\"chasse\":false,\"appr\":false,\"objectif\":true}"
+  },
+  {
+   "nom": "Poursuite : rattrapé en courant, il rend les rations (ou se bat)",
+   "ok": true,
+   "detail": "{\"ok\":true,\"r0\":40,\"r1\":38,\"r2\":40,\"fuit\":true,\"combat\":false,\"chasse\":false,\"appr\":false,\"objectif\":true}"
+  },
+  {
+   "nom": "Poursuite : s’il rentre chez lui, le vol est consommé et il retrouve sa journée",
+   "ok": true,
+   "detail": "{\"fin\":true,\"n\":25,\"appr\":false,\"vols\":2}"
+  },
+  {
+   "nom": "Corps à corps : garde, coup annoncé à l’écran, musique d’action",
+   "ok": true,
+   "detail": "{\"ok\":true,\"mus\":\"action\",\"vuAlerte\":true,\"recu\":9.799999999999997,\"hud\":true}"
+  },
+  {
+   "nom": "Corps à corps : sans esquive, le coup porte",
+   "ok": true,
+   "detail": "{\"ok\":true,\"mus\":\"action\",\"vuAlerte\":true,\"recu\":9.799999999999997,\"hud\":true}"
+  },
+  {
+   "nom": "Corps à corps : esquive au bon moment, il est découvert",
+   "ok": true,
+   "detail": "{\"ouvert\":true,\"esq\":1,\"sante\":0,\"coup\":26}"
+  },
+  {
+   "nom": "Corps à corps : la riposte porte (Carré)",
+   "ok": true,
+   "detail": "{\"ouvert\":true,\"esq\":1,\"sante\":0,\"coup\":26}"
+  },
+  {
+   "nom": "Corps à corps : victoire, il s’enfuit, la relation en garde la trace",
+   "ok": true,
+   "detail": "{\"fini\":true,\"vic\":1,\"rel\":-10,\"appr\":false,\"fuit\":true,\"sante\":65.00062500000001}"
+  },
+  {
+   "nom": "Agression de nuit : un vrai combat (plus de dégâts instantanés)",
+   "ok": true,
+   "detail": "{\"combat\":true,\"pourquoi\":\"agression\",\"sante\":100,\"n\":1}"
+  },
+  {
+   "nom": "Porter : deux seaux, on ralentit, les bras lâchent, l’eau se renverse",
+   "ok": true,
+   "detail": "{\"t\":\"Puiser et porter deux seaux chez vous (2/12)\",\"port\":true,\"fv\":0.62,\"ch\":1,\"eau\":78,\"eau2\":60,\"fini\":true,\"eauMaison\":6}"
+  },
+  {
+   "nom": "Porter : à la porte, l’eau rejoint les bacs de la maison",
+   "ok": true,
+   "detail": "{\"t\":\"Puiser et porter deux seaux chez vous (2/12)\",\"port\":true,\"fv\":0.62,\"ch\":1,\"eau\":78,\"eau2\":60,\"fini\":true,\"eauMaison\":6}"
+  },
+  {
+   "nom": "Grimper : main gauche, main droite ; deux fois la même main, on glisse",
+   "ok": true,
+   "detail": "{\"t\":\"Grimper à la tour nord-est\",\"glisse\":true,\"haut\":true,\"clous\":3,\"flag\":true,\"fini\":true,\"ch\":false}"
+  },
+  {
+   "nom": "Grimper : en haut, la niche et ce qu’elle cache ; on redescend",
+   "ok": true,
+   "detail": "{\"t\":\"Grimper à la tour nord-est\",\"glisse\":true,\"haut\":true,\"clous\":3,\"flag\":true,\"fini\":true,\"ch\":false}"
+  },
+  {
+   "nom": "Épreuve de force : soulever les bûches effondrées sur un habitant",
+   "ok": true,
+   "detail": "{\"t\":\"Soulever les bûches\",\"jeu\":true,\"fini\":true,\"rel\":15,\"appr\":false}"
+  },
+  {
+   "nom": "Fuite : un provocateur vous court après ; une porte et il abandonne",
+   "ok": true,
+   "detail": "{\"ok\":true,\"d1\":10.27400000000003,\"seme\":true,\"combat\":false,\"n\":1,\"appr\":false}"
+  },
+  {
+   "nom": "Évasion chronométrée : le train n’attend pas, les blouses sont rappelées",
+   "ok": true,
+   "detail": "{\"e\":true,\"et\":\"retour\",\"rappel\":true,\"O\":[\"Le train repart : 0:00\"]}"
+  },
+  {
+   "nom": "Metteur en scène : premier moment d’action, Victor apprend à se battre",
+   "ok": true,
+   "detail": "{\"k\":\"entrainement\",\"venue\":true,\"n\":56,\"reste\":false,\"d\":2.4,\"combat\":false,\"entr\":null,\"appris\":false,\"k2\":\"entrainement\",\"appris2\":true,\"ent\":1}"
+  },
+  {
+   "nom": "La nuit, si vous veillez dehors, le vol se joue sous vos yeux",
+   "ok": true,
+   "detail": "{\"ok\":true,\"ch\":true,\"appr\":false,\"libre\":true,\"ea\":false,\"raid\":\"aucun\"}"
+  },
+  {
+   "nom": "Révélation : une phrase-clé lue, « Lire en entier » déplie le texte complet",
+   "ok": true,
+   "detail": "{\"v\":true,\"cle\":\"Six rangées de dix-neuf encoches au couteau. La dernière date d’aujourd’hui.\",\"lire\":true,\"tout\":true,\"ferme\":true,\"pc\":\"Les lumières s’éteignent à vingt-trois heures. On ne quitte pas sa maison la nuit.\"}"
+  },
+  {
+   "nom": "Phrase-clé automatique : jamais un titre en capitales, jamais tronquée au milieu d’un mot",
+   "ok": true,
+   "detail": "Les lumières s’éteignent à vingt-trois heures. On ne quitte pas sa maison la nuit."
+  },
+  {
+   "nom": "Les traces de ceux d’avant passent par la phrase-clé",
+   "ok": true,
+   "detail": "{\"v\":true,\"titre\":\"Trace de ceux d’avant\",\"n\":\"Dans les cendres froides, un coin de lettre a résisté : « … si tu lis ceci, c’est que le convoi d’avant n’a pas réussi.\"}"
+  },
+  {
+   "nom": "Lettre : l’essentiel en une phrase, la lettre entière sur demande",
+   "ok": true,
+   "detail": "{\"id\":\"l13\",\"resume\":true,\"cle\":\"Le train de nuit ne repart que lorsque les quatre blouses sont remontées.\",\"cache\":true,\"deplie\":true}"
+  },
+  {
+   "nom": "Scène jouée : la découverte des chaussures, les habitants arrivent et se répondent",
+   "ok": true,
+   "detail": "{\"f\":\"chaussures\",\"scene\":true,\"bandes\":true,\"n\":2,\"fini\":true,\"lignes\":66,\"vu\":[\"« Au voleur ! » crie quelqu’un, du côté \",\"« Au voleur ! » crie quelqu’un, du côté \",\"« Au voleur ! » crie quelqu’un, du côté \"],\"libres\":true,\"j\":\"J3 11 h 00 · Scène : Gérard : « Des chaussures d’enfant… Bon Dieu. » Sophie : « Rangées par paires, lacets noués. Quelqu’un a pris le temps de les ranger. C’est ça, le pire. » Gérard : « Et celles-là sont neuves. À la taille de quelqu’un d’ici. »\"}"
+  },
+  {
+   "nom": "Scène jouée : fin propre, chacun reprend sa journée, la scène est au journal",
+   "ok": true,
+   "detail": "{\"f\":\"chaussures\",\"scene\":true,\"bandes\":true,\"n\":2,\"fini\":true,\"lignes\":66,\"vu\":[\"« Au voleur ! » crie quelqu’un, du côté \",\"« Au voleur ! » crie quelqu’un, du côté \",\"« Au voleur ! » crie quelqu’un, du côté \"],\"libres\":true,\"j\":\"J3 11 h 00 · Scène : Gérard : « Des chaussures d’enfant… Bon Dieu. » Sophie : « Rangées par paires, lacets noués. Quelqu’un a pris le temps de les ranger. C’est ça, le pire. » Gérard : « Et celles-là sont neuves. À la taille de quelqu’un d’ici. »\"}"
+  },
+  {
+   "nom": "Scène jouée : on peut la passer (Rond)",
+   "ok": true,
+   "detail": "{\"m\":\"encoches\",\"ok\":true,\"s1\":true,\"fini\":true,\"bandes\":false}"
+  },
+  {
+   "nom": "Rythme : après un long moment de lecture, un moment d’action",
+   "ok": true,
+   "detail": "{\"lance\":true,\"k\":\"coince\",\"calme\":true,\"pasDeuxFois\":true,\"texte\":200,\"diag\":{\"libre\":true,\"ea\":false,\"evtT\":0,\"now\":98826.90000000037,\"dor\":false,\"occ\":false,\"jeu\":false,\"ok\":[\"porter\",\"coince\",\"grimper\"],\"jour\":{\"j\":3,\"n\":{\"entrainement\":1,\"coince\":1}}}}"
+  },
+  {
+   "nom": "Rythme : après l’action, un temps calme (pas d’action à la chaîne)",
+   "ok": true,
+   "detail": "{\"lance\":true,\"k\":\"coince\",\"calme\":true,\"pasDeuxFois\":true,\"texte\":200,\"diag\":{\"libre\":true,\"ea\":false,\"evtT\":0,\"now\":98826.90000000037,\"dor\":false,\"occ\":false,\"jeu\":false,\"ok\":[\"porter\",\"coince\",\"grimper\"],\"jour\":{\"j\":3,\"n\":{\"entrainement\":1,\"coince\":1}}}}"
+  },
+  {
+   "nom": "Gestes : la pêche se joue dans l’ordre (lancer, attendre, mouliner)",
+   "ok": true,
+   "detail": "Idle > Fish_Cast > Fish_Wait > Fish_Reel > Pick_Up > Fish_Cast > Fish_Wait > Fish_Reel"
+  },
+  {
+   "nom": "Gestes : la vaisselle, on frotte et on rince (plus seulement « fouetter »)",
+   "ok": true,
+   "detail": "Fish_Wait, Knead_Dough, Stir_Bowl"
+  },
+  {
+   "nom": "Audit des gestes : chaque clip utilisé (activités, combats, scènes) existe",
+   "ok": true,
+   "detail": "{\"n\":42,\"manque\":[]}"
+  },
+  {
+   "nom": "Sauvegarde dans l’emplacement 1",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "nom": "Chargement : trame, horloge et maison restaurées",
+   "ok": true,
+   "detail": "{\"ref\":{\"j\":3,\"m\":660,\"m1\":true,\"m2\":5,\"mais\":\"L001\"},\"now\":{\"j\":3,\"m\":660,\"m1\":true,\"m2\":5,\"mais\":\"L001\"},\"toucher\":true}"
+  },
+  {
+   "nom": "Après un rechargement : « Touchez l’écran pour reprendre » (Safari)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "nom": "Le toucher débloque le son et les voix",
+   "ok": true,
+   "detail": "{\"cache\":true,\"geste\":true}"
+  },
+  {
+   "nom": "Voix de synthèse : la réplique est prononcée",
+   "ok": true,
+   "detail": "{\"n\":1,\"txt\":\"Grâce à vous, on mange à notre faim. Je ne l’oublierai pas.\"}"
+  },
+  {
+   "nom": "Voix qui ne démarre pas : invite « Touchez l’écran »",
+   "ok": true,
+   "detail": "{\"toucher\":true,\"parle\":1}"
+  },
+  {
+   "nom": "Aucune erreur JavaScript pendant tout le banc",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "erreurs": []
+}
