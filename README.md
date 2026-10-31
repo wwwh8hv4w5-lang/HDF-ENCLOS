@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.5.3
+# HDF ENCLOS 1.5.4
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,11 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.5.4 : ce que cache la trappe
+
+- **La trappe sous le buisson ne reste pas bloquée pour toujours.** Ce qui l'ouvre est quelque part dans l'enclos. Le reste est à découvrir en jouant.
+- Les anciennes sauvegardes se chargent sans changement : les nouveautés partent de zéro.
 
 ## 1.5.3 : la trappe sous le buisson
 

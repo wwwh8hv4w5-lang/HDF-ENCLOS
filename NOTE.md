@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.5.3 — note technique
+# HDF : ENCLOS 1.5.4 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,28 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.5.4 — la clé de la trappe (fragments, trappe, photo, portail)
+
+> **Spoilers.** Ne rien en dire dans les menus, l'aide ou le README. Le carnet n'en montre rien tant que le joueur ne l'a pas commencée.
+
+**Ce que c'est.** La première étape de la fin secrète (la suite, le train de 3 h 33, arrive en 1.6.0). En 1.5.4, la clé ouvre la trappe et le portail en bois, et la photo se lit ; le train ne passe pas encore (`fuitePossible()` renvoie `false`), donc les raids de la nuit restent normaux.
+
+**Déroulé.**
+1. **Fragments** (`FRAGS_CLE`, déclaré tôt dans `cle_tete`, à côté de `SECRET`, parce que `build(A)` le lit avant les `const` de fin de script) :
+   - `f1`, l'anneau (`fragCle1`) : au sol de la réserve d'Ilona (x −166, z 58, sol −8).
+   - `f2`, la tige (`fragCle2`) : Maison du centre (L001), « Examiner le tableau d'Ilona » au-dessus de la cheminée. Le fragment glisse derrière la toile et tombe (`chuteFragment2`, `CLE.chute`), puis il est ramassé tout seul au bout de 2,4 s.
+   - `f3`, le panneton (`fragCle3`) : au sol près du portail (`PORTAIL.x + 4,5`, `ENCEINTE.z1 − 4`).
+   - Le premier ramassé lance **« Fragments d'espoir »** (`qFE`). Au troisième, `assemblerCle()` retire les fragments du sac et donne `cleTrappe`.
+2. **Trappe** : avec la clé, « Ouvrir la trappe » (le volet pivote sur 1,6 s, `TRAPPE.poseVolet`), puis « Descendre l'échelle » / « Remonter l'échelle ». La descente est automatique, barreau par barreau (`TRAPPE.anim`, 2,8 s).
+3. **Photo** : dans la salle, « Retourner la photo » ouvre le panneau de lecture `#lettre` avec `TEXTE_DOS_PHOTO`. C'est le texte de Tom, **tel quel, fautes comprises** : « prend » (prends), « le seule » (le seul), « passeras » (passera), pas de point final. En reposant la photo, on lance **« Seul espoir »** (`qSE`) : ouvrir le portail en bois avec la clé (état `PORTAIL.etat = 'ouvert_cle'`, qu'aucune règle ne referme), puis prendre le train.
+4. **Portail en bois** : avec la clé, « Ouvrir le portail avec la clé » (`ouvrirPortailCle`, `PORTAIL.etat` `'ouvert_cle'`) ; c'est l'étape 1 de « Seul espoir ». L'étape 2 (« Prendre le train de 3 h 33 ») reste en attente jusqu'à la 1.6.0.
+
+**État.**
+- Partie : `VIE.flags.cleTrappe` = `{ f1, f2, f2chute, f3, cle, ouverte, descendu, photo, portail }`. Il est sauvegardé avec `VIE`. Absent d'une ancienne sauvegarde, il vaut `{}` (`FE()`), et le format de sauvegarde ne change pas.
+- Carnet : `qFE` et `qSE` portent `secrete: true`. Elles ne s'affichent (ni dans le compte « x / y accomplies ») qu'une fois commencées : 30 quêtes visibles, 32 en interne.
+
+**Debug :** `HDF.FE()`, `HDF.CLE`, `HDF.FRAGS_CLE`, `HDF.actionCle()`, `HDF.TRAPPE`, `HDF.PORTAIL`.
 
 ## HDF : ENCLOS 1.5.3 — la trappe sous le buisson (ouest)
 
