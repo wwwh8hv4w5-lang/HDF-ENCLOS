@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.6.1
+# HDF ENCLOS 1.6.2
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,13 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.6.2 : le fichier se lance en local
+
+- Le fichier `index.html` ouvert directement sur l'appareil (reçu par mail, enregistré dans Fichiers) démarre maintenant aussi sur Safari, iPhone et iPad compris. Avant, seule la page en ligne fonctionnait.
+- Le fichier est autonome : aucune connexion ni serveur nécessaire.
+- Si l'écran indique que JavaScript est nécessaire, c'est que vous êtes dans un aperçu (pièce jointe, aperçu rapide) : ouvrez le fichier dans un navigateur ou jouez en ligne.
+- Les sauvegardes se chargent sans changement.
 
 ## 1.6.1 : correctifs
 

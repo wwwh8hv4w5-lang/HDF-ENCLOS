@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.6.1 — note technique
+# HDF : ENCLOS 1.6.2 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,12 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.6.2 — démarrage en local (file://)
+
+- **Bug (toutes versions jusqu'à 1.6.1)** : `index.html` n'avait ni BOM ni `<meta charset>`. En ligne, GitHub Pages sert `text/html; charset=utf-8`, donc tout allait bien. Ouvert en local, aucun en-tête : Safari/WebKit retombe sur Latin-1 (windows-1252). Le texte devient « Ã© » et le script principal ne se compile plus (`SyntaxError: Invalid character '\u00a9'` sur `const COURAGE = { têtu: … }`) : `HDF` n'est jamais défini, l'écran reste figé.
+- **Correctif** : BOM UTF-8 + `<meta charset="utf-8">` en tête de fichier (le BOM l'emporte sur toute autre détection), plus un `<noscript>` qui explique quoi faire quand un aperçu (Mail, Fichiers, aperçu rapide) n'exécute pas JavaScript. Pas de `<!DOCTYPE>` ajouté, pour ne pas changer le mode de rendu.
+- Vérifié : aucune ressource distante (seuls des `data:` intégrés), tous les accès `localStorage`/`sessionStorage` déjà sous `try/catch`. Format de sauvegarde identique.
 
 ## HDF : ENCLOS 1.6.1 — correctifs
 
