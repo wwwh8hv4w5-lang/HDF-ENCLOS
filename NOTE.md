@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.6.0 — note technique
+# HDF : ENCLOS 1.6.1 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,16 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.6.1 — correctifs
+
+- **Bug carnet (1.6.0 et avant)** : « Écrire dans votre carnet » lance un mini-jeu `choix` (3 lignes). Garder E appuyé une fraction de seconde après l'avoir lancé suffisait : la répétition automatique du clavier passait par l'écouteur de `JEU` (`JEU.in.a = true`), `PH.choix` validait la ligne 1 et `terminerJeu` fermait le carnet ~1,3 s plus tard, sans que le joueur ait choisi. Même chose à la manette (Carré lance l'action et compte aussitôt comme validation).
+- **Correctif carnet** : l'écouteur clavier ignore `e.repeat` ; `lancerJeu` démarre avec `JEU.prev = { a: true }`, donc il faut relâcher puis appuyer pour valider. Flèches, Entrée, clic/toucher d'une ligne inchangés.
+- **Bug (1.6.0)** : `chuteFragment2()` pose `FE().f2chute = true` tout de suite, le fragment 2 n'est donné qu'au bout de l'animation (`CLE.chute`, 2,4 s). Une sauvegarde prise dans cette fenêtre (menu → Sauvegarder, autosave en quittant) gardait `f2chute` sans `f2` ; au chargement, « Examiner le tableau d'Ilona » n'était plus proposé : fragment 2 perdu pour toujours.
+- **Correctif** : `pourquoiPasSauver()` refuse pendant `CLE.chute` ; `resetFuite()` (appelé après la fusion dans `appliquerPartie`) remet `f2chute` à `false` si `f2` manque, ce qui répare les sauvegardes 1.6.0 touchées.
+- Rien d'autre ne change (format de sauvegarde identique).
+
+---
 
 ## HDF : ENCLOS 1.6.0 — la fin secrète (train de 3 h 33, endormissement, point d'accroche de la suite)
 
