@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.5.2 — note technique
+# HDF : ENCLOS 1.5.3 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -37,6 +37,18 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.5.3 — la trappe sous le buisson (ouest)
+
+- **Données :** `TRAPPE` (à côté de `SECRET`) : `x −120, z 87`, rayon d'action 1,6 m, message `C’est bloqué`, salle `x −124,5…−112,5, z 83…92`, sol à −3,6 m, 3 m de haut. Rien n'est écrit dans `etatPartie()` ni dans `localStorage`.
+- **Emplacement :** choisi libre dans les deux tirages de végétation (bureau et tactile tirent un nombre différent d'aléas) : à plus de 9 m de tout arbre, massif, chemin, maison, ressource ou case `OCCUPE` ; 17 m du mur ouest, ~30 m de la porte secrète, hors de la réserve (x < −143).
+- **`trappeOuest(A)`**, appelée juste après `vegetation(A)` : trois nœuds FSM3D fusionnés (`GEO.mergerLots`).
+  - `trappeBuisson` : 8 touffes (matériau 20, vent), sans collision, **hors de `VEG`/`OCCUPE`** pour ne pas décaler la graine des arbres et des baies (ce n'est donc pas une cachette).
+  - `trappe` (`maxDist` 40) : cadre de pierre, 6 planches, fers, pentures, verrou, anneau, mousse, feuilles. Rien ne dépasse 0,11 m : on marche dessus sans heurt.
+  - `trappeSalle` (`visible = false`) : puits, plafond percé, sol, murs, poutres, échelle, mobilier, lampe émissive. Tout est sous −0,02 m. Un `onBeforeRender` ne l'affiche (et n'ajoute ses deux lumières) que si l'œil passe sous le sol à moins de 30 m : en jeu, zéro ordre de dessin et zéro lumière en plus.
+  - la photo « CUBE 01 · SECTEUR OMEGA » (fournie par Tom) : quad texturé de 0,5 × 0,44 m posé à plat au sol de la salle, sous la lampe-tempête, à 2,8 m du pied de l'échelle, tourné de ~22°, décollé de 6 mm (pas de z-fighting). Texture `IMG_CUBE01` embarquée (JPEG 800 × 698, qualité 80, 71 Ko, luminosité +18 % et contraste +30 % pour que « CUBE 01 / SECTEUR OMEGA » se lise dans la pénombre), mipmaps et anisotropie de `A.R.texture` comme les tableaux. Dans le nœud `trappeSalle`, donc dessinée seulement sous le sol.
+- **`actionTrappe(W)`**, en tête du bloc extérieur de `actionDispo` : « Ouvrir la trappe » → `notifier(TRAPPE.msg)`. Le marqueur d'action est ancré sur la trappe (`ancreAction`).
+- **Debug :** `HDF.TRAPPE` (nœuds `noeud`, `buisson`, `dessous`) et `HDF.actionTrappe()`. Pour voir la salle : forcer `A.camera.fixed.eye/look` sous le sol depuis un `A.onUpdate` placé après celui du jeu.
 
 ## HDF : ENCLOS 1.5.2 — mode iPhone (commandes et contrôles)
 

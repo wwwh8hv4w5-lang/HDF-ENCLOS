@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.5.2
+# HDF ENCLOS 1.5.3
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,13 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.5.3 : la trappe sous le buisson
+
+- **À l'ouest de l'enclos**, loin des chemins, un massif isolé cache une vieille trappe en bois : planches patinées, deux bandes de fer rivetées, pentures, verrou rouillé, anneau de fer, mousse et feuilles mortes. On ne la voit vraiment qu'en s'approchant.
+- **Agir** (E, Carré à la manette, bouton Agir sur iPhone) : « Ouvrir la trappe » → « C’est bloqué ». Rien d'autre ne se passe : pas de quête, rien de sauvegardé.
+- **Dessous**, dans le sol : un puits carré cerclé de pierre et de bois, une échelle, puis une grande salle (12 × 9 m, 3 m sous plafond) avec poutres, étagères, caisses, tonneau, table et lampe-tempête. Une vieille photo sépia, « CUBE 01 · SECTEUR OMEGA », traîne au sol, sous la lampe. Elle n'est pas accessible pour l'instant et ne coûte rien à l'affichage tant qu'on reste à la surface.
+- Les sauvegardes ne changent pas.
 
 ## 1.5.2 : mode iPhone, commandes au pouce
 
