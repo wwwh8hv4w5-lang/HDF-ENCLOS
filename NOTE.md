@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.6.2 — note technique
+# HDF : ENCLOS 1.7.1 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -2493,3 +2493,14 @@ Il est à reporter tel quel dans HDF WALL et dans tous les jeux sur FSM3D 2.10. 
 - À pied, on marche toujours à 1,7 m du sol : on ne monte pas sur les trottoirs de 6 cm, et on ne monte pas sur le mur.
 - Il n'y a pas de végétation : le moteur la sait faire (`createVegetation`), mais HDF WALL la désactive à l'intérieur des murs.
 - Les polices Google se chargent si le réseau le permet. Sinon, ce sont les polices du système.
+
+---
+
+## 1.7.0 et 1.7.1 (version de Tom)
+
+- **Nouveau lieu souterrain** accessible à partir de la boucle 2, annoncé par des rumeurs et des rêves des villageois ; l'intérieur est toujours de nuit. Nouveaux objets : lampe torche (`lampeTorche`, `basculerTorche`) et un mot lisible dans le sac (`motJo`). Exposé : `HDF.joHorloge`.
+- **Rame du train de la fin secrète** refaite (« rame FSM 7642 »), commune aux deux fins secrètes.
+- **1.7.1 : sortie des fins secrètes** : on monte, les portes se ferment, le train part, fondu, puis navigation vers la page cinématique « Le train de nuit ». `CINEMA.fichiers` cherche, à côté de `index.html` : `HDF-TRAIN-DE-NUIT-cinematique-seule.html`, `HDF-TRAIN-DE-NUIT.html`, `HDF-CINEMATIQUE-TRAIN-DE-NUIT.html` ; sur GitHub Pages, il interroge aussi l'API GitHub du dépôt. Si rien ne s'ouvre au bout de 7 s, un lien « Voir la cinématique » s'affiche.
+- **À faire :** ajouter le fichier de la cinématique au dépôt (il n'y est pas encore).
+- Le passage vers « HDF : THE LIFE » ajouté en 1.7.0 est débranché en 1.7.1.
+- Format de sauvegarde inchangé (`format: 1`) : les sauvegardes 1.4 à 1.6 se chargent.

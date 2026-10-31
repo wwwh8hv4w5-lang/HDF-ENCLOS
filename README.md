@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.6.2
+# HDF ENCLOS 1.7.1
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,14 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.7.1 : sous le village
+
+- **Un nouveau lieu caché** s'ouvre à partir de la deuxième boucle. Les villageois en parlent à mots couverts ; à vous de trouver où, et ce qui s'y trouve.
+- **Une lampe torche** rejoint le sac : elle s'allume et s'éteint à la demande, utile là où il fait toujours nuit.
+- **Le train de la fin secrète est refait** (nouvelle rame, sièges, portes).
+- **Les fins secrètes se terminent par une cinématique** : « Le train de nuit ». Elle est dans un fichier à part, placé à côté de `index.html`.
+- Les anciennes sauvegardes se chargent sans changement.
 
 ## 1.6.2 : le fichier se lance en local
 
