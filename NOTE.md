@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.5.4 — note technique
+# HDF : ENCLOS 1.6.0 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -38,6 +38,42 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 
 La cible était d'environ 500 000 triangles.
 
+## HDF : ENCLOS 1.6.0 — la fin secrète (train de 3 h 33, endormissement, point d'accroche de la suite)
+
+> **Spoilers.** Ne rien en dire dans les menus, l'aide ou le README. Le carnet n'en montre rien tant que le joueur ne l'a pas commencée.
+
+**Ce que c'est.** Une troisième issue, à part de la fin classique (l'évasion du lot 24) et de la boucle (capture → retour au train). Elle mène au **jeu suivant** : le fondu au noir de l'endormissement dans le train est le premier plan de la suite. Il n'y a ni écran de fin, ni générique, ni message.
+
+**Déroulé.** Les étapes 1 à 4 (fragments, trappe, photo, portail en bois) sont décrites en 1.5.4 ci-dessous. En 1.6.0, `fuitePossible()` est rebranchée et la chaîne continue :
+4. **Train de 3 h 33** (`FUITE`, `majFuite`) :
+   - On l'entend à 3 h 29 (`FUITE_ARR` 209), il est à quai à 3 h 33 (`FUITE_QUAI` 213) et repart à 3 h 36 (`FUITE_PART` 216), soit 3 minutes de jeu.
+   - Il réutilise le nœud `TRAIN` (loco et deux voitures). Ses voyageurs (`VOYAGEURS_FUITE`, `FUITE.voy`) ne sont jamais des habitants, ni dans `PASSAGERS.liste`.
+   - « Monter dans le train » assoit le joueur sur la seule place libre. Les voyageurs parlent de leur vie, vont tous à la Ville de Feral, ne croient pas le joueur ; la plupart viennent du Hameau de Feral et s'étonnent que l'arrêt porte le même nom.
+   - Train manqué : il repasse la nuit suivante (`e.passe`, `e.rate`).
+   - **Pas de raid** tant que la photo est lue et le train pas encore pris (`RAID.prochain` annulé, `FUITE.raidsAnnules`). C'est un choix : le train « non contrôlé » ne croise pas le train scientifique.
+   - Sauvegarde refusée à bord et à quai (`pourquoiPasSauver` : « au passage du train de 3 h 33 »).
+5. **Endormissement** : « Fermer les yeux », ou au bout de ~80 s de trajet (`dormirFuite`). Le fondu au noir dure 2,4 s, au-dessus de toute l'interface (`html.suiteNoir #voile`). Puis `finFuite()` enregistre la fin et appelle `suiteSecrete()`.
+
+**État.**
+- Partie : `VIE.flags.cleTrappe` = `{ f1, f2, f2chute, f3, cle, ouverte, descendu, photo, portail, train, passe, rate }`. Il est sauvegardé avec `VIE`. Absent d'une ancienne sauvegarde, il vaut `{}` (`FE()`), et le format de sauvegarde ne change pas.
+- Entre les boucles : `MEMOIRE.finSecrete = { n, boucle, jour }` (nombre de fois, première boucle et premier jour), plus `MEMOIRE.fuite` et le souvenir `fuite<boucle>`. `FIN_SECRETE.vue()` / `FIN_SECRETE.atteinte`.
+- Carnet : `qFE` et `qSE` portent `secrete: true`. Elles ne s'affichent (ni dans le compte « x / y accomplies ») qu'une fois commencées : 32 quêtes visibles, 34 en interne. Une fois la fin atteinte, le carnet garde un bloc « Fin secrète · trouvée » (`finSecreteCarnet()`) d'une boucle à l'autre.
+
+**Point d'accroche de la suite : `suiteSecrete()`** (fin de `cle.js`, exporté dans `HDF.suiteSecrete` / `HDF.SUITE_SECRETE`).
+```js
+SUITE_SECRETE = { brancher: null, attente: 4000, lancee: false }
+SUITE_SECRETE.brancher = ctx => { /* lancer le jeu suivant, depuis le noir */ }
+// ctx = { fin: MEMOIRE.finSecrete, boucle, jour, voyageurs: ['Madeleine Roux', …], parles: [prénoms à qui l'on a parlé] }
+```
+- Quand `finFuite()` est appelée, l'écran est **déjà noir** (`#voile.on`, classe `suiteNoir` sur `<html>`). Le son du train est coupé, et les sous-titres et les choix sont masqués.
+- Si `brancher` est une fonction, elle reçoit la main et rien d'autre ne se passe : la suite démarre sur ce noir et c'est à elle d'enlever le voile. Le joueur ne doit pas voir la transition.
+- Sans suite branchée (cas de la 1.6.0), le noir est maintenu `attente` ms, puis la page se recharge : retour discret au menu, sans texte. La mémoire garde la fin. « Continuer » reprend la dernière sauvegarde d'avant le train (aucune n'est possible à bord).
+- `resetFuite()` remet `lancee` à `false` et retire `suiteNoir`.
+
+- Les voyageurs : `VOYAGEURS_FUITE` (7), `parlerFuite()` (« Leur expliquer… », « Vous allez où ? », « Vous êtes du Hameau de Feral ? »), bavardages `BAVARDAGES_FUITE` pendant le trajet.
+
+**Debug :** `HDF.FE()`, `HDF.CLE`, `HDF.FRAGS_CLE`, `HDF.actionCle()`, `HDF.FUITE`, `HDF.FIN_SECRETE`, `HDF.SUITE_SECRETE`, `HDF.suiteSecrete`.
+
 ## HDF : ENCLOS 1.5.4 — la clé de la trappe (fragments, trappe, photo, portail)
 
 > **Spoilers.** Ne rien en dire dans les menus, l'aide ou le README. Le carnet n'en montre rien tant que le joueur ne l'a pas commencée.
@@ -56,7 +92,7 @@ La cible était d'environ 500 000 triangles.
 
 **État.**
 - Partie : `VIE.flags.cleTrappe` = `{ f1, f2, f2chute, f3, cle, ouverte, descendu, photo, portail }`. Il est sauvegardé avec `VIE`. Absent d'une ancienne sauvegarde, il vaut `{}` (`FE()`), et le format de sauvegarde ne change pas.
-- Carnet : `qFE` et `qSE` portent `secrete: true`. Elles ne s'affichent (ni dans le compte « x / y accomplies ») qu'une fois commencées : 30 quêtes visibles, 32 en interne.
+- Carnet : `qFE` et `qSE` portent `secrete: true`. Elles ne s'affichent (ni dans le compte « x / y accomplies ») qu'une fois commencées : 32 quêtes visibles, 34 en interne.
 
 **Debug :** `HDF.FE()`, `HDF.CLE`, `HDF.FRAGS_CLE`, `HDF.actionCle()`, `HDF.TRAPPE`, `HDF.PORTAIL`.
 

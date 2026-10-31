@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.5.4
+# HDF ENCLOS 1.6.0
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,11 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.6.0 : une issue de plus
+
+- **Le jeu a désormais une fin secrète**, distincte de la fin classique et de la boucle. Rien ne l'annonce : ni le menu, ni le carnet, tant qu'on ne l'a pas trouvée.
+- Les anciennes sauvegardes se chargent sans changement.
 
 ## 1.5.4 : ce que cache la trappe
 
