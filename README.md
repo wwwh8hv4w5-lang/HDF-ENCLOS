@@ -1,4 +1,4 @@
-# HDF ENCLOS 1.5.1
+# HDF ENCLOS 1.5.2
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
@@ -7,6 +7,15 @@ Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit su
 ![Aperçu](apercu.png)
 
 > **Réservé aux adultes (18 ans et plus).** Le jeu contient de la violence, des agressions, des meurtres, des enlèvements et des thèmes psychologiquement durs. Un écran d'accueil le rappelle avant de jouer.
+
+## 1.5.2 : mode iPhone, commandes au pouce
+
+- **Le jeu reconnaît l'iPhone** (et les téléphones tactiles) et passe tout seul en mode iPhone : la page prend la largeur réelle de l'écran (avant, Safari la dessinait sur 980 px, d'où une interface minuscule) et respecte l'encoche et la barre d'accueil.
+- **Pouce gauche :** une manette flottante apparaît sous le pouce, avec une petite zone morte et une montée douce. Pousser au-delà de l'anneau fait courir.
+- **Pouce droit :** un gros bouton **Agir** affiche l'action possible (Entrer, Grimper…), entouré de Sauter / Grimper, Courir, S'accroupir et la roue. Glisser ailleurs fait tourner la caméra, en même temps que la marche.
+- **Options › Commandes et caméra** (accueil et menu de pause) : commandes Auto / Tactile / Clavier et souris, sensibilité de la caméra, axe vertical inversé, graphismes Auto / Économie, aide pour le plein écran.
+- Pas de zoom, de loupe ni de sélection de texte par erreur. Aucun doigt ne reste « collé ». Le jeu se met en pause quand on quitte Safari.
+- Le clavier, la souris, la manette et la sauvegarde ne changent pas. Les réglages des commandes sont gardés à part (`hdf-enclos-commandes`).
 
 ## 1.5.1 : la panique au village, fin de partie corrigée
 

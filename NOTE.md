@@ -1,4 +1,4 @@
-# HDF : ENCLOS 1.5.1 — note technique
+# HDF : ENCLOS 1.5.2 — note technique
 
 *(Construit sur le kit HDF BASE 1.0 KIT ; les commentaires `HDF BASE :` du code gardent leur nom.)*
 
@@ -26,7 +26,7 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 
 **Commandes :**
 - **clavier :** ZQSD ou flèches pour marcher, Maj pour courir, E pour agir, Tab pour la roue, B pour l'état, J pour le carnet, I pour le sac, Q et D (ou les flèches) pour changer de caméra au terminal, Échap pour le menu ou pour passer l'ouverture ;
-- **tactile :** pouce gauche pour marcher, glisser pour regarder, bouton d'action ; « État », « Carnet » et « Menu » sont en haut à droite ;
+- **tactile :** pouce gauche pour marcher, glisser pour regarder, bouton d'action ; « État », « Carnet » et « Menu » sont en haut à droite ; sur iPhone, voir 1.5.2 (bouton Agir, Courir, Sauter, réglages) ;
 - **manette :** voir la section ci-dessous.
 
 **Budget mesuré (v1, lots 1 à 25) :**
@@ -37,6 +37,28 @@ Base de départ en 3D (WebGL 2) issue de **HDF WALL v1.0**. Elle contient l'ence
 | Profil iPad | 150 000 à 172 000 triangles | 92 000 |
 
 La cible était d'environ 500 000 triangles.
+
+## HDF : ENCLOS 1.5.2 — mode iPhone (commandes et contrôles)
+
+**Détection** (script en tête de page, avant tout rendu) → `self.HDF_CTL`, classes sur `<html>` :
+- `tel` : iPhone / iPod, téléphone Android, ou petit écran tactile (≤ 540 px de petit côté) qui n'est pas un iPad. Pour `tel` seulement, la page reçoit `<meta name="viewport" content="width=device-width,…,user-scalable=no,viewport-fit=cover">`. Avant 1.5.2, il n'y avait aucune balise viewport : Safari iPhone mettait la page en page à 980 px, et `env(safe-area-inset-*)` valait 0. L'iPad n'est pas touché (même mise en page qu'avant).
+- `ctl-tactile` / `ctl-bureau` : commandes tactiles ou non. Auto = pointeur grossier, `maxTouchPoints > 1`, iPhone ou iPad (y compris iPadOS en mode « ordinateur » : Macintosh + maxTouchPoints > 1).
+- `pouces` : grappe au pouce droit + manette flottante (téléphone tactile, ou mode Tactile forcé).
+- `iphone`, `standalone` (lancé depuis l'écran d'accueil).
+- Réglages : `localStorage['hdf-enclos-commandes'] = {mode:'auto'|'tactile'|'bureau', sens, invY, perf:'auto'|'eco'}`, lus sous try/catch. **La sauvegarde de partie et son format ne changent pas.**
+
+**Commandes (téléphone)** :
+- Manette flottante : zone gauche 50 %, rayon 58 px, zone morte 12 %, courbe puissance 1,35. Le centre suit le pouce au-delà de 1,7 rayon. Il est écarté des bords (marges de sécurité + rayon) pour éviter les gestes système d'iOS. Pousser au-delà de 1,3 rayon fait courir (avant : bord du cercle). Repère « marcher » en pointillés au repos.
+- Caméra au doigt : `.0055 × sens` (1,5 par défaut sur téléphone, car les px CSS sont 2,5 fois plus grands qu'avant ; 1 ailleurs, donc rien ne change sur iPad ni sur PC). Axe vertical inversable. La marche et la caméra se font en même temps (pointeurs séparés).
+- Boutons (#tactile) : **Agir** (90 px, recopie l'action de `majAction`, grisé sans action ; #act centré masqué), Sauter/Grimper, **Courir** (bascule, s'éteint ~1,5 s après avoir lâché le pouce), S'accroupir, Roue. Toutes les cibles font au moins 44 px.
+- HUD : #top et #side compactés, #aide sans clic, sous-titres et notifications remontés au-dessus de la grappe, menus en `100dvh` qui défilent.
+- iOS : `gesturestart/change/end`, pincement et double-toucher bloqués, sélection, loupe et menu contextuel coupés (sauf champs de saisie), `body` fixé (pas de rebond).
+- Sûreté : `ctlLacherTout()` (pointeurs, manette, touches, JEU.in, Courir) sur touchcancel, lostpointercapture, blur, visibilitychange et pagehide. **Pause automatique** (menu) quand la page est cachée, et sur blur sur téléphone.
+- Performance : sur mobile, le moteur était déjà en qualité « basse » sans MSAA, avec qualité auto (`MOBILE_GPU`). Sur téléphone, la définition plafonne à 1,2 (`A.maxScale`). « Économie » la fixe à 0,7.
+- Plein écran : Safari iPhone n'a pas l'API pour les pages ; le panneau explique « Sur l'écran d'accueil » (metas apple-mobile-web-app-*). Ailleurs, le bouton utilise `requestFullscreen`.
+- Le clavier, la souris et la manette ne changent pas (la manette cache la grappe tactile sur téléphone).
+
+**Non vérifié sur un vrai iPhone** : tests en émulation Chromium (iPhone 15, portrait et paysage, tactile CDP multi-points).
 
 ## HDF : ENCLOS 1.4.0 — défilement de l'atelier, refonte du sac à dos
 - **Cause du blocage de l'atelier.**
@@ -600,7 +622,7 @@ Le vantail fait maintenant 1,36 m sur 1,93 m : fermé, il couvre l'ouverture (1,
 
 ## HDF : ENCLOS — le nom et le numéro de version
 
-Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.5.1**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
+Le jeu s'appelle **HDF : ENCLOS** ; version actuelle **1.5.2**. Le kit, le fichier HTML, la note et le zip portent ce nom : `HDF ENCLOS 1.3` (le deux-points est interdit dans les noms de fichiers).
 
 À chaque livraison, le numéro monte (1.1, 1.2…) à cinq endroits :
 1. le nom des fichiers ;
