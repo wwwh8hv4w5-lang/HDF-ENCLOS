@@ -1,4 +1,4 @@
-# HDF ENCLOS 2.3.1
+# HDF ENCLOS 2.4.0
 
 Jeu 3D de survie et de vie de village dans le navigateur (WebGL 2), construit sur le moteur HDF WALL / FSM3D.
 
